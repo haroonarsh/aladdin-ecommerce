@@ -102,3 +102,91 @@ body {
   }
 } */
 
+
+    /* // Primary colors */
+.primary1 {
+  color: #7CC9D9;
+}
+.primary2 {
+  color: #7CC9D9;
+}
+.primary3 {
+  color: #66C0D3;
+}
+.primary4 {
+  color: #50B7CD;
+}
+.primary5 {
+  color: #3AAEC6;
+}
+.primary6 {
+  color: #24A5C0;
+}
+.primary7 {
+  color: #0B8BA6;
+}
+.primary8 {
+  color: #00728D;
+}
+.primary9 {
+  color: #005974;
+}
+.primary10 {
+  color: #005974;
+}
+
+    /* // Secondary colors */
+.secondary1 {
+  color: #000000;
+}
+.secondary2 {
+  color: #FFFFFF;
+}
+
+    /* //Neutral colors */
+.neutral1 {
+  color: #FAFAFA;
+}
+.neutral2 {
+  color: #F5F5F5;
+}
+.neutral3 {
+  color: #E5E5E5;
+}
+.neutral4 {
+  color: #D4D4D4;
+}
+.neutral5 {
+  color: #A3A3A3;
+}
+.neutral6 {
+  color: #737373;
+}
+.neutral7 {
+  color: #525252;
+}
+.neutral8 {
+  color: #404040;
+}
+.neutral9 {
+  color: #262626;
+}
+.neutral10 {
+  color: #171717;
+}
+
+
+    /* // Wearninig colors */
+.warning1 {
+  color: #F59E0B;
+}
+.warning2 {
+  color: #FBBF24;
+}
+    /* // Destructive */
+.destructive1 {
+  color: #22C55E;
+}
+.destructive2 {
+  color: 16A34A;
+}
