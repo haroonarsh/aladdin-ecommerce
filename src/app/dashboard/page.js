@@ -2,8 +2,17 @@
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { DollarSign, ShoppingBag, ShoppingCart } from "lucide-react"
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import Header from "@/features/header/Header"
+import { RxDashboard } from "react-icons/rx";
+import { AiOutlineShop } from "react-icons/ai";
+import { FiShoppingCart } from "react-icons/fi";
+import { MdOutlinePeopleAlt } from "react-icons/md";
+import { ImStatsDots } from "react-icons/im";
+import { FaPaintbrush } from "react-icons/fa6";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineLightMode } from "react-icons/md";
+import { MdOutlineDarkMode } from "react-icons/md";
 
 export default function Dashboard() {
   // Sample data for the bar chart
@@ -23,17 +32,66 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/20">
+    <>
+    <container className="flex items-center justify-center w-full h-screen p-0 m-0">
+          {/* // SideBar */}
+      <div className="w-1/6 bg-white h-full shadow-2xl">
+          {/* // Logo */}
+        <div className="flex items-center h-20 pl-6 border-b border-gray-300">
+          <img  className="w-26 h-11" src="./images/logoB.png"  />
+        </div>
+          {/* /// SideBar Items */}
+          <div className="flex flex-col border-b border-gray-300 gap-4 items-center pt-12 pb-12">
+            <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><RxDashboard /> Dashboard</h1>
+            </span>
+            <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><AiOutlineShop /> Products</h1>
+            </span>
+            <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FiShoppingCart /> Orders</h1>
+            </span>
+            <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlinePeopleAlt /> Customers</h1>
+            </span>
+            <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><ImStatsDots /> Statistics</h1>
+            </span>
+          </div>
+              {/* /// SideBar Items */}
+          <div className="flex flex-col gap-4 items-center pt-12">
+          <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FaPaintbrush /> Appearance</h1>
+            </span>
+            <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><IoSettingsOutline /> Settings</h1>
+            </span>
+            <span>
+              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlineLightMode /> Light</h1>
+            </span>
+          </div>
+      </div>
+          {/* // Content */}
+      <div className="w-5/6 h-full">
+          {/* // Header  */}
+       
+          <Header />
+        
+          {/* // Body */}
+        <div className="w-full">
+        <div className={`flex min-h-full max-w-screen flex-col bg-muted/20 neutral1-bg`}>
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* Total Sales Card */}
           <Card>
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
-                <DollarSign className="h-8 w-8 text-orange-500" />
+              <div className="flex h-18 w-18 items-center justify-center rounded-full bg-orange-200">
+                <div className="flex h-15 w-15 items-center justify-center rounded-full bg-orange-400">
+                  <DollarSign className="h-8 w-8 text-white" />
+                </div>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Sales</p>
+                <p className="text-sm text-muted-foreground neutral6">Total Sales</p>
                 <h3 className="text-2xl font-bold">$19,626,058.20</h3>
               </div>
             </CardContent>
@@ -42,11 +100,13 @@ export default function Dashboard() {
           {/* Total Orders Card */}
           <Card>
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <ShoppingCart className="h-8 w-8 text-green-500" />
+            <div className="flex h-18 w-18 items-center justify-center rounded-full bg-green-200">
+                <div className="flex h-15 w-15 items-center justify-center rounded-full bg-green-600">
+                  <DollarSign className="h-8 w-8 text-white" />
+                </div>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Orders</p>
+                <p className="text-sm text-muted-foreground neutral6">Total Orders</p>
                 <h3 className="text-2xl font-bold">3290</h3>
               </div>
             </CardContent>
@@ -55,11 +115,13 @@ export default function Dashboard() {
           {/* Total Products Card */}
           <Card>
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-cyan-100">
-                <ShoppingBag className="h-8 w-8 text-cyan-500" />
+            <div className="flex h-18 w-18 items-center justify-center rounded-full bg-cyan-200">
+                <div className="flex h-15 w-15 items-center justify-center rounded-full bg-cyan-600">
+                  <DollarSign className="h-8 w-8 text-white" />
+                </div>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Products</p>
+                <p className="text-sm text-muted-foreground neutral6">Total Products</p>
                 <h3 className="text-2xl font-bold">497</h3>
               </div>
             </CardContent>
@@ -142,6 +204,10 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+        </div>
+      </div>
+    </container>
+    </>
   )
 }
 
