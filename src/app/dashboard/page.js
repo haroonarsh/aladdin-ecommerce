@@ -13,6 +13,7 @@ import { FaPaintbrush } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
+import LatestOrders from "@/features/LatestOrders"
 
 export default function Dashboard() {
   // Sample data for the bar chart
@@ -35,39 +36,39 @@ export default function Dashboard() {
     <>
     <container className="flex items-center justify-center w-full h-screen p-0 m-0">
           {/* // SideBar */}
-      <div className="w-1/6 bg-white h-full shadow-2xl">
+      <div className="w-1/6 bg-white h-full shadow">
           {/* // Logo */}
         <div className="flex items-center h-20 pl-6 border-b border-gray-300">
           <img  className="w-26 h-11" src="./images/logoB.png"  />
         </div>
           {/* /// SideBar Items */}
           <div className="flex flex-col border-b border-gray-300 gap-4 items-center pt-12 pb-12">
-            <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><RxDashboard /> Dashboard</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><RxDashboard /> Dashboard</h1>
             </span>
-            <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><AiOutlineShop /> Products</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><AiOutlineShop /> Products</h1>
             </span>
-            <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FiShoppingCart /> Orders</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FiShoppingCart /> Orders</h1>
             </span>
-            <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlinePeopleAlt /> Customers</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlinePeopleAlt /> Customers</h1>
             </span>
-            <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><ImStatsDots /> Statistics</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><ImStatsDots /> Statistics</h1>
             </span>
           </div>
               {/* /// SideBar Items */}
           <div className="flex flex-col gap-4 items-center pt-12">
-          <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FaPaintbrush /> Appearance</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FaPaintbrush /> Appearance</h1>
             </span>
-            <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><IoSettingsOutline /> Settings</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><IoSettingsOutline /> Settings</h1>
             </span>
-            <span>
-              <h1 className=" flex w-52 h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlineLightMode /> Light</h1>
+            <span className="w-53">
+              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlineLightMode /> Light</h1>
             </span>
           </div>
       </div>
@@ -146,8 +147,8 @@ export default function Dashboard() {
                       axisLine={false}
                       tickFormatter={(value) => `$${value}`}
                     />
-                    <Bar dataKey="value1" fill="#0ea5e9" radius={[4, 4, 0, 0]} barSize={20} />
-                    <Bar dataKey="value2" fill="#93c5fd" radius={[4, 4, 0, 0]} barSize={20} />
+                    <Bar dataKey="value1" fill="#0ea5e9" radius={[4, 4, 0, 0]} barSize={18} />
+                    <Bar dataKey="value2" fill="#93c5fd" radius={[4, 4, 0, 0]} barSize={18} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -170,14 +171,14 @@ export default function Dashboard() {
                     r="40"
                     fill="transparent"
                     strokeWidth="8"
-                    strokeDasharray="251.2"
+                    strokeDasharray="221.2"
                     strokeDashoffset="5"
                     strokeLinecap="round"
                     transform="rotate(-90 50 50)"
                   />
                 </svg>
                 <div className="absolute flex flex-col items-center">
-                  <span className="text-2xl font-bold">98.12%</span>
+                  <span className="text-2xl font-bold">89.12%</span>
                   <span className="text-xs text-muted-foreground">Website growth</span>
                 </div>
               </div>
@@ -202,9 +203,19 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
+      
+    
+        
+            {/* // Latest Orders */}
+        <main className="">
+      <div className="mt-10 mx-auto">
+        <LatestOrders />
       </div>
-    </div>
-        </div>
+      </main>
+      </div>
+      </div>
+      </div>
+    
       </div>
     </container>
     </>
