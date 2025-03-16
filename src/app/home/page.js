@@ -2,6 +2,7 @@
 
 import Header from '@/components/header/Header';
 import Hero from '@/components/hero-section/Hero';
+import MidSection from '@/components/midSection/MidSection';
 import React from 'react'
 
 function page() {
@@ -15,7 +16,7 @@ function page() {
             <Hero />
 
               {/* // midSection */}
-            
+            <MidSection />
         </div>
     </>
   )
