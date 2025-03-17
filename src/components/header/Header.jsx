@@ -5,7 +5,7 @@ import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
   return (
-    <div className='flex justify-between items-center h-18 w-full pl-28 pr-28 primary8-bg'>
+    <div className='flex justify-between items-center fixed top-0 left-0 h-18 w-full pl-28 pr-28 primary8-bg'>
         <img className='w-26 h-11' src="./images/Logo-white.png" alt="Logo" />
         <div className='flex w-fit h-10 items-center gap-2 rounded-md text-md neutral3 bg-gray-50 pl-2'>
             <input className='outline-none neutral8 text-md border-r-2 border-gray-400 h-10 w-72' type="text" placeholder='Search Aladdin'/>
