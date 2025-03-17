@@ -47,7 +47,7 @@ function Hero() {
     const currentItem = scrollData[activeIndex];
 
     return (
-        <div className='flex justify-between items-center w-full pl-5 pr-5 border-b-2 border-gray-300' style={{ height: "500px" }}>
+        <div className='flex justify-between items-center w-full mt-20 pl-5 pr-5 border-b-2 border-gray-300' style={{ height: "500px" }}>
             <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
