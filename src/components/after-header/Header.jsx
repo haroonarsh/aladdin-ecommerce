@@ -28,7 +28,7 @@ export default function AladdinHeaderCustom() {
     <header className="w-full ">
       {/* Main navigation bar */}
       <div className="primary8-bg text-white">
-        <div className="max-w-[1360px] mx-auto px-4">
+        <div className="max-w-[1360px] mx-auto px-9">
           <div className="flex items-center h-17 justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-6">
