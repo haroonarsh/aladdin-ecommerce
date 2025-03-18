@@ -1,13 +1,16 @@
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { FaAngleRight } from "react-icons/fa6";
 
 function MidSection() {
+
+  const router = useRouter();
   return (
     <>
         <div className='w-3/4  m-auto mt-20 mb-20'>
             <div className='flex justify-between items-center'>
                 <h1 className='text-3xl font-bold'>Explore popular category</h1>
-                <h2 className='flex items-center gap-2 cursor-pointer text-xl'>| See all<FaAngleRight /></h2>
+                <h2 onClick={() => router.push("/products-page")} className='flex items-center gap-2 cursor-pointer text-xl'>| See all<FaAngleRight /></h2>
             </div>
                 {/* // Categories items */}
             <div className='flex justify-between gap-6 items-center mt-10'>
