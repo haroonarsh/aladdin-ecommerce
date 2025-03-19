@@ -1,9 +1,13 @@
 import Image from "next/image";
 import StarRating from "../start-rating/Rating";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({ product }) {
+
+  const router = useRouter();
+
   return (
-    <div className="bg-white m-3.5 rounded-lg overflow-hidden shadow-md">
+    <div className="bg-white m-3.5 rounded-lg overflow-hidden shadow-md cursor-pointer"  onClick={() => router.push('/product-desc')}>
       <div className="relative h-72">
         <Image 
           src={product.image || "/placeholder.svg"} 
