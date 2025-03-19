@@ -160,7 +160,7 @@ export default function AladdinHeaderCustom() {
 
       {/* Secondary navigation */}
       <div className="primary7-bg text-black">
-        <div className="max-w-[1360px] mx-auto px-4">
+        <div className="max-w-[1360px] mx-auto px-9">
           <div className="flex items-center h-10 text-sm">
             <nav className="flex space-x-6">
               <Link href="/customer-service" className="hover:underline">
