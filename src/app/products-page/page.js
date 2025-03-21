@@ -1,3 +1,5 @@
+"use client";
+
 import AladdinHeaderCustom from '@/components/after-header/Header'
 import Footer from '@/components/footer/Footer';
 import Pagination from '@/components/pagination/Pagination'
@@ -6,6 +8,7 @@ import React from 'react'
 import { TbTriangleSquareCircle } from "react-icons/tb";  
 
 function page() {
+
     const products = [
         {
           id: 1,
