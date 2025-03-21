@@ -8,6 +8,8 @@ import { MdLocalShipping } from "react-icons/md";
 import { BiCheckShield } from "react-icons/bi";
 import Pagination from '@/components/pagination/Pagination';
 import ProductCard from '@/components/product-cards/ProductCards';
+import CustomerReviews from '@/features/custmer-review/Review';
+import Footer from '@/components/footer/Footer';
 
 const products = [
     {
@@ -156,7 +158,7 @@ function page() {
 
                 {/* // Cards */}
 
-        <div className='max-w-[1360px] m-auto mt-7 pb-13 border-b-2 border-gray-200'>
+        <div className='max-w-[1360px] pl-5 pr-5 m-auto md:mt-7 mt-7 pb-13 border-b-2 border-gray-200'>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {products.map((product) => (
                     <ProductCard key={product.id} product={product} />
@@ -165,7 +167,7 @@ function page() {
         </div>
                 
                 {/* // Product details */}
-        <div className='max-w-[1360px] m-auto mt-7 pb-11 border-b-2 border-gray-200'>
+        <div className='max-w-[1360px] pl-8 pr-8 m-auto mt-7 pb-11 border-b-2 border-gray-200'>
             <h1 className='font-bold text-2xl primary8 pb-4'>Product details</h1>
             <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Manufacturer:</span> Aladdin</p>
             <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Product Dimensions:</span> 5inch</p>
@@ -175,6 +177,81 @@ function page() {
             <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Country Origin:</span> UK</p>
             <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Best sellers rank:</span> #1</p>
         </div>
+
+                {/* /// Customer reviews */}
+        <div className='max-w-[1360px] pl-2 pr-2 m-auto mt-7 pb-11 border-b-2 border-gray-200 flex items-start gap-3 justify-between'>
+                {/* //left */}
+            <div className='max-w-[500px] '>
+                <CustomerReviews />
+            </div>
+                {/* // right */}
+            <div className='h-full w-4/6 p-6'>
+                <h1 className='font-bold text-2xl primary8 pb-4'>Reviews with images</h1>
+                <div className='flex items-center gap-5'>
+                    <div>
+                    <img src="./customer/user2.png" alt="" />
+                    </div>
+                    <div>
+                    <img src="./customer/user1.png" alt="" />
+                    </div>
+                    <div>
+                    <img src="./customer/user3.png" alt="" />
+                    </div>
+                </div>
+                <h1 className='font-bold text-xl pt-4 pb-4'>Top reviews from United states</h1>
+                <div className='flex items-center gap-3 mb-3'>
+                    <img className='w-17 h-full' src="./customer/seller.png" alt="" />
+                    <h1 className=' text-xl'>Saminatha</h1>
+                </div>
+                <div className='flex items-center gap-3 font-semibold pb-4'>
+                <StarRating rating={4} maxRating={5} />
+                Overall - greate for all price!
+                </div>
+                <p className='pb-2 text-gray-700'>Reviewed in the United States us on January 27, 2023</p>
+                <p className='pb-4 text-gray-800 flex items-center gap-7'><span>Fire TV Stick</span> Verified Purchase</p>
+
+                <p className='pb-4 text-gray-600 max-w-[650px]'>
+                    lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. added a review on January 27, 2023, rewarded by Saminatha.
+                </p>
+                <p className='pb-4 text-gray-500 text-sm'>19 people found this helpful</p>
+                <div className='flex items-center gap-3'>
+                <button className='flex items-center gap-2 cursor-pointer bg-cyan-800 text-white w-fit rounded-md py-2 px-6'>
+                    Helpful
+                </button>
+                <button className='flex items-center gap-2 cursor-pointer text-cyan-800 w-fit rounded-md py-2 px-3'>
+                    Report abuse
+                </button>
+                </div>
+
+                        {/* Again addedd review */}
+                <div className='flex items-center gap-3 mb-3 mt-5'>
+                    <img className='w-17 h-full' src="./customer/seller.png" alt="" />
+                    <h1 className=' text-xl'>Saminatha</h1>
+                </div>
+                <div className='flex items-center gap-3 font-semibold pb-4'>
+                <StarRating rating={4} maxRating={5} />
+                Overall - greate for all price!
+                </div>
+                <p className='pb-2 text-gray-700'>Reviewed in the United States us on January 27, 2023</p>
+                <p className='pb-4 text-gray-800 flex items-center gap-7'><span>Fire TV Stick</span> Verified Purchase</p>
+
+                <p className='pb-4 text-gray-600 max-w-[650px]'>
+                    lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. added a review on January 27, 2023, rewarded by Saminatha.
+                </p>
+                <p className='pb-4 text-gray-500 text-sm'>19 people found this helpful</p>
+                <div className='flex items-center gap-3'>
+                <button className='flex items-center gap-2 cursor-pointer bg-cyan-800 text-white w-fit rounded-md py-2 px-6'>
+                    Helpful
+                </button>
+                <button className='flex items-center gap-2 cursor-pointer text-cyan-800 w-fit rounded-md py-2 px-3'>
+                    Report abuse
+                </button>
+                </div>
+            </div>
+        </div>
+
+                {/* // Footer */}
+        <Footer />
     </>
   )
 }
