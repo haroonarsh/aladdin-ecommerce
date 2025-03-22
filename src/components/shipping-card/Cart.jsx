@@ -42,11 +42,11 @@ export default function ShoppingCart() {
           {/* Table Header */}
           <thead>
             <tr className="border-b-2 border-gray-400 text-left">
-              <th className="p-4 font-medium text-teal-600">Items</th>
-              <th className="p-4 font-medium text-teal-600">Price</th>
-              <th className="p-4 font-medium text-teal-600">Quantity</th>
-              <th className="p-4 font-medium text-teal-600">Total</th>
-              <th className="p-4 font-medium text-teal-600">Remove</th>
+              <th className="p-4 font-medium text-cyan-600">Items</th>
+              <th className="p-4 font-medium text-cyan-600">Price</th>
+              <th className="p-4 font-medium text-cyan-600">Quantity</th>
+              <th className="p-4 font-medium text-cyan-600">Total</th>
+              <th className="p-4 font-medium text-cyan-600">Remove</th>
             </tr>
           </thead>
 
@@ -112,7 +112,7 @@ export default function ShoppingCart() {
       <div className="flex flex-col items-end justify-between gap-4 sm:flex-row">
         <div className="order-2 sm:order-1">
           {cartItems.length > 0 && (
-            <button className="rounded-md bg-teal-600 px-6 py-2 text-white transition-colors hover:bg-teal-700">
+            <button className="rounded-md bg-cyan-600 px-6 py-2 text-white transition-colors hover:bg-cyan-700">
               Update
             </button>
           )}
