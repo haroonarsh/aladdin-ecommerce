@@ -5,10 +5,12 @@ import Link from "next/link"
 import React from "react"
 import { RiSearchLine } from "react-icons/ri"
 import { FaCaretDown } from "react-icons/fa";
+import { useRouter } from "next/navigation"
 
 export default function AladdinHeaderCustom() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const router = useRouter();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function AladdinHeaderCustom() {
           <div className="flex items-center h-17 justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center">
+              <Link href="/products-page" className="flex items-center">
                 <img className="w-26 h-11" src="./images/Logo-white.png" alt="" />
               </Link>
 
@@ -130,7 +132,9 @@ export default function AladdinHeaderCustom() {
               </div>
 
               {/* Account */}
-              <div className="text-sm">
+              <div className="text-sm cursor-pointer"
+              onClick={() => router.push('/profile')}
+              >
                 <div>Hello, Kiran</div>
                 <div className="font-semibold">Account for Eshopify...</div>
               </div>
