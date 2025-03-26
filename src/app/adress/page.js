@@ -196,14 +196,204 @@ function page() {
             case "payment":
                 return (
                   <div className="pl-6 md:pl-8">
-                  <h2 className="mb-6 text-2xl font-semibold text-black">Payment</h2>
-      </div>
+                  <h2 className="mb-6 text-2xl font-semibold text-black">Payment Information</h2>
+                  <form className="space-y-4 mb-9">
+                    {/* Card Number */}
+                    <div>
+                                  <label htmlFor="number" className="mb-1 block text-gray-700">
+                                    Card Number
+                                  </label>
+                                  <input
+                                    id="number"
+                                    type="text"
+                                    placeholder="1234 5678 9101 1121"
+                                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                  />
+                                </div>
+                    {/* Card */}
+                    <div>
+                                    <label htmlFor="card" className="mb-1 block text-gray-700">
+                                      Card
+                                    </label>
+                                    <div className="relative">
+                                      <input
+                                        id="card"
+                                        type="text"
+                                        placeholder=""
+                                        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                      />
+                                     
+                                    </div>
+                                  </div>
+                    {/*  */}
+                                    <div className="relative">
+                                      <input
+                                        
+                                        type="text"
+                                        placeholder=""
+                                        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                      />
+                                     
+                                    </div>
+                    {/* CVV */}
+                    <div>
+                                    <label htmlFor="cvv" className="mb-1 block text-gray-700">
+                                      CVV
+                                    </label>
+                                    <div className="flex">
+                                      {/* Phone Number */}
+                                      <input
+                                        id="cvv"
+                                        type="tel"
+                                        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                    
+                                      />
+                                    </div>
+                                  </div>
+                  </form>
+                  <form className="space-y-4">
+                  <h2 className="mb-6 text-2xl font-semibold text-black">Billing Address</h2>
+                                {/* Email Address */}
+                                <div>
+                                  <label htmlFor="email" className="mb-1 block text-gray-700">
+                                    Email Address
+                                  </label>
+                                  <input
+                                    id="email"
+                                    type="email"
+                                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                  />
+                                </div>
+                                <div className="grid gap-4 md:grid-cols-2">
+                                  {/* First Name */}
+                                  <div>
+                                    <label htmlFor="firstName" className="mb-1 block text-gray-700">
+                                      First Name
+                                    </label>
+                                    <input
+                                      id="firstName"
+                                      type="text"
+                                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                    />
+                                  </div>
+                        
+                                  {/* Last Name */}
+                                  <div>
+                                    <label htmlFor="lastName" className="mb-1 block text-gray-700">
+                                      Last Name
+                                    </label>
+                                    <input
+                                      id="lastName"
+                                      type="text"
+                                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                    />
+                                  </div>
+                                </div>
+                        
+                                {/*  Address */}
+                                <div>
+                                  <label htmlFor="email" className="mb-1 block text-gray-700">
+                                    Address
+                                  </label>
+                                  <input
+                                    id="address"
+                                    type="text"
+                                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                  />
+                                </div>
+                        
+                                <div className="grid gap-4 md:grid-cols-2">
+                                  {/* City */}
+                                  <div>
+                                    <label htmlFor="city" className="mb-1 block text-gray-700">
+                                      City
+                                    </label>
+                                    <div className="flex">
+                                      {/* City */}
+                                      <input
+                                        id="city"
+                                        type="text"
+                                        className="w-full rounded-r-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                    
+                                      />
+                                    </div>
+                                  </div>
+                        
+                                  {/* State */}
+                                  <div>
+                                    <label htmlFor="state" className="mb-1 block text-gray-700">
+                                      State
+                                    </label>
+                                    <div className="relative">
+                                      <input
+                                        id="state"
+                                        type="text"
+                                        placeholder=""
+                                        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                      />
+                                     
+                                    </div>
+                                  </div>
+                                  {/* Zip code */}
+                                  <div>
+                                    <label htmlFor="zip" className="mb-1 block text-gray-700">
+                                      Zip Code
+                                    </label>
+                                    <div className="relative">
+                                      <input
+                                        id="zip"
+                                        type="text"
+                                        placeholder=""
+                                        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                      />
+                                     
+                                    </div>
+                                  </div>
+                                  {/* Phone Number */}
+                                  <div>
+                                    <label htmlFor="phone" className="mb-1 block text-gray-700">
+                                      Phone Number
+                                    </label>
+                                    <div className="flex">
+                                      {/* Phone Number */}
+                                      <input
+                                        id="phone"
+                                        type="tel"
+                                        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                                    
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                </div>
             );
             case "review":
                 return (
                   <div className="pl-6 md:pl-8">
-                  <h2 className="mb-6 text-2xl font-semibold text-black">Review</h2>
-      </div>
+                    <h2 className="mb-6 text-2xl font-semibold text-black">Payment Information</h2>
+                    <div>
+                      <div>
+                        <h2 className="mb-6 text-2xl font-semibold text-black">Payment Information</h2>
+                        <p>Kiran</p>
+                        <p>234 Street Avenue</p>
+                        <p>City, State, Zip code</p>
+                        <p>New York 10001</p>
+                        <p>+1 123 456 789</p>
+
+                        <h2 className="mb-6 text-2xl font-semibold text-black border-b">Edit</h2>
+                        <h2 className="mb-6 text-2xl font-semibold text-black">Standard Shipping</h2>
+                        <p>Delivery in 5-7 days</p>
+
+                        <h2 className="mb-6 text-2xl font-semibold text-black border-b">Edit</h2>
+                      </div>
+                      <div>
+                        <h2 className="mb-6 text-2xl font-semibold text-black">Payment Information</h2>
+
+                      </div>
+
+                    </div>
+                  </div>
             );
         }
     }
