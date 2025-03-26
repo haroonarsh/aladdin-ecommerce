@@ -371,25 +371,31 @@ function page() {
             case "review":
                 return (
                   <div className="pl-6 md:pl-8">
-                    <h2 className="mb-6 text-2xl font-semibold text-black">Payment Information</h2>
-                    <div>
+                    <h2 className="pb-8 mb-3 text-2xl font-semibold text-black border-b-2 border-gray-400">Payment Information</h2>
+                    <div className='flex justify-between'>
+                        {/* //Left section */}
                       <div>
-                        <h2 className="mb-6 text-2xl font-semibold text-black">Payment Information</h2>
-                        <p>Kiran</p>
-                        <p>234 Street Avenue</p>
-                        <p>City, State, Zip code</p>
-                        <p>New York 10001</p>
-                        <p>+1 123 456 789</p>
+                        <h2 className="mb-6 text-2xl font-semibold text-black">Shipping address</h2>
+                        <p className='text-gray-600'>Kiran</p>
+                        <p className='text-gray-600'>234 Street Avenue</p>
+                        <p className='text-gray-600'>City, State, Zip code</p>
+                        <p className='text-gray-600'>New York 10001</p>
+                        <p className='text-gray-600'>+1 123 456 789</p>
 
-                        <h2 className="mb-6 text-2xl font-semibold text-black border-b">Edit</h2>
-                        <h2 className="mb-6 text-2xl font-semibold text-black">Standard Shipping</h2>
-                        <p>Delivery in 5-7 days</p>
+                        <h2 className="mb-4 mt-4 text-xl font-semibold text-black border-b w-fit ">Edit</h2>
+                        <h2 className="mb-3 text-2xl font-semibold text-black">Standard Shipping</h2>
+                        <p className='text-gray-600'>Delivery in 5-7 days</p>
 
-                        <h2 className="mb-6 text-2xl font-semibold text-black border-b">Edit</h2>
+                        <h2 className="mb-4 mt-4 text-xl cursor-pointer font-semibold text-black border-b w-fit">Edit</h2>
                       </div>
+                          {/* //Right section */}
                       <div>
-                        <h2 className="mb-6 text-2xl font-semibold text-black">Payment Information</h2>
+                        <h2 className="mb-6 cursor-pointer text-2xl font-semibold text-black">Payment Information</h2>
+                        <p className='text-gray-600'>Kiran</p>
+                        <p className='text-gray-600'>XXXXXXXX --- 123</p>
+                        <p className='text-gray-600'>23/03/2025</p>
 
+                        <h2 className="mb-4 mt-4 text-xl font-semibold text-black border-b w-fit ">Edit</h2>
                       </div>
 
                     </div>
