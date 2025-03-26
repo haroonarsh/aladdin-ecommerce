@@ -2,37 +2,40 @@
 
 import AladdinHeaderCustom from '@/components/after-header/Header'
 import StarRating from '@/components/start-rating/Rating';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import { FaCheck } from "react-icons/fa";
 
 function page() {
 
-    const [active, setActive] = useState("address");
-    const [cartItems, setCartItems] = useState([
-        {
-          id: "1",
-          name: "Curology the sun screen 320 of lotion.",
-          image: "/customer/user3.png",
-          brand: "Aladdin",
-          originalPrice: 39.99,
-          discountedPrice: 30.43,
-          quantity: 1,
-        },
-        {
-          id: "2",
-          name: "Curology the sun screen 320 of lotion.",
-          image: "/customer/user3.png",
-          brand: "Curology",
-          originalPrice: 39.99,
-          discountedPrice: 30.43,
-          quantity: 1,
-        }
-    ]);
+  const router = useRouter();
+  const [active, setActive] = useState("address");
+  const [cartItems, setCartItems] = useState([
+    {
+      id: "1",
+      name: "Curology the sun screen 320 of lotion.",
+      image: "/customer/user3.png",
+      brand: "Aladdin",
+      originalPrice: 39.99,
+      discountedPrice: 30.43,
+      quantity: 1,
+    },
+    {
+      id: "2",
+      name: "Curology the sun screen 320 of lotion.",
+      image: "/customer/user3.png",
+      brand: "Curology",
+      originalPrice: 39.99,
+      discountedPrice: 30.43,
+      quantity: 1,
+    }
+  ]);
 
       // Calculate total price
-    const totalPrice = cartItems.reduce((total, item) => total + item.discountedPrice * item.quantity, 0);
-    const shippingPrice = 12.87;
+  const totalPrice = cartItems.reduce((total, item) => total + item.discountedPrice * item.quantity, 0);
+  const shippingPrice = 12.87;
        // Order total price
-    const orderTotal = totalPrice + shippingPrice;
+  const orderTotal = totalPrice + shippingPrice;
 
       // move to next step
     const nextStep = () => {
@@ -43,7 +46,7 @@ function page() {
         } else if (active === "payment") {
           setActive("review");
         } else if (active === "review") {
-          setActive("address");
+          setActive("completed");
         }
     }
     const layouts = () => {
@@ -397,10 +400,26 @@ function page() {
 
                         <h2 className="mb-4 mt-4 text-xl font-semibold text-black border-b w-fit ">Edit</h2>
                       </div>
-
                     </div>
                   </div>
             );
+            case "completed":
+                return (
+                  <div className='w-full h-full flex items-center justify-center'>
+                    <div className='flex flex-col items-center gap-4'>
+                      <FaCheck  className='text-8xl text-white bg-cyan-700 p-5 rounded-full'/>
+                      <h1 className='text-3xl font-bold text-cyan-700'>Your order was successfull </h1>
+                      <p className='text-2xl font-semibold'>Thanks for your purchase!</p>
+                      <p className='text-gray-600'>Your order number is <span className='font-bold text-cyan-700'>#123456789</span></p>
+                      <p className='text-gray-600'>You'll receive an email confirmation shortly</p>
+                      <button className='bg-cyan-700 text-white text-md w-full h-11 flex items-center mt-3 cursor-pointer justify-center rounded-md hover:bg-cyan-800'>Track you order</button>
+                      <button className=' text-cyan-700 text-md w-full h-11 flex items-center mt-3 cursor-pointer justify-center rounded-md hover:bg-gray-200'
+                      onClick={() => router.push("/")}
+                      >Back to home</button>
+                    </div>
+                     
+                  </div>
+                );
         }
     }
   return (
@@ -408,21 +427,33 @@ function page() {
             {/* // Header */}
         <AladdinHeaderCustom />
             {/* // Steps */}
-        <div className='max-w-[1300px] mx-auto mt-13 mb-13 flex items-center justify-start gap-3 font-sans'>
-            <div className={`flex items-center gap-2 text-xl ${active === "address" ? "text-cyan-700" : "text-gray-500"}`}><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "address" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>1</span>Address -------</div>
-            <div className={`flex items-center gap-2 text-xl ${active === "shipping" ? "text-cyan-700" : "text-gray-500"}`}><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "shipping" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>2</span>Shipping -------</div>
-            <div className={`flex items-center gap-2 text-xl ${active === "payment" ? "text-cyan-700" : "text-gray-500"}`}><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "payment" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>3</span>Payment -------</div>
-            <div className={`flex items-center gap-2 text-xl ${active === "review" ? "text-cyan-700" : "text-gray-500"}`}><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "review" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>4</span>Review</div>
+        <div className={`max-w-[1300px] mx-auto mt-13 mb-13 flex items-center justify-start gap-3 font-sans ${active === "completed" ? "hidden" : ""}`}>
+            <div 
+            className={`flex items-center gap-2 text-xl ${active === "address" ? "text-cyan-700" : "text-gray-500"}`}
+            onClick={() => setActive("address")}
+            ><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "address" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>1</span>Address -------</div>
+            <div 
+            className={`flex items-center gap-2 text-xl ${active === "shipping" ? "text-cyan-700" : "text-gray-500"}`}
+            onClick={() => setActive("shipping")}
+            ><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "shipping" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>2</span>Shipping -------</div>
+            <div 
+            className={`flex items-center gap-2 text-xl ${active === "payment" ? "text-cyan-700" : "text-gray-500"}`}
+            onClick={() => setActive("payment")}
+            ><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "payment" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>3</span>Payment -------</div>
+            <div 
+            className={`flex items-center gap-2 text-xl ${active === "review" ? "text-cyan-700" : "text-gray-500"}`}
+            onClick={() => setActive("review")}
+            ><span className={`text-xl w-11 h-11 flex items-center justify-center rounded-4xl ${active === "review" ? "bg-cyan-700 text-white" : "bg-gray-200 text-gray-500"} `}>4</span>Review</div>
         </div>
             
             {/* // Address */}
         <div className='max-w-[1300px] mx-auto mt-13 mb-13 flex items-start gap-24 font-sans'>
                 {/* // Inputs section */}
-            <div className='w-2/3'>
+            <div className={`${active === "completed" ? "w-full" : "w-2/3"}`}>
                 {layouts()}
             </div>
                 {/* /// Order sumary */}
-            <div className='w-1/3'>
+            <div className={`w-1/3 ${active === "completed" ? "hidden" : ""}`}>
               <h1 className='text-2xl font-bold border-b border-gray-400 pb-3.5'>Order Summary</h1>
               <p className='text-cyan-600 pt-2 pb-2 border-b border-gray-400'>{cartItems.length} items</p>
               {cartItems.map((item) => (
