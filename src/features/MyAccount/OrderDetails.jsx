@@ -17,10 +17,10 @@ export default function OrderDetails({ order }) {
                 <span className="text-white font-medium">${order.total.toFixed(2)}</span>
             </div>
             <div className="mt-6 flex gap-4">
-                <button className="flex-1 bg-primaryLight text-white py-2 px-4 rounded-lg hover:bg-primaryExtraLight transition-colors">
+                <button className="flex-1 bg-cyan-600 cursor-pointer text-white py-2 px-4 rounded-lg hover:bg-transparent border border-cyan-600 transition-colors">
                     Track Order
                 </button>
-                <button className="flex-1 border border-primaryLight hover:border-primaryExtraLight text-white py-2 px-4 rounded-lg hover:bg-primaryExtraLight transition-colors">
+                <button className="flex-1 border cursor-pointer border-cyan-600 hover:border-cyan-600 text-white py-2 px-4 rounded-lg hover:bg-cyan-600 transition-colors">
                     View Invoice
                 </button>
             </div>
