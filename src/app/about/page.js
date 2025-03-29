@@ -3,7 +3,6 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Heart, Shield, Truck, Users } from "lucide-react"
-import Footer from "@/components/footer/Footer"
 import Header from "@/components/header/Header"
 
 export default function AboutUs() {
@@ -182,8 +181,6 @@ export default function AboutUs() {
       </section>
     </div>
 
-            {/* // Footer Section */}
-        <Footer />
         </>
   )
 }
