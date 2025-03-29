@@ -10,17 +10,12 @@ function page() {
   return (
     <>
         <div>
-              {/* // Header */}
-            <Header />
 
               {/* // Hero Section */}
             <Hero />
 
               {/* // midSection */}
             <MidSection />
-
-              {/* // Footer */}
-            <Footer />
         </div>
     </>
   )

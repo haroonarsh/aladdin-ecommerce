@@ -9,7 +9,7 @@ import { BiCheckShield } from "react-icons/bi";
 import Pagination from '@/components/pagination/Pagination';
 import ProductCard from '@/components/product-cards/ProductCards';
 import CustomerReviews from '@/features/custmer-review/Review';
-import Footer from '@/components/footer/Footer';
+import { useRouter } from 'next/navigation';
 
 const products = [
     {
@@ -39,6 +39,7 @@ function page() {
 
     const [mainImage, setMainImage] = useState("/product-img/Pimg.png");
     const [count, setCount] = useState(1);
+    const router = useRouter();
 
     const increaseCount = () => {
         setCount(count + 1);
@@ -151,8 +152,8 @@ function page() {
             <button className='flex items-center justify-center  bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3'>Contat supplier</button>
             <button className='flex items-center justify-center  bg-white text-cyan-800 border-2 border-cyan-800 mt-5 rounded-md py-2 px-3 hover:bg-cyan-800 hover:text-white transition-all'>Chat now</button>
             <h1 className='font-bold pt-3 pb-3 text-[18px]'>Puchase details</h1>
-            <p className='primary8 font-bold flex items-center gap-1.5'><MdLocalShipping /> Shipping</p>
-            <p className='primary8 font-bold flex items-center gap-1.5'><BiCheckShield /> Payments</p>
+            <p className='primary8 font-bold flex items-center cursor-pointer gap-1.5' onClick={() => router.push("/address")}><MdLocalShipping /> Shipping</p>
+            <p className='primary8 font-bold flex items-center cursor-pointer gap-1.5'><BiCheckShield /> Payments</p>
             </div>
         </div>
 
@@ -249,9 +250,6 @@ function page() {
                 </div>
             </div>
         </div>
-
-                {/* // Footer */}
-        <Footer />
     </>
   )
 }

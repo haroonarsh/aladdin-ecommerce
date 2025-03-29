@@ -1,11 +1,22 @@
+"use client";
+
 import React from 'react'
 import { RiSearchLine } from "react-icons/ri";
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaCaretDown } from "react-icons/fa";
+import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
+const inactive = "hidden";
+const active = "flex";
 function Header() {
+
+  const router = useRouter();
+  const pathname = usePathname();
   return (
-    <div className='flex justify-between items-center fixed top-0 left-0 h-18 w-full pl-28 pr-28 primary8-bg'>
+    <div className={`flex justify-between items-center fixed top-0 left-0 h-18 w-full pl-28 z-20 pr-28 primary8-bg ${pathname === "/" || pathname === "/home" || pathname === "/about" || pathname === "/contact" ? active : inactive}`}
+        style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.14)" }}
+    >
         <img className='w-26 h-11' src="./images/Logo-white.png" alt="Logo" />
         <div className='flex w-fit h-10 items-center gap-2 rounded-md text-md neutral3 bg-gray-50 pl-2'>
             <input className='outline-none neutral8 text-md border-r-2 border-gray-400 h-10 w-72' type="text" placeholder='Search Aladdin'/>
@@ -13,11 +24,11 @@ function Header() {
             <span className='p-2 h-10 w-10 flex items-center justify-center rounded-r-sm primary6-bg hover:bg-gray-200 cursor-pointer'><RiSearchLine /></span>
         </div>
         <ul className='flex gap-12 items-start text-md neutral5'>
-            <li className='hover:text-gray-200 cursor-pointer'>Home</li>
-            <li className='hover:text-gray-200 cursor-pointer'>About Us</li>
-            <li className='hover:text-gray-200  cursor-pointer'>Shop</li>
-            <li className='hover:text-gray-200  cursor-pointer'>Contact Us</li>
-            <li className=' hover:text-gray-200 cursor-pointer'>My Account</li>
+            <Link href="/" className='hover:text-gray-200 cursor-pointer'>Home</Link>
+            <Link href="/about" className='hover:text-gray-200 cursor-pointer'>About Us</Link>
+            <li className='hover:text-gray-200  cursor-pointer' onClick={() => router.push("/products-page")}>Shop</li>
+            <Link href="/contact" className='hover:text-gray-200  cursor-pointer'>Contact Us</Link>
+            <Link href="/account" className=' hover:text-gray-200 cursor-pointer'>My Account</Link>
         </ul>
         <div className='flex items-center gap-2 text-xl cursor-pointer neutral1'>
             <MdAddShoppingCart />

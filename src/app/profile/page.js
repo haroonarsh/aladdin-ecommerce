@@ -14,6 +14,14 @@ import { VscSignOut } from "react-icons/vsc";
 import { IoMdMale } from "react-icons/io";
 import { IoMdFemale } from "react-icons/io";
 import { ChevronDown, UserIcon as Male, UserIcon as Female, Check } from "lucide-react"
+import Orders from '@/features/MyAccount/Order';
+import WalletBalance from '@/features/MyAccount/MyWallet';
+import Rewards from '@/features/MyAccount/Reward';
+import Location from '@/features/MyAccount/Location';
+import PaymentMethods from '@/features/MyAccount/PaymentMethod';
+import TransactionHistory from '@/features/MyAccount/TransitionHistory';
+import Payments from '@/features/MyAccount/Payments';
+import ContactPreference from '@/features/MyAccount/ContactPreference';
 
 function page() {
 
@@ -56,6 +64,30 @@ function page() {
 
     const activePath = () => {
         switch (active) {
+            case "wallet":
+                return (
+                  <div className="pl-6 md:pl-8">
+                    <h2 className="mb-6 text-2xl font-semibold text-cyan-800">Wallet Information</h2>
+                    <WalletBalance balance={4500} />
+                    <PaymentMethods />
+
+                    <div className="mt-8 mb-4">
+                      <TransactionHistory />
+                    </div>
+                  </div>
+                );
+            case "reward":
+                return (
+                  <div className="pl-6 md:pl-8">
+                    <Rewards />
+                  </div>
+                );
+            case "order":
+                return (
+                  <div className="pl-6 md:pl-8">
+                    <Orders />
+                  </div>
+                );
             case "personal":
                 return (
                     <div className="pl-6 md:pl-8">
@@ -226,16 +258,20 @@ function page() {
       </form>
     </div>
                 );
-                
-            case "order":
+            case "location":
                 return (
-                    <div>Orders</div>
-                )
-            case "shipping":
+                  <Location />
+                );
 
             case "payment":
+                return (
+                  <Payments />
+                );
                 
             case "setting":
+                return (
+                  <ContactPreference />
+                );
                 
             case "help":
                 
