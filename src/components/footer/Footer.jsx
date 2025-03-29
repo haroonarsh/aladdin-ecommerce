@@ -1,9 +1,15 @@
+"use client";
+
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 export default function Footer() {
+
+  const pathname = usePathname();
   return (
-    <footer className="bg-[#00566b] text-white py-12">
+    <footer className={`bg-[#00566b] text-white py-12 ${pathname === "/" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/products-page" || pathname === "/products-desc" ? "block" : "hidden"}`}>
+      {/* Footer Container */}
       <div className="w-5/6  m-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
