@@ -1,7 +1,6 @@
 "use client";
 
 import AladdinHeaderCustom from '@/components/after-header/Header'
-import Footer from '@/components/footer/Footer';
 import Pagination from '@/components/pagination/Pagination'
 import ProductCard from '@/components/product-cards/ProductCards'
 import React from 'react'
@@ -79,8 +78,6 @@ function page() {
                 </div>
             </div>
         </div>
-                    {/* // Footer */}
-        <Footer />
     </>
   )
 }
