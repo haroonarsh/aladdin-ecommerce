@@ -4,6 +4,8 @@ import { FaAngleRight } from "react-icons/fa6";
 
 function MidSection() {
 
+
+
   const router = useRouter();
   return (
     <>
