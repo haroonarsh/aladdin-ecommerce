@@ -1,6 +1,7 @@
 import { authService } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 export const useAuth = () => {
 
@@ -14,8 +15,13 @@ export const useAuth = () => {
             setLoading(true);
             const { user } = await authService.register(userData);
             setUser(user);
-            router.push('/products-page');
+            toast.success("Registration successful! Redirecting to products page...");
+            setTimeout(() => {
+                router.push('/products-page'); // Redirect to products page after registration
+            }, 4000);
+            return user; // Return user data if needed
         } catch (error) {
+            toast.error("Registration failed! Please try again.");
             setError(error.message);
         } finally {
             setLoading(false);
@@ -26,9 +32,15 @@ export const useAuth = () => {
         try {
             const user = await authService.checkSession();
             setUser(user);
+            toast.success("Authenticated! Redirecting to products page...");
+            setTimeout(() => {
+            router.push('/products-page'); // Redirect to products page if authenticated
+            }, 4000);
             return true; // User is authenticated
         } catch (error) {
-            router.push('/login'); // Redirect to login page
+            setTimeout(() => {
+                router.push('/login'); // Redirect to login page if not authenticated
+            }, 4000);
             return false; // User is not authenticated
         }
     };
