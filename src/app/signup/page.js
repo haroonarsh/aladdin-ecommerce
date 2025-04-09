@@ -1,14 +1,50 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import { useAuth } from '@/hooks/useAuth'
+import { Eye, EyeOff, ArrowRight, ArrowLeft, } from 'lucide-react'
 
 export default function SignupPage() {
 
+    const { register, loading, error } = useAuth();
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(loading)
+    const [isError, setIsError] = useState(error)
+    const [showPassword, setShowPassword] = useState(false)
+    const [formData, setFormData] = useState({
+        FirstName: '',
+        LastName: '',
+        Email: '',
+        PhoneNo: '',
+        Password: '',
+        Date: '',
+        Gender: ''
+    })
+
+    // Handle form field changes
+    const handleChange = (e) => {
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value
+        });
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        await register(formData);
+    };
+
+    // Show error toast when there's an error
+    useEffect(() => {
+        if (error) {
+            toast.error(error)
+        }
+    }, [error]);
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -30,35 +66,35 @@ export default function SignupPage() {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
 
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
-                                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700">
                                     First name
                                 </label>
                                 <input
-                                    id="firstName"
-                                    // value={}
-                                    autoComplete='off'
-                                    // onChange={}
-                                    name="firstName"
+                                    id="FirstName"
+                                    value={formData.FirstName}
+                                    // autoComplete='off'
+                                    onChange={handleChange}
+                                    name="FirstName"
                                     type="text"
                                     required
-                                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
+                                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
                                 />
                             </div>
 
                             <div>
-                                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="LastName" className="block text-sm font-medium text-gray-700">
                                     Last name
                                 </label>
                                 <input
-                                    id="lastName"
-                                    // value={formData.lastName}
-                                    autoComplete='off'
-                                    // onChange={handleChange}
-                                    name="lastName"
+                                    id="LastName"
+                                    value={formData.LastName}
+                                    // autoComplete='off'
+                                    onChange={handleChange}
+                                    name="LastName"
                                     type="text"
                                     required
                                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
@@ -73,10 +109,10 @@ export default function SignupPage() {
                             </label>
                             <input
                                 id="email"
-                                // value={formData.email}
+                                value={formData.Email}
                                 autoComplete='off'
-                                // onChange={handleChange}
-                                name="email"
+                                onChange={handleChange}
+                                name="Email"
                                 type="email"
                                 required
                                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
@@ -91,11 +127,11 @@ export default function SignupPage() {
                             <div className="relative mt-1">
                                 <input
                                     id="password"
-                                    // value={formData.password}
+                                    value={formData.Password}
                                     autoComplete='off'
-                                    // onChange={handleChange}
-                                    name="password"
-                                    // type={showPassword ? 'text' : 'password'}
+                                    onChange={handleChange}
+                                    name="Password"
+                                    type={showPassword ? 'text' : 'password'}
                                     required
                                     className="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
                                 />
@@ -103,29 +139,29 @@ export default function SignupPage() {
                                 <button
                                     type="button"
                                     className="absolute inset-y-0 right-0 flex items-center px-3"
-                                    // onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() => setShowPassword(!showPassword)}
                                 >
-                                    {/* {showPassword ? (
+                                    {showPassword ? (
                                         <EyeOff className="h-4 w-4 text-gray-500" />
                                     ) : (
                                         <Eye className="h-4 w-4 text-gray-500" />
-                                    )} */}
+                                    )}
                                 </button>
                             </div>
                         </div>
 
 
                         <div>
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                                Confirm password
+                            <label htmlFor="phoneNo" className="block text-sm font-medium text-gray-700">
+                                Phone Number
                             </label>
                             <div className="relative mt-1">
                                 <input
-                                    id="confirmPassword"
-                                    autoComplete='off'
-                                    // value={formData.confirmPassword}
-                                    // onChange={handleChange}
-                                    name="confirmPassword"
+                                    id="phoneNo"
+                                    // autoComplete='off'
+                                    value={formData.PhoneNo}
+                                    onChange={handleChange}
+                                    name="PhoneNo"
                                     // type={showPassword ? 'text' : 'password'}
                                     required
                                     className="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
@@ -158,24 +194,24 @@ export default function SignupPage() {
                         <div>
                             <button
                                 type="submit"
-                                // disabled={isLoading}
-                                className="flex w-full justify-center items-center gap-2 rounded-md border border-transparent bg-primaryMedium py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primaryLight focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                                disabled={isLoading}
+                                className="flex w-full justify-center items-center gap-2 rounded-md border border-transparent bg-cyan-700 cursor-pointer py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primaryLight focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                             >
-                                {/* {isLoading ? (
+                                {isLoading ? (
 
                                     <>
                                         <span>Create Account</span>
                                         <Loading />
                                     </>
                                 ) : "Create Account"}
-                                {!isLoading && <ArrowRight className="h-4 w-4" />} */}
+                                {!isLoading && <ArrowRight className="h-4 w-4" />}
                             </button>
 
-                            {/* {isError && (
+                            {isError && (
                                 <div className='text-red-500 text-center py-3 font-bold'>
                                     {Array.isArray(isError) ? isError.join(', ') : isError}
                                 </div>
-                            )} */}
+                            )}
                         </div>
                     </form>
 

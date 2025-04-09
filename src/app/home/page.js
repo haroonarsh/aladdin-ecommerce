@@ -9,14 +9,14 @@ import React from 'react'
 function page() {
   return (
     <>
-        <div>
+          <div>
 
               {/* // Hero Section */}
             <Hero />
 
               {/* // midSection */}
             <MidSection />
-        </div>
+          </div>
     </>
   )
 }
