@@ -15,6 +15,7 @@ export default function SignupPage() {
     const [isLoading, setIsLoading] = useState(loading)
     const [isError, setIsError] = useState(error)
     const [showPassword, setShowPassword] = useState(false)
+
     const [formData, setFormData] = useState({
         FirstName: '',
         LastName: '',
@@ -37,12 +38,13 @@ export default function SignupPage() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         await register(formData);
+        console.log(formData)
     };
 
     // Show error toast when there's an error
     useEffect(() => {
         if (error) {
-            toast.error(error)
+            toast.error(error.message)
         }
     }, [error]);
 
