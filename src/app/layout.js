@@ -3,6 +3,8 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthBanner } from "@/components/AuthBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +27,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <AuthProvider>
+          <AuthBanner />
         <Header />
         <ToastContainer
           position="top-center"
@@ -41,6 +45,7 @@ export default function RootLayout({ children }) {
         />
           {children}
         <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
