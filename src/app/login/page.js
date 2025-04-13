@@ -6,8 +6,35 @@ import { Eye, EyeOff, ArrowRight } from 'lucide-react'
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function LoginPage() {
+
+    const router = useRouter();
+    const { login, error, loading } = useAuth();
+    const [showPassword, setShowPassword] = useState(false);
+
+    const [formData, setFormData] = useState({
+        Email: "",
+        Password: "",
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await login(formData);
+        console.log("Login form data:", formData); // Log the form data
+        
+        if (error) {
+            toast.error(error);
+        }
+    }
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -29,17 +56,17 @@ export default function LoginPage() {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                 Email address
                             </label>
                             <input
                                 id="email"
-                                // value={formData.email}
+                                value={formData.Email}
                                 autoComplete='off'
-                                // onChange={handleChange}
-                                name="email"
+                                onChange={handleChange}
+                                name="Email"
                                 type="email"
                                 required
                                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
@@ -54,24 +81,24 @@ export default function LoginPage() {
                             <div className="relative mt-1">
                                 <input
                                     id="password"
-                                    // value={formData.password}
+                                    value={formData.Password}
                                     autoComplete='off'
-                                    // onChange={handleChange}
-                                    name="password"
-                                    // type={showPassword ? 'text' : 'password'}
+                                    onChange={handleChange}
+                                    name="Password"
+                                    type={showPassword ? 'text' : 'password'}
                                     required
                                     className="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
                                 />
                                 <button
                                     type="button"
                                     className="absolute inset-y-0 right-0 flex items-center px-3"
-                                    // onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() => setShowPassword(!showPassword)}
                                 >
-                                    {/* {showPassword ? (
+                                    {showPassword ? (
                                         <EyeOff className="h-4 w-4 text-gray-500" />
                                     ) : (
                                         <Eye className="h-4 w-4 text-gray-500" />
-                                    )} */}
+                                    )}
                                 </button>
                             </div>
                         </div>
@@ -79,18 +106,18 @@ export default function LoginPage() {
                         <div>
                             <button
                                 type="submit"
-                                // disabled={isLoading}
-                                className="flex w-full justify-center items-center gap-2 rounded-md border border-transparent bg-primaryMedium py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primaryLight focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                                disabled={loading}
+                                className="flex w-full justify-center items-center gap-2 rounded-md border border-transparent bg-cyan-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                             >
-                                {/* {isLoading ? (
+                                {loading ? (
                                     <>
                                         <span>Login account</span>
-                                        <Loading />
+                                        {/* <Loading /> */}
                                     </>
                                 ) : (
                                     "Login account"
                                 )}
-                                {!isLoading && <ArrowRight className="h-4 w-4" />} */}
+                                {!loading && <ArrowRight className="h-4 w-4" />}
                             </button>
                         </div>
                     </form>
