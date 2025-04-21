@@ -1,11 +1,12 @@
 'use client';
 
-import { useAuth } from "@/contexts/AuthContext";
+// import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const AuthBanner = () => {
 
-    const { showBanner, setShowBanner } = useAuth();
+    const { showBanner, setShowBanner } = useState();
     const router = useRouter();
 
     if (!showBanner) return null;
