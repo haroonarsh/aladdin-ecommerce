@@ -27,23 +27,24 @@ export const useAuth = () => {
             setLoading(false);
         }
     };
-
-    const checkAuth = async () => {
+    
+    const login = async (userData) => {
         try {
-            const user = await authService.checkSession();
+            setLoading(true);
+            const { user } = await authService.login(userData);
             setUser(user);
-            toast.success("Authenticated! Redirecting to products page...");
+            toast.success("Login successful! Redirecting to products page...");
             setTimeout(() => {
-            router.push('/products-page'); // Redirect to products page if authenticated
+                router.push('/products-page'); // Redirect to products page after login
             }, 4000);
-            return true; // User is authenticated
+            return user; // Return user data if needed
         } catch (error) {
-            setTimeout(() => {
-                router.push('/login'); // Redirect to login page if not authenticated
-            }, 4000);
-            return false; // User is not authenticated
+            toast.error(user.message);
+            setError(error);
+        } finally {
+            setLoading(false);
         }
-    };
+    }
 
-  return { user, loading, error, register, checkAuth };
+  return { user, loading, error, register, login };
 }
