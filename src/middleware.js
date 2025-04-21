@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { verifyJWT } from "./lib/auth";
+import jwt from "jsonwebtoken";
 
 export default async function middleware(request) {
     const  { pathname } = request.nextUrl;
@@ -7,7 +7,7 @@ export default async function middleware(request) {
 
     console.log("Token:", token); // Log the token value
 
-    const protectedRoutes = ['/dashboard', '/', '/products-page', '/profile'];
+    const protectedRoutes = ['/dashboard', '/', '/products-page', '/account'];
     console.log("Protected Routes:", protectedRoutes); // Log the protected routes
     console.log("Current Pathname:", pathname); // Log the current pathname
 
@@ -23,5 +23,5 @@ export default async function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/products-page', '/dashboard', '/profile'],
+    matcher: ['/products-page', '/dashboard', '/account'],
 };
