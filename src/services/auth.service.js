@@ -6,8 +6,8 @@ export const authService = {
         return response.data;
     },
 
-    async checkSession() {
-        const response = await api.get("/api/user/check");
-        return response.data.user;
-    }
+    async login(formData) {
+        const response = await api.post("/api/user/login", formData);
+        return response.data;
+    },
 };
