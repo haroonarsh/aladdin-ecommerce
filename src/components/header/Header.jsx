@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useState } from 'react'
 import { RiSearchLine } from "react-icons/ri";
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaCaretDown } from "react-icons/fa";
@@ -9,10 +9,21 @@ import Link from 'next/link';
 
 const inactive = "hidden";
 const active = "flex";
-function Header() {
+function Header( { token } ) {
 
   const router = useRouter();
   const pathname = usePathname();
+  console.log('TOKEN', token);
+  localStorage.setItem("jwt", token);
+
+  const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
+
+  const handleToken = async () => {
+    if (storedToken) {
+      await fetchUser(storedToken);
+    }
+  };
+  
   return (
     <div className={`flex justify-between items-center fixed top-0 left-0 h-18 w-full pl-28 z-20 pr-28 primary8-bg ${pathname === "/" || pathname === "/home" || pathname === "/about" || pathname === "/contact" ? active : inactive}`}
         style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.14)" }}
@@ -28,7 +39,11 @@ function Header() {
             <Link href="/about" className='hover:text-gray-200 cursor-pointer'>About Us</Link>
             <li className='hover:text-gray-200  cursor-pointer' onClick={() => router.push("/products-page")}>Shop</li>
             <Link href="/contact" className='hover:text-gray-200  cursor-pointer'>Contact Us</Link>
-            <Link href="/account" className=' hover:text-gray-200 cursor-pointer'>My Account</Link>
+            <Link 
+            href="/account/personal-info" 
+            className='hover:text-gray-200 cursor-pointer'
+            onClick={handleToken}
+            >My Account</Link>
         </ul>
         <div className='flex items-center gap-2 text-xl cursor-pointer neutral1'>
             <MdAddShoppingCart />
