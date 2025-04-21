@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import { useRouter } from 'next/navigation';
 
 const scrollData = [
     {
@@ -35,6 +36,7 @@ const scrollData = [
 
 function Hero() {
     const [activeIndex, setActiveIndex] = useState(0);
+    const router = useRouter();
 
     const handleNext = () => {
         setActiveIndex((prev) => (prev + 1) % scrollData.length);
@@ -93,6 +95,7 @@ function Hero() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className='neutral6-bg neutral1 pt-2.5 pb-2.5 pl-5 pr-5 rounded-md cursor-pointer'
+                            onClick={() => router.push('/products-page')}
                         >
                             Shop now
                         </motion.button>
