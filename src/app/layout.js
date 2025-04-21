@@ -3,8 +3,8 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { ToastContainer } from "react-toastify";
-import { AuthProvider } from "@/contexts/AuthContext";
 import { AuthBanner } from "@/components/AuthBanner";
+import { cookies } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,14 +22,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+  const token = cookies().get("jwt")?.value;
+  console.log("Token:", token); // Log the token value
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
           <AuthBanner />
-        <Header />
+        <Header token={token} />
         <ToastContainer
           position="top-center"
           autoClose={5000}
@@ -45,7 +47,6 @@ export default function RootLayout({ children }) {
         />
           {children}
         <Footer />
-        </AuthProvider>
       </body>
     </html>
   );
