@@ -12,6 +12,10 @@ export default function AladdinHeaderCustom() {
   const dropdownRef = useRef(null)
   const router = useRouter();
 
+  const data = localStorage.getItem("UserData");
+  const userData = JSON.parse(data);
+  console.log("Parsed UserData", userData); // Log the parsed user data
+  
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
@@ -34,7 +38,7 @@ export default function AladdinHeaderCustom() {
           <div className="flex items-center h-17 justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-6">
-              <Link href="/products-page" className="flex items-center">
+              <Link href="/" className="flex items-center">
                 <img className="w-26 h-11" src="./images/Logo-white.png" alt="" />
               </Link>
 
@@ -133,9 +137,9 @@ export default function AladdinHeaderCustom() {
 
               {/* Account */}
               <div className="text-sm cursor-pointer"
-              onClick={() => router.push('/profile')}
+              onClick={() => router.push('/account/personal-info')}
               >
-                <div>Hello, Kiran</div>
+                <div>Hello, {userData?.FirstName}</div>
                 <div className="font-semibold">Account for Eshopify...</div>
               </div>
 
