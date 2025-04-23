@@ -5,6 +5,7 @@ import { ChevronDown, UserIcon as Male, UserIcon as Female, Check } from "lucide
 import { IoMdMale, IoMdFemale } from "react-icons/io"
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { useUser } from '@/hooks/useUser';
 
   // Sample list of countries
   const countries = [
@@ -24,10 +25,11 @@ import "react-datepicker/dist/react-datepicker.css";
 function PersonalInfo() {
 
   // / Personal
-  const [gender, setGender] = useState("male");
+  const [gender, setGender] = useState("Male");
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
   const countryDropdownRef = useRef(null)
   const [startDate, setStartDate] = useState(null);
+  const { updateUser, loading, error } = useUser();
   
   // Get user data from local storage
   const [userData, setUserData] = useState(null);
@@ -38,7 +40,7 @@ function PersonalInfo() {
     PhoneNo: '',
     Gender: '',
     Date: '',
-    countryCode: 'pk',
+    CountryCode: '',
   });
 
   // initializing form data from local storage
@@ -51,10 +53,10 @@ function PersonalInfo() {
       // Initialize Date
       const storedDate = parsedData?.Date ? new Date(parsedData.Date) : null;
       // Set the selected country based on the stored data
-      const country = countries.find(country => country.code === parsedData?.countryCode);
-      if (country) {
-        setSelectedCountry(country);
-      }
+      // const country = countries.find(country => country.code === parsedData?.CountryCode);
+      // if (country) {
+      //   setSelectedCountry(country);
+      // }
 
       setFormData({
         FirstName: parsedData?.FirstName || '',
@@ -62,11 +64,11 @@ function PersonalInfo() {
         Email: parsedData?.Email || '',
         PhoneNo: parsedData?.PhoneNo || '',
         Gender: parsedData?.Gender || '',
-        countryCode: parsedData?.countryCode || 'pk',
+        CountryCode: parsedData?.CountryCode || 'pk',
         Date: storedDate
       })
 
-      setGender(parsedData?.Gender || 'male');
+      setGender(parsedData?.Gender || 'Male');
     }
   }, []);
 
@@ -78,7 +80,7 @@ function PersonalInfo() {
     })
   };
 
-  const selectedCountry = countries.find(country => country.code === formData.countryCode) || countries[0];
+  const selectedCountry = countries.find(country => country.code === formData.CountryCode) || countries[1];
 
   // Handle input changes
   const handleInputChange = (e) => {
@@ -91,15 +93,17 @@ function PersonalInfo() {
   const handleCountrySelection = (country) => {
     setFormData({
       ...formData,
-      countryCode: country.code,
+      CountryCode: country.code,
     });
     setIsCountryDropdownOpen(false);
   }
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // await updateUser(userData?.accessToken, formData);
+    
     // Update user data
     const updatedData = {
       ...userData,
@@ -109,9 +113,17 @@ function PersonalInfo() {
       Date: startDate?.toISOString(), // Format date to YYYY-MM-DD
     };
 
+    await updateUser(userData?.accessToken, updatedData);
+    // Check for errors
+    if (error) {
+      console.error("Error updating user data:", error); // Log the error
+      return;
+    }
+
+    
     // Save updated data to local storage
-    localStorage.setItem("UserData", JSON.stringify(updatedData));
-    setUserData(updatedData);
+    // localStorage.setItem("UserData", JSON.stringify(updatedData));
+    // setUserData(updatedData);
 
     // Optionally, you can send the updated data to your backend or perform any other actions here
   }
@@ -135,7 +147,7 @@ function PersonalInfo() {
         <div className="pl-6 md:pl-8">
               <h2 className="mb-6 text-2xl font-semibold text-cyan-800">Personal Information</h2>
         
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid gap-4 md:grid-cols-2">
                   {/* First Name */}
                   <div>
@@ -273,9 +285,9 @@ function PersonalInfo() {
                 <div className="flex gap-4">
                   <button
                     type="button"
-                    onClick={() => setGender("male")}
+                    onClick={() => setGender("Male")}
                     className={`flex h-20 w-20 flex-col items-center justify-center rounded-md border border-cyan-700 transition-colors ${
-                      gender === "male" ? "bg-cyan-700 text-white" : "bg-white text-cyan-700"
+                      gender === "Male" ? "bg-cyan-700 text-white" : "bg-white text-cyan-700"
                     }`}
                   >
                     <IoMdMale className="h-8 w-8" />
@@ -284,9 +296,9 @@ function PersonalInfo() {
         
                   <button
                     type="button"
-                    onClick={() => setGender("female")}
+                    onClick={() => setGender("Female")}
                     className={`flex h-20 w-20 flex-col items-center justify-center rounded-md border border-cyan-700 transition-colors ${
-                      gender === "female" ? "bg-cyan-700 text-white" : "bg-white text-cyan-700"
+                      gender === "Female" ? "bg-cyan-700 text-white" : "bg-white text-cyan-700"
                     }`}
                   >
                     <IoMdFemale className="h-8 w-8" />
@@ -313,9 +325,9 @@ function PersonalInfo() {
                         Email: data?.Email || '',
                         PhoneNo: data?.PhoneNo.replace(selectedCountry.dialCode, '') || '',
                         Date: data?.Date || '',
-                        countryCode: data?.countryCode || 'us',
+                        CountryCode: data?.CountryCode || 'us',
                       })
-                      setGender(data?.Gender || 'male');
+                      setGender(data?.Gender || 'Male');
                     }}
                   >
                     Cancel
