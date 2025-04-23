@@ -9,5 +9,15 @@ export const userService = {
         });
         const data = response.data;
         return data; 
+    },
+
+    async updateUser(token, formData) {
+        const response = await api.put("/api/user/updateUser", formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        const data = response.data;
+        return data; 
     }
 };
