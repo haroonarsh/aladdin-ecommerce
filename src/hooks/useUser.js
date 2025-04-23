@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 import { userService } from "@/services/user.service";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export const useUser = () => {
     const [users, setUsers] = useState([]);
@@ -37,6 +38,27 @@ export const useUser = () => {
         // }
     // }, [user]);
 
+    const updateUser = async (token, formData) => {
+        try {
+            const response = await userService.updateUser(token, formData);
+            const data = response.data.user;
+            setUsers(data);
 
-    return { users, loading, error, fetchUser };
+            toast.success(response.message );
+            console.log("Updated User data:", data); // Log the updated user data
+            localStorage.setItem("UserData", JSON.stringify(data)); // Store updated user data in local storage
+
+        } catch (error) {
+
+            setError(error.message || "Failed to update user data");
+            const html = error.response.data;
+            const start = html.indexOf('<pre>') + 5;
+            const end = html.indexOf('<br>', start);
+            const message = html.substring(start, end).trim();
+            toast.error(message); // Display the error message to the user
+        }
+    }
+
+
+    return { users, loading, error, fetchUser, updateUser };
 }
