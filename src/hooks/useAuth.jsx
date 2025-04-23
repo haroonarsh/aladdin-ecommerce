@@ -13,6 +13,7 @@ export const useAuth = () => {
     const register = async (userData) => {
         try {
             setLoading(true);
+            localStorage.removeItem('UserData');
             const { user } = await authService.register(userData);
             setUser(user);
             toast.success("Registration successful! Redirecting to products page...");
@@ -31,6 +32,7 @@ export const useAuth = () => {
     const login = async (userData) => {
         try {
             setLoading(true);
+            localStorage.removeItem('UserData');
             const { user } = await authService.login(userData);
             setUser(user);
             toast.success("Login successful! Redirecting to products page...");
