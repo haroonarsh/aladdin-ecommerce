@@ -209,3 +209,25 @@ body {
 .destructive2 {
   color: #16A34A;
 }
+
+/* styles/globals.css */
+.react-datepicker {
+  font-family: inherit;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+}
+
+.react-datepicker__header {
+  background-color: #f3f4f6;
+  border-bottom: none;
+}
+
+.react-datepicker__day--selected {
+  background-color: #155e75;
+  color: white;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #155e75;
+  color: white;
+}
