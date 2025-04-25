@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RiSearchLine } from "react-icons/ri";
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaCaretDown } from "react-icons/fa";
@@ -15,14 +15,6 @@ function Header( { token } ) {
   const pathname = usePathname();
   console.log('TOKEN', token);
   localStorage.setItem("jwt", token);
-
-  const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
-
-  const handleToken = async () => {
-    if (storedToken) {
-      await fetchUser(storedToken);
-    }
-  };
   
   return (
     <div className={`flex justify-between items-center fixed top-0 left-0 h-18 w-full pl-28 z-20 pr-28 primary8-bg ${pathname === "/" || pathname === "/home" || pathname === "/about" || pathname === "/contact" ? active : inactive}`}
@@ -42,7 +34,7 @@ function Header( { token } ) {
             <Link 
             href="/account/personal-info" 
             className='hover:text-gray-200 cursor-pointer'
-            onClick={handleToken}
+            // onClick={handleToken}
             >My Account</Link>
         </ul>
         <div className='flex items-center gap-2 text-xl cursor-pointer neutral1'>
