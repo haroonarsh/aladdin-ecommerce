@@ -7,7 +7,7 @@ export default async function middleware(request) {
 
     console.log("Token:", token); // Log the token value
 
-    const protectedRoutes = ['/dashboard', '/', '/products-page', '/account'];
+    const protectedRoutes = ['/dashboard', '/products-page', '/account', '/account/personal-info'];
     console.log("Protected Routes:", protectedRoutes); // Log the protected routes
     console.log("Current Pathname:", pathname); // Log the current pathname
 
@@ -23,5 +23,5 @@ export default async function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/products-page', '/dashboard', '/account'],
+    matcher: ['/products-page', '/dashboard', '/account', '/account/personal-info'],
 };
