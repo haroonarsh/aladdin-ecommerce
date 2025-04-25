@@ -18,11 +18,11 @@ export const useAuth = () => {
             setUser(user);
             toast.success("Registration successful! Redirecting to products page...");
             setTimeout(() => {
-                router.push('/products-page'); // Redirect to products page after registration
+                router.push('/login'); // Redirect to products page after registration
             }, 4000);
             return user; // Return user data if needed
         } catch (error) {
-            toast.error("Registration failed! Please try again.");
+            toast.error(error.user.message || "Registration failed! Please try again.");
             setError(error.message);
         } finally {
             setLoading(false);
@@ -33,6 +33,7 @@ export const useAuth = () => {
         try {
             setLoading(true);
             localStorage.removeItem('UserData');
+            localStorage.removeItem('jwt'); // Remove JWT token from local storage
             const { user } = await authService.login(userData);
             setUser(user);
             toast.success("Login successful! Redirecting to products page...");
@@ -46,7 +47,26 @@ export const useAuth = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const logout = async () => {
+        try {
+            setLoading(true);
+            localStorage.removeItem('UserData');
+            localStorage.removeItem('jwt'); // Remove JWT token from local storage
+            await authService.logout();
+            setUser(null);
+            toast.success("Logout successful! Redirecting to login page...");
+            setTimeout(() => {
+                router.push('/login'); // Redirect to login page after logout
+            }, 4000);
+        } catch (error) {
+            toast.error("Logout failed! Please try again.");
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
-  return { user, loading, error, register, login };
+  return { user, loading, error, register, login, logout };
 }
