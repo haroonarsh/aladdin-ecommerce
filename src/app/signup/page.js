@@ -22,8 +22,7 @@ export default function SignupPage() {
         Email: '',
         PhoneNo: '',
         Password: '',
-        Date: '',
-        Gender: ''
+        Date: ''
     })
 
     // Handle form field changes
