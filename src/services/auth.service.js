@@ -10,4 +10,9 @@ export const authService = {
         const response = await api.post("/api/user/login", formData);
         return response.data;
     },
+
+    async logout() {
+        const response = await api.post("/api/user/logout");
+        return response.data;
+    }
 };
