@@ -12,6 +12,7 @@ import { MdOutlinePayments } from "react-icons/md";
 import { MdOutlineSettings } from "react-icons/md";
 import { MdHelpOutline } from "react-icons/md";
 import { VscSignOut } from "react-icons/vsc";
+import { useAuth } from '@/hooks/useAuth';
 
 const image = './public/customer/seller.png'
 
@@ -19,11 +20,21 @@ function ProfileSideBar() {
 
     const router = useRouter();
     const pathname = usePathname();
+    const { logout } = useAuth();
 
     // Get user data from local storage
     const data = localStorage.getItem("UserData");
     const userData = JSON.parse(data);
     console.log("Parsed UserData", userData); // Log the parsed user data
+
+    // Logout function
+    const handleLogout = () => {
+        try {
+            logout();
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    }
 
     const isActive = (path) => pathname === path ? "bg-cyan-600 text-white" : "text-black hover:bg-cyan-600 hover:text-white transition cursor-pointer";
 
@@ -62,7 +73,7 @@ function ProfileSideBar() {
                             onClick={() => router.push("/account/help")}
                             ><MdHelpOutline /> Need Help</li>
                             <li className={`flex items-center gap-2 text-xl h-13 font-semibold border-t border-cyan-600 font-sans p-2 cursor-pointer ${isActive("/account/logout")}`}
-                            onClick={() => router.push("/account/logout")}
+                            onClick={handleLogout}
                             ><VscSignOut /> Sign Out</li>
                         </ul>
                     </div>
