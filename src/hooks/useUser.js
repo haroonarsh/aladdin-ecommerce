@@ -19,7 +19,7 @@ export const useUser = () => {
                 const data = response.data.user;
 
                 if (data.length === 0 || data === undefined || data === null) {
-                    setError("No user data found");
+                    console.log("No user data found");
                     router.push("/login"); // Redirect to login page if no user data is found
                     return;
                 }
@@ -40,6 +40,7 @@ export const useUser = () => {
 
     const updateUser = async (token, formData) => {
         try {
+            localStorage.removeItem('UserData'); // Remove old user data from local storage
             const response = await userService.updateUser(token, formData);
             const data = response.data.user;
             setUsers(data);
