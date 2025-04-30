@@ -35,6 +35,11 @@ export const useAuth = () => {
             localStorage.removeItem('UserData');
             localStorage.removeItem('jwt'); // Remove JWT token from local storage
             const { user } = await authService.login(userData);
+
+            // if (user === undefined || user === null) {
+            //     toast.error("Login failed! Please try again.");
+            //     return;
+            // }
             setUser(user);
             toast.success("Login successful! Redirecting to products page...");
             setTimeout(() => {
@@ -42,7 +47,7 @@ export const useAuth = () => {
             }, 4000);
             return user; // Return user data if needed
         } catch (error) {
-            toast.error(user.message);
+            toast.error(user.message || "Login failed! Please try again.");
             setError(error);
         } finally {
             setLoading(false);

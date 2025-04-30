@@ -42,7 +42,7 @@ function ProfileSideBar() {
     <div className='w-2/7 border border-cyan-700'>
                     <div className='min-h-[300px] bg-cyan-700  text-white flex flex-col items-center justify-center gap-2'>
                         <img className=' w-24  h-24 object-cover rounded-full' src={userData?.ProfileImage} alt="Profile image" />
-                        <h1 className='text-center text-2xl text-white'>User Name</h1>
+                        <h1 className='text-center text-2xl text-white'>{userData?.FirstName}</h1>
                         <button className='border border-white rounded-md p-2 text-xl font-semibold font-sans flex items-center gap-2'><span className='text-sm font-normal'>Balance</span> $4,500</button>
                     </div>
                         {/* // Links */}
