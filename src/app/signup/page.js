@@ -43,7 +43,7 @@ export default function SignupPage() {
     // Show error toast when there's an error
     useEffect(() => {
         if (error) {
-            toast.error(error.message)
+            toast.error(error.message || "Registration failed! Please try again.");
         }
     }, [error]);
 
@@ -228,8 +228,9 @@ export default function SignupPage() {
                         </div>
 
                         <div className="mt-6 grid grid-cols-2 gap-3">
-                            <button
-                                type="button"
+                            <Link
+                                href="http://localhost:5000/auth/google"
+                                // type="button"
                                 // onClick={handleGoogleLogin}
                                 className="flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
                             >
@@ -252,7 +253,7 @@ export default function SignupPage() {
                                     />
                                 </svg>
                                 Google
-                            </button>
+                            </Link>
 
                             <button
                                 type="button"
