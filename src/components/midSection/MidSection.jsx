@@ -9,9 +9,10 @@ function MidSection() {
 
   const router = useRouter();
   const { fetchUser } = useUser();
-  const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
+  // const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
 
   const handleToken = async () => {
+  const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
     if (storedToken) {
       await fetchUser(storedToken);
     }
