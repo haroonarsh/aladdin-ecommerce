@@ -18,11 +18,12 @@ export const useAuth = () => {
             setUser(user);
             toast.success("Registration successful! Redirecting to products page...");
             setTimeout(() => {
-                router.push('/login'); // Redirect to products page after registration
+                router.push('/products-page'); // Redirect to products page after registration
             }, 4000);
             return user; // Return user data if needed
         } catch (error) {
-            toast.error(error.user.message || "Registration failed! Please try again.");
+            toast.error(error.response?.data?.message || "Registration failed! Please try again.");
+            console.log("Registration error:", error);
             setError(error.message);
         } finally {
             setLoading(false);
@@ -47,7 +48,7 @@ export const useAuth = () => {
             }, 4000);
             return user; // Return user data if needed
         } catch (error) {
-            toast.error(user.message || "Login failed! Please try again.");
+            toast.error(error.response?.data?.message || "Login failed! Please try again.");
             setError(error);
         } finally {
             setLoading(false);
