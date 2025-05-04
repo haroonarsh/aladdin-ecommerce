@@ -2,7 +2,7 @@
 
 
 import { usePathname, useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { LiaChessKingSolid } from "react-icons/lia";
 import { MdOutlineLocalShipping } from "react-icons/md";
@@ -13,6 +13,9 @@ import { MdOutlineSettings } from "react-icons/md";
 import { MdHelpOutline } from "react-icons/md";
 import { VscSignOut } from "react-icons/vsc";
 import { useAuth } from '@/hooks/useAuth';
+import { useUser } from '@/hooks/useUser';
+import { BiEditAlt } from "react-icons/bi";
+import { toast } from 'react-toastify';
 
 const image = './public/customer/seller.png'
 
@@ -21,6 +24,11 @@ function ProfileSideBar() {
     const router = useRouter();
     const pathname = usePathname();
     const { logout } = useAuth();
+    const { updateImage, loading } = useUser();
+    const [preveiw, setPreveiw] = useState(null);
+    const [form, setForm] = useState({
+        ProfileImage: "",
+    });
 
     // Get user data from local storage
     const data = localStorage.getItem("UserData");
@@ -36,13 +44,54 @@ function ProfileSideBar() {
         }
     }
 
+    // Handle image change
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setPreveiw(URL.createObjectURL(file));
+        setForm({
+            ...form,
+            ProfileImage: file,
+        });
+    }
+    // Handle image upload
+    const handleImageUpload = async (e) => {
+        e.preventDefault();
+        if (!form.ProfileImage) {
+            toast.error("No image selected");
+            return;
+        }
+        try {
+            const image = new FormData();
+            image.append("ProfileImage", form.ProfileImage);
+            
+            await updateImage(image);  
+            
+        } catch (error) {
+            console.error("Image update failed:", error);
+        }
+    }
+
     const isActive = (path) => pathname === path ? "bg-cyan-600 text-white" : "text-black hover:bg-cyan-600 hover:text-white transition cursor-pointer";
 
   return (
     <div className='w-2/7 border border-cyan-700'>
                     <div className='min-h-[300px] bg-cyan-700  text-white flex flex-col items-center justify-center gap-2'>
-                        <img className=' w-24  h-24 object-cover rounded-full' src={userData?.ProfileImage} alt="Profile image" />
-                        <h1 className='text-center text-2xl text-white'>{userData?.FirstName}</h1>
+                    <div className='relative'>
+                        <img className='w-24 h-24 object-cover rounded-full' src={ preveiw ||userData?.ProfileImage } alt="Profile image" />
+                        <label htmlFor="fileInput" className='absolute bottom-0 right-0 w-7 h-7 rounded-full bg-cyan-600 flex items-center justify-center cursor-pointer'>
+                        <BiEditAlt />
+                        </label>
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            id="fileInput"
+                            name='fileInput'
+                            onChange={handleImageChange} 
+                            className='hidden' 
+                        />
+                    </div>
+                        <button className='border border-white rounded-md p-2 text-xl font-semibold font-sans flex items-center gap-2' onClick={handleImageUpload}><span className='text-sm font-normal'>{loading ? "" : "Change"}</span>{loading ? "Changing..." : "Image"}</button>
+                        <h1 className='text-center text-2xl text-white'>{loading ? "Loading..." : userData?.FirstName}</h1>
                         <button className='border border-white rounded-md p-2 text-xl font-semibold font-sans flex items-center gap-2'><span className='text-sm font-normal'>Balance</span> $4,500</button>
                     </div>
                         {/* // Links */}
