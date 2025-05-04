@@ -119,13 +119,6 @@ function PersonalInfo() {
       console.error("Error updating user data:", error); // Log the error
       return;
     }
-
-    
-    // Save updated data to local storage
-    // localStorage.setItem("UserData", JSON.stringify(updatedData));
-    // setUserData(updatedData);
-
-    // Optionally, you can send the updated data to your backend or perform any other actions here
   }
       
         // Close dropdown when clicking outside
