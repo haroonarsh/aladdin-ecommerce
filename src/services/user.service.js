@@ -19,5 +19,16 @@ export const userService = {
         });
         const data = response.data;
         return data; 
+    },
+
+    async updateImage(image) {
+        const response = await api.put("/api/user/updateImage", image, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "multipart/form-data",
+            }
+        })
+        const data = response.data;
+        return data;
     }
 };
