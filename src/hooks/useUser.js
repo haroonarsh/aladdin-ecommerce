@@ -27,7 +27,7 @@ export const useUser = () => {
                 console.log("Fetched User data:", data); // Log the user data
                 localStorage.setItem("UserData", JSON.stringify(data)); // Store user data in local storage
             } catch (error) {
-                setError(error.message || "Failed to fetch user data");
+                console.error("Error fetching user data:", error);
                 router.push("/login"); // Redirect to login page if there's an error
             } finally {
                 setLoading(false);
@@ -39,6 +39,8 @@ export const useUser = () => {
     // }, [user]);
 
     const updateUser = async (token, formData) => {
+        setLoading(true);
+        setError(null);
         try {
             localStorage.removeItem('UserData'); // Remove old user data from local storage
             const response = await userService.updateUser(token, formData);
@@ -50,16 +52,32 @@ export const useUser = () => {
             localStorage.setItem("UserData", JSON.stringify(data)); // Store updated user data in local storage
 
         } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to update user data");
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
-            setError(error.message || "Failed to update user data");
-            const html = error.response.data;
-            const start = html.indexOf('<pre>') + 5;
-            const end = html.indexOf('<br>', start);
-            const message = html.substring(start, end).trim();
-            toast.error(message); // Display the error message to the user
+    const updateImage = async (image) => {
+        setLoading(true);
+        setError(null);
+        try {
+            localStorage.removeItem('UserData'); // Remove old user data from local storage
+            const response = await userService.updateImage(image);
+            const data = response.data.user;
+            setUsers(data);
+            console.log("Updated User image:", data); // Log the updated user image
+            localStorage.setItem("UserData", JSON.stringify(data)); // Store updated user image in local storage
+            toast.success(response.message || "Image updated successfully");
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to update user image");
+            setError(error);
+        } finally {
+            setLoading(false);
         }
     }
 
 
-    return { users, loading, error, fetchUser, updateUser };
+    return { users, loading, error, fetchUser, updateUser, updateImage };
 }

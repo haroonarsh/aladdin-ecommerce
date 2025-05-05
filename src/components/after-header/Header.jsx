@@ -7,6 +7,7 @@ import { RiSearchLine } from "react-icons/ri"
 import { FaCaretDown } from "react-icons/fa";
 import { useRouter } from "next/navigation"
 import { useUser } from "@/hooks/useUser"
+import NetworkCheck from "@/hooks/NetworkCheck"
 
 export default function AladdinHeaderCustom() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -43,6 +44,24 @@ export default function AladdinHeaderCustom() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+    // Check if the user is online or offline
+    const isOnline = NetworkCheck();
+
+    if (!isOnline) {
+      return (
+        <div className="absolute top-2 font-sans w-full m-0 flex items-center justify-center">
+          <div className="text-center p-8 bg-white rounded-xl shadow-md">
+            <h1 className="text-xl font-semibold text-red-500">
+              No Connection Found
+            </h1>
+            <p className="text-gray-600">
+              Please check your internet connection.
+            </p>
+          </div>
+        </div>
+      );
+    }
 
   return (
     <header className="w-full ">
