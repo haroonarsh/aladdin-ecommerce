@@ -50,7 +50,7 @@ export default function AladdinHeaderCustom() {
 
     if (!isOnline) {
       return (
-        <div className="absolute top-2 font-sans w-full m-0 flex items-center justify-center">
+        <div className="absolute top-2 font-sans w-full h-screen bg-[#2B2B2B] opacity-80 m-0 flex items-center justify-center">
           <div className="text-center p-8 bg-white rounded-xl shadow-md">
             <h1 className="text-xl font-semibold text-red-500">
               No Connection Found
