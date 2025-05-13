@@ -49,17 +49,17 @@ function Hero() {
     const currentItem = scrollData[activeIndex];
 
     return (
-        <div className='flex justify-between items-center w-full mt-20 pl-5 pr-5 border-b-2 border-gray-300' style={{ height: "500px" }}>
+        <div className='flex justify-between items-center w-full h-full mt-20 pl-5 pr-5 border-b-2 bg-white border-gray-300' style={{ minHeight: "500px" }}>
             <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className='text-xl neutral6-bg neutral1 rounded-full p-3 cursor-pointer'
+                className='hidden lg:block text-xl neutral6-bg neutral1 rounded-full p-3 cursor-pointer'
                 onClick={handlePrev}
             >
                 <FaAngleLeft />
             </motion.div>
 
-            <div className='flex justify-between gap-9 items-center w-full ml-32 mr-32 overflow-hidden'>
+            <div className='grid grid-cols-1 justify-center lg:flex lg:justify-between gap-9 items-center w-full ml-2 mr-2 lg:ml-32 lg:mr-32 overflow-hidden'>
                 <AnimatePresence mode='wait'>
                     <motion.div
                         key={activeIndex}
@@ -67,9 +67,9 @@ function Hero() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 50 }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                        className='w-1/2'
+                        className='w-full lg:items-start flex flex-col items-center lg:w-1/2'
                     >
-                        <h1 className='text-5xl font-bold'
+                        <h1 className='text-[3rem] md:text-[6vw] lg:text-5xl font-bold'
                         >
                             {currentItem.heading}
                                 <motion.span
@@ -77,7 +77,7 @@ function Hero() {
                                     initial={{ y: 20 }}
                                     animate={{ y: 0 }}
                                     transition={{ delay: 0.3 }}
-                                    className='block text-5xl font-bold neutral11'
+                                    className='block md:text-[6vw] lg:text-5xl font-bold neutral11'
                                 >
                                 {currentItem.span}
                                 </motion.span>
@@ -87,7 +87,7 @@ function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3 }}
-                            className='mt-5 w-2/3 neutral9 mb-5'
+                            className='mt-5 text-sm lg:text-base lg:w-2/3 neutral9 mb-5'
                         >
                             {currentItem.pargh}
                         </motion.p>
@@ -107,7 +107,7 @@ function Hero() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                        className='w-2/3 h-96 flex items-end justify-end'
+                        className='w-full lg:w-2/3 h-96 flex items-end justify-end'
                     >
                         <motion.img
                             src={currentItem.img}
@@ -125,7 +125,7 @@ function Hero() {
             <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className='text-xl neutral6-bg neutral1 rounded-full p-3 cursor-pointer'
+                className='hidden lg:block text-xl neutral6-bg neutral1 rounded-full p-3 cursor-pointer'
                 onClick={handleNext}
             >
                 <FaAngleRight />

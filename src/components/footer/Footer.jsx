@@ -176,7 +176,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="text-sm text-white/80 flex justify-center items-center">
-          <p>
+          <p className="text-center">
             Copyright © 2025 Aladdin Templates | All Rights Reserved |
             <Link href="#" className="hover:underline ml-1">
               Terms and Conditions
