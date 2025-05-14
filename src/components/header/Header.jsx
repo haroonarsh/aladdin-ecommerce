@@ -105,7 +105,11 @@ function Header({ token }) {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed top-18 left-0 w-full bg-white p-4 z-10">
+        <div className={`lg:hidden fixed top-18 left-0 w-full bg-white p-4 z-10 ${
+          pathname === "/" || pathname === "/home" || pathname === "/about" || pathname === "/contact"
+            ? active
+            : inactive
+        }`}>
           <ul className="flex flex-col gap-4">
             <Link href="/" className="hover:text-gray-200 cursor-pointer">Home</Link>
             <Link href="/about" className="hover:text-gray-200 cursor-pointer">About Us</Link>
