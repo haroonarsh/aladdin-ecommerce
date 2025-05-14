@@ -44,7 +44,7 @@ function page() {
         <AladdinHeaderCustom />
 
             {/* // Banner */}
-        <div className='primary6-bg w-full h-[200px] text-white flex flex-col items-center justify-center'>
+        <div className='primary6-bg w-full h-[200px] mt-[4rem] lg:mt-[6.5rem] text-white flex flex-col items-center justify-center'>
             <h1 className='text-5xl font-bold text-white'>Aladdin Best sells</h1>
             <p className='pt-2 neutral3'>Our most populer products based on sales.</p>
         </div>

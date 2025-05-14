@@ -375,7 +375,7 @@ export default function AladdinHeaderCustom() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed top-[4rem] left-0 w-full bg-cyan-800 text-white p-4 z-10">
+        <div className="lg:hidden fixed top-[4rem] left-0 w-full h-fit bg-cyan-800 text-white p-4 z-10">
           <div className="flex justify-between lg:hidden items-center text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -443,13 +443,40 @@ export default function AladdinHeaderCustom() {
                 <span className="ml-1 font-semibold">Cart</span>
               </Link>
             </div>
-          <ul className="flex flex-col gap-4">
-            <Link href="/" className="hover:text-gray-200 cursor-pointer">Home</Link>
-            <Link href="/about" className="hover:text-gray-200 cursor-pointer">About Us</Link>
-            <li className="hover:text-gray-200 cursor-pointer" onClick={() => router.push("/products-page")}>Shop</li>
-            <Link href="/contact" className="hover:text-gray-200 cursor-pointer">Contact Us</Link>
-            <Link href="/account/personal-info" className="hover:text-gray-200 cursor-pointer">My Account</Link>
-          </ul>
+            {/* Bottom navigation */}
+          <div className="lg:hidden mt-4 text-white">
+            <nav className="flex items-start flex-col gap-2 text-sm">
+              <Link href="/customer-service" className="hover:underline">
+                Customer Service
+              </Link>
+              <Link href="/aladdin-basics" className="hover:underline">
+                Aladdin Basics
+              </Link>
+              <Link href="/best-sellers" className="hover:underline">
+                Best Sellers
+              </Link>
+              <Link href="/todays-deals" className="hover:underline">
+                Today's Deals
+              </Link>
+              <Link href="/fashion" className="hover:underline">
+                Fashion
+              </Link>
+              <Link href="/new-releases" className="hover:underline">
+                New Releases
+              </Link>
+              <Link href="/pharmacy" className="hover:underline">
+                Aladdin Pharmacy
+              </Link>
+              <Link href="/home" className="hover:underline">
+                Aladdin Home
+              </Link>
+            </nav>
+            <div className="ml-auto font-semibold">
+              <Link href="/black-history-month" className="hover:underline">
+                Black History Month
+              </Link>
+            </div>
+      </div>
         </div>
       )}
     </>
