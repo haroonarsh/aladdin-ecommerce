@@ -137,14 +137,14 @@ function PersonalInfo() {
 
   return (
     <>
-        <div className="pl-6 md:pl-8">
-              <h2 className="mb-6 text-2xl font-semibold text-cyan-800">Personal Information</h2>
+        <div className="sm:pl-2 pl-1 sm:pr-2 pr-1 md:pl-8">
+              <h2 className="mb-6 md:text-2xl text-xl font-semibold text-cyan-800">Personal Information</h2>
         
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid gap-4 md:grid-cols-2">
                   {/* First Name */}
                   <div>
-                    <label htmlFor="firstName" className="mb-1 block text-gray-700">
+                    <label htmlFor="firstName" className="md:mb-1 mb-0.5 md:text-[16px] text-sm block text-gray-700">
                       First Name
                     </label>
                     <input
@@ -153,13 +153,13 @@ function PersonalInfo() {
                       value={formData.FirstName}
                       onChange={handleInputChange}
                       name="FirstName"
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                      className="w-full md:text-[16px] text-sm rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                     />
                   </div>
         
                   {/* Last Name */}
                   <div>
-                    <label htmlFor="lastName" className="mb-1 block text-gray-700">
+                    <label htmlFor="lastName" className="md:mb-1 mb-0.5 md:text-[16px] text-sm block text-gray-700">
                       Last Name
                     </label>
                     <input
@@ -168,14 +168,14 @@ function PersonalInfo() {
                       value={formData.LastName}
                       onChange={handleInputChange}
                       name="LastName"
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                      className="w-full md:text-[16px] text-sm rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                     />
                   </div>
                 </div>
         
                 {/* Email Address */}
                 <div>
-                  <label htmlFor="email" className="mb-1 block text-gray-700">
+                  <label htmlFor="email" className="md:mb-1 mb-0.5 md:text-[16px] text-sm block text-gray-700">
                     Email Address
                   </label>
                   <input
@@ -184,14 +184,14 @@ function PersonalInfo() {
                     value={formData.Email}
                     onChange={handleInputChange}
                     name="Email"
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                    className="w-full md:text-[16px] text-sm rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                   />
                 </div>
         
                 <div className="grid gap-4 md:grid-cols-2">
                   {/* Phone Number with Country Selector */}
                   <div>
-                    <label htmlFor="phone" className="mb-1 block text-gray-700">
+                    <label htmlFor="phone" className="md:mb-1 mb-0.5 md:text-[16px] text-sm block text-gray-700">
                       Phone number
                     </label>
                     <div className="flex">
@@ -243,7 +243,7 @@ function PersonalInfo() {
                         value={formData.PhoneNo}
                         onChange={handleInputChange}
                         name="PhoneNo"
-                        className="w-full rounded-r-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                        className="w-full md:text-[16px] text-sm rounded-r-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                         placeholder={`${selectedCountry.dialCode}`}
                       />
                     </div>
@@ -251,7 +251,7 @@ function PersonalInfo() {
         
                   {/* Date */}
                   <div>
-                    <label htmlFor="date" className="mb-1 block text-gray-700">
+                    <label htmlFor="date" className="md:mb-1 mb-0.5 md:text-[16px] text-sm block text-gray-700">
                       Date
                     </label>
                     {/* <div className="relative"> */}
@@ -261,7 +261,7 @@ function PersonalInfo() {
                         dateFormat="dd/MM/yyyy"
                         name="Date"
                         placeholder="DD/MM/YYYY"
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                        className="w-full md:text-[16px] text-sm rounded-md border border-gray-300 px-3 py-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                         showYearDropdown
                         dropdownMode='select'
                         maxDate={new Date()}
@@ -279,22 +279,22 @@ function PersonalInfo() {
                   <button
                     type="button"
                     onClick={() => setGender("Male")}
-                    className={`flex h-20 w-20 flex-col items-center justify-center rounded-md border border-cyan-700 transition-colors ${
+                    className={`flex md:h-20 h-16 md:w-20 w-16 flex-col items-center justify-center rounded-md border border-cyan-700 transition-colors ${
                       gender === "Male" ? "bg-cyan-700 text-white" : "bg-white text-cyan-700"
                     }`}
                   >
-                    <IoMdMale className="h-8 w-8" />
+                    <IoMdMale className="md:h-8 h-6 md:w-8 w-6" />
                     <span className="mt-1 text-sm">Male</span>
                   </button>
         
                   <button
                     type="button"
                     onClick={() => setGender("Female")}
-                    className={`flex h-20 w-20 flex-col items-center justify-center rounded-md border border-cyan-700 transition-colors ${
+                    className={`flex md:h-20 h-16 md:w-20 w-16 flex-col items-center justify-center rounded-md border border-cyan-700 transition-colors ${
                       gender === "Female" ? "bg-cyan-700 text-white" : "bg-white text-cyan-700"
                     }`}
                   >
-                    <IoMdFemale className="h-8 w-8" />
+                    <IoMdFemale className="md:h-8 h-6 md:w-8 w-6" />
                     <span className="mt-1 text-sm">Female</span>
                   </button>
                 </div>
