@@ -59,29 +59,29 @@ export default function Orders() {
     }
 
     return (
-        <div className="w-full mx-auto">
-            <h1 className="text-2xl font-semibold text-cyan-800 mb-8">My Orders</h1>
+        <div className="w-full mx-auto md:p-6 p-2">
+            <h1 className="md:text-2xl text-xl font-semibold text-cyan-800 mb-8">My Orders</h1>
 
-            <div className="space-y-6">
+            <div className="md:space-y-6 space-y-4">
                 {orders.map((order) => (
                     <div key={order.id} className="bg-cyan-800 shadow-lg rounded-lg overflow-hidden">
                         <div
-                            className="p-6 flex items-center justify-between cursor-pointer"
+                            className="md:p-6 sm:p-4 p-2 flex items-center justify-between cursor-pointer"
                             onClick={() => toggleOrderDetails(order.id)}
                         >
-                            <div className="flex items-center gap-4">
-                                <Package className="text-white" size={24} />
+                            <div className="flex items-center md:gap-4 sm:gap-1.5 gap-0.5">
+                                <Package className="text-white" size={22} />
                                 <div>
-                                    <p className="text-white font-medium">Order #{order.id}</p>
-                                    <p className="text-sm text-gray-200">
+                                    <p className="text-white md:text-[16px] text-sm font-medium">Order #{order.id}</p>
+                                    <p className="md:text-sm text-xs text-gray-200">
                                         {new Date(order.date).toLocaleDateString()}
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center md:gap-4 sm:gap-2 gap-0.5">
                                 <div>
-                                    <p className="text-white font-medium">${order.total.toFixed(2)}</p>
-                                    <p className={`text-sm text-gray-400 ${getStatusClass(order.status)}`}>{order.status}</p>
+                                    <p className="text-white md:text-[16px] sm:text-sm text-xs font-medium">${order.total.toFixed(2)}</p>
+                                    <p className={`md:text-sm text-xs text-gray-400 ${getStatusClass(order.status)}`}>{order.status}</p>
                                 </div>
                                 {expandedOrder === order.id ? (
                                     <ChevronUp className="text-gray-200" size={20} />
