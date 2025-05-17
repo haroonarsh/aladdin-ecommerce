@@ -29,10 +29,10 @@ const transactions = [
 
 export default function TransactionHistory() {
     return (
-        <div className="bg-cyan-800 shadow-lg rounded-lg p-6">
+        <div className="bg-cyan-800 shadow-lg rounded-lg md:p-6 p-2">
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg text-white">Transaction History</h2>
-                <button className="text-gray-300 hover:text-white transition-all duration-200 text-sm">
+                <h2 className="md:text-lg text-md text-white">Transaction History</h2>
+                <button className="text-gray-300 hover:text-white transition-all duration-200 md:text-sm text-[12px]">
                     View All
                 </button>
             </div>
@@ -40,9 +40,9 @@ export default function TransactionHistory() {
                 {transactions.map((transaction) => (
                     <div
                         key={transaction.id}
-                        className="flex items-center justify-between p-4 bg-cyan-700 rounded-lg"
+                        className="flex items-center justify-between md:p-4 p-1 bg-cyan-700 rounded-lg"
                     >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center md:gap-4 gap-1">
                             <div className={`
                 p-2 rounded-full
                 ${transaction.type === 'credit'
@@ -56,13 +56,13 @@ export default function TransactionHistory() {
                                 }
                             </div>
                             <div>
-                                <p className="text-white">{transaction.description}</p>
-                                <p className="text-sm text-gray-300">
+                                <p className="text-white md:text-[16px] text-[14px]">{transaction.description}</p>
+                                <p className="md:text-sm text-[10px] text-gray-300">
                                     {new Date(transaction.date).toLocaleDateString()} at {transaction.time}
                                 </p>
                             </div>
                         </div>
-                        <p className={`font-medium ${transaction.type === 'credit' ? 'text-green-500' : 'text-red-500'
+                        <p className={`font-medium md:text-[16px] sm:text-[14px] text-[12px] ${transaction.type === 'credit' ? 'text-green-500' : 'text-red-500'
                             }`}>
                             {transaction.type === 'credit' ? '+' : '-'}${transaction.amount.toFixed(2)}
                         </p>
