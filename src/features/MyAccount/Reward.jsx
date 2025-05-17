@@ -10,15 +10,15 @@ export default function Rewards() {
     const [activeTab, setActiveTab] = useState('available')
 
     return (
-        <div className="w-full mx-auto">
-            <h1 className="text-2xl font-semibold text-cyan-800 mb-8">My Rewards</h1>
+        <div className="w-full mx-auto md:p-6 p-2">
+            <h1 className="md:text-2xl text-xl font-semibold text-cyan-800 mb-8">My Rewards</h1>
 
             <RewardsTier points={1250} tier="Gold" />
 
             <div className="mt-8 bg-gray-800 rounded-lg overflow-hidden">
                 <div className="flex border-b border-gray-700">
                     <button
-                        className={`flex-1 py-4 px-6 text-sm font-medium ${activeTab === 'available'
+                        className={`flex-1 md:py-4 py-2 md:px-6 px-4 md:text-sm text-xs font-medium ${activeTab === 'available'
                             ? 'bg-cyan-800 text-white'
                             : 'text-gray-300 hover:text-white'
                             }`}
@@ -28,7 +28,7 @@ export default function Rewards() {
                         Available Rewards
                     </button>
                     <button
-                        className={`flex-1 py-4 px-6 text-sm font-medium ${activeTab === 'history'
+                        className={`flex-1 md:py-4 py-2 md:px-6 px-4 md:text-sm text-xs font-medium ${activeTab === 'history'
                             ? 'bg-cyan-800 text-white'
                             : 'text-gray-300 hover:text-white'
                             }`}
@@ -38,7 +38,7 @@ export default function Rewards() {
                         Points History
                     </button>
                 </div>
-                <div className="p-6">
+                <div className="md:p-6 p-2">
                     {activeTab === 'available' ? <AvailableRewards /> : <PointsHistory />}
                 </div>
             </div>
