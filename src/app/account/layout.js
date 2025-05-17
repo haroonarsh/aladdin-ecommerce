@@ -11,7 +11,7 @@ export default async function AccountLayout({ children }) {
         <div className='max-w-[1300px] mx-auto flex lg:mt-[6.75rem] mt-[4.25rem] mb-6 font-sans'>
             <ProfileSideBar />
             <main className='w-5/8'>
-              <div className=" md:pl-8">
+              <div className="md:pl-8">
                 { children }
               </div>
             </main>
