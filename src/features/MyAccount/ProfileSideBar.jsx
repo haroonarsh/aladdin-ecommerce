@@ -29,10 +29,11 @@ function ProfileSideBar() {
     const [form, setForm] = useState({
         ProfileImage: "",
     });
+    const { users} = useUser();
 
     // Get user data from local storage
-    const data = localStorage.getItem("UserData");
-    const userData = JSON.parse(data);
+    // const data = localStorage.getItem("UserData");
+    const userData = users;
     console.log("Parsed UserData", userData); // Log the parsed user data
 
     // Logout function
