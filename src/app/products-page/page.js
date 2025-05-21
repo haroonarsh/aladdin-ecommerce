@@ -41,7 +41,7 @@ function page() {
   return (
     <>
             {/* // Header */}
-        <AladdinHeaderCustom />
+        {/* <AladdinHeaderCustom /> */}
 
             {/* // Banner */}
         <div className='primary6-bg w-full h-[200px] mt-[4rem] lg:mt-[6.5rem] text-white flex flex-col items-center justify-center'>
