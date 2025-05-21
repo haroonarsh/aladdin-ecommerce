@@ -6,7 +6,7 @@ export default async function AccountLayout({ children }) {
   return (
     <>
         {/* // header */}
-        <AladdinHeaderCustom />
+        {/* <AladdinHeaderCustom /> */}
         {/* // Main Content */}
         <div className='max-w-[1300px] mx-auto flex lg:mt-[6.75rem] mt-[4.25rem] mb-6 font-sans'>
             <ProfileSideBar />
