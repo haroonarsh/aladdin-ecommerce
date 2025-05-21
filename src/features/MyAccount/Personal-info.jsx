@@ -29,7 +29,7 @@ function PersonalInfo() {
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
   const countryDropdownRef = useRef(null)
   const [startDate, setStartDate] = useState(null);
-  const { updateUser, loading, error } = useUser();
+  const { updateUser, users, loading, error } = useUser();
   
   // Get user data from local storage
   const [userData, setUserData] = useState(null);
@@ -43,9 +43,12 @@ function PersonalInfo() {
     CountryCode: '',
   });
 
+
   // initializing form data from local storage
   useEffect(() => {
     const data = localStorage.getItem("UserData");
+    console.log("LocalUserData", data); // Log the user data
+    
     if (data) {
       const parsedData = JSON.parse(data);
       setUserData(parsedData);
