@@ -10,31 +10,55 @@ import NetworkCheck from "@/hooks/NetworkCheck";
 
 const inactive = "hidden";
 const active = "flex";
-function Header({ token }) {
+function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  console.log("TOKEN", token);
-  localStorage.setItem("jwt", token);
 
   // Check if the user is online or offline
-  const isOnline = NetworkCheck();
+  useEffect(() => {
+    const handleNetworkChange = () => {
+      const isOnline = navigator.onLine;  
+      if (!isOnline) {
+        alert("You are offline. Please check your internet connection.");
+      }
+    };
 
-  if (!isOnline) {
-    return (
-      <div className="fixed overflow-hidden top-0 font-sans w-full h-screen bg-[#2B2B2B] opacity-80 m-0 flex items-center justify-center">
-        <div className="text-center p-8 bg-white rounded-xl shadow-md">
-          <h1 className="text-xl font-semibold text-red-500">
-            No Connection Found
-          </h1>
-          <p className="text-gray-600">
-            Please check your internet connection.
-          </p>
-        </div>
-      </div>
-    );
-  }
+    window.addEventListener("online", handleNetworkChange);
+    window.addEventListener("offline", handleNetworkChange);
+
+    return () => {
+      window.removeEventListener("online", handleNetworkChange);
+      window.removeEventListener("offline", handleNetworkChange);
+    };
+  }, []);
+  // if (token !== null && token !== undefined) {
+  //   console.log("Tokener:", token); // Log the token value
+  //   localStorage.setItem("jwt", token);
+  // } else {
+  //   console.log("No token found in local storage");
+    
+  // }
+  
+
+  // Check if the user is online or offline
+  // const isOnline = NetworkCheck();
+
+  // if (!isOnline) {
+  //   return (
+  //     <div className="fixed overflow-hidden top-0 font-sans w-full h-screen bg-[#2B2B2B] opacity-80 m-0 flex items-center justify-center">
+  //       <div className="text-center p-8 bg-white rounded-xl shadow-md">
+  //         <h1 className="text-xl font-semibold text-red-500">
+  //           No Connection Found
+  //         </h1>
+  //         <p className="text-gray-600">
+  //           Please check your internet connection.
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   // Placeholder classes for active/inactive states
   // const active = 'some-class';
