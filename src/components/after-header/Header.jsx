@@ -37,7 +37,7 @@ export default function AladdinHeaderCustom({ token }) {
         }
         } catch (error) {
           console.error("Error fetching user data:", error);
-          router.push("/login"); // Redirect to login page if there's an error 
+          // router.push("/login"); // Redirect to login page if there's an error 
         }
       };
       useEffect(() => {

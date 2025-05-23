@@ -33,7 +33,7 @@ export const useUser = () => {
                 setUsers(data);
                 setError(null); // Clear any previous errors
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.log("Error fetching user data:", error);
                 setError(error);
                 router.push("/login"); // Redirect to login page if there's an error
             } finally {
