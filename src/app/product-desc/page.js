@@ -51,12 +51,7 @@ function page() {
         }
     }
 
-
-
-
-
-
-
+    // Thumbnails
     const thumbnails = [
         "/product-img/sideImg.png",
         "/product-img/sideImg2.png",
@@ -66,15 +61,12 @@ function page() {
 
   return (
     <>
-            {/* // Header */}
-        <AladdinHeaderCustom />
-
             {/* // Product Description */}
-        <div className='max-w-[1360px] mx-auto px-9 gap-12 flex items-start mt-12 font-sans pb-16 border-b-2 border-gray-200'>
+        <div className='max-w-[1360px] mx-auto lg:mt-[8rem] mt-[5.25rem] xl:px-9 px-4 lg:gap-12 gap-7 lg:flex grid items-start font-sans pb-16 border-b-2 border-gray-200'>
             {/* // left */}
-            <div className='flex gap-5 w-3/4 h-[77vh]'>
+            <div className='md:flex grid gap-5 lg:w-3/4 lg:h-[77vh] w-full h-full'>
                 <div
-                    className="w-full md:w-1/2 grid"
+                    className="md:w-full w-2/3 xl:w-1/2 lg:w-2/3 grid"
                     style={{
                         gridTemplateColumns: "",
                         gridTemplateRows: "",
@@ -101,65 +93,65 @@ function page() {
             />
         </div>
                 <div className='max-w-[420px]'>
-                    <h1 className='text-2xl font-bold font-sans'>Curology the sunscreen by curology is a noclog, grease-free (SPE 30 lotion).</h1>
-                    <p>Brand: <span className='primary8'>Curology</span></p>
-                    <div className='flex gap-2 items-center text-gray-500'><StarRating rating={5} maxRating={5} /> 337,762 rating</div>
-                    <p className='font-bold text-xl flex items-center'><span className='text-red-600'>$39.99</span> - $30.65</p>
-                    <hr className='my-3 max-w-[300px] text-gray-400'/>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className='flex items-center gap-2 cursor-pointer'>
+                    <h1 className='lg:text-2xl md:text-xl text-lg font-bold font-sans'>Curology the sunscreen by curology is a noclog, grease-free (SPE 30 lotion).</h1>
+                    <p className='text-gray-500 lg:text-[16px] md:text-sm text-xs'>Brand: <span className='primary8'>Curology</span></p>
+                    <div className='flex md:gap-2 gap-1 lg:text-[16px] md:text-sm text-xs items-center text-gray-500'><StarRating rating={5} maxRating={5} /> 337,762 rating</div>
+                    <p className='font-bold lg:text-xl md:text-lg text-md flex items-center'><span className='text-red-600'>$39.99</span> - $30.65</p>
+                    <hr className='my-3 lg:max-w-[300px] w-full text-gray-400'/>
+                    <div className="grid grid-cols-2 md:gap-4 gap-2">
+                        <div className='flex items-center md:gap-2 gap-1 cursor-pointer'>
                             <img className='w-1/2' src="/product-img/sideImg.png" alt="" />
                             <div>
-                                <p className='text-sm'>Curology + 2</p>
-                                <h1 className='text-sm font-bold'>$34.99</h1>
+                                <p className='md:text-sm text-xs'>Curology + 2</p>
+                                <h1 className='md:text-sm text-xs font-bold'>$34.99</h1>
                             </div>
                         </div>
-                        <div className='flex items-center gap-2 cursor-pointer'>
+                        <div className='flex items-center md:gap-2 gap-1 cursor-pointer'>
                             <img className='w-1/2' src="/product-img/sideImg2.png" alt="" />
                             <div>
-                                <p className='text-sm'>Curology + 2</p>
-                                <h1 className='text-sm font-bold'>$34.99</h1>
+                                <p className='md:text-sm text-xs'>Curology + 2</p>
+                                <h1 className='md:text-sm text-xs font-bold'>$34.99</h1>
                             </div>
                         </div>
-                        <div className='flex items-center gap-2 cursor-pointer'>
+                        <div className='flex items-center md:gap-2 gap-1 cursor-pointer'>
                             <img className='w-1/2' src="/product-img/sideImg3.png" alt="" />
                             <div>
-                                <p className='text-sm'>Curology + 2</p>
-                                <h1 className='text-sm font-bold'>$34.99</h1>
+                                <p className='md:text-sm text-xs'>Curology + 2</p>
+                                <h1 className='md:text-sm text-xs font-bold'>$34.99</h1>
                             </div>
                         </div>
-                        <div className='flex items-center gap-2 cursor-pointer'>
+                        <div className='flex items-center md:gap-2 gap-1 cursor-pointer'>
                             <img className='w-1/2' src="/product-img/sideImg4.png" alt="" />
                             <div>
-                                <p className='text-sm'>Curology + 2</p>
-                                <h1 className='text-sm font-bold'>$34.99</h1>
+                                <p className='md:text-sm text-xs'>Curology + 2</p>
+                                <h1 className='md:text-sm text-xs font-bold'>$34.99</h1>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             {/* // right */}
-            <div className='w-1/4 border-2 border-cyan-600 p-5 grid grid-cols-1'>
-            <h1 className='font-bold'>FREE delivery Sunday, February 5 on $25 of items shipped by Aladdin</h1>
-            <h1 className='font-bold pb-4 pt-3'>Or fastest delivery Wednesday, February 1 order within <span className='primary8'>20 hrs 41 mins</span></h1>
-            <p className='primary8 flex items-center gap-1.5'><FaLocationDot /> Deliver to New York 10001</p>
-            <p className='text-green-900 pb-3 pt-3'>In Stock.</p>
-            <button className='flex items-center gap-2 bg-cyan-800 text-white w-fit rounded-md py-2 px-3'><span className='font-bold border-r border-gray-400 pr-2 cursor-pointer'
+            <div className='lg:w-1/4 w-full border-2 border-cyan-600 md:p-5 p-2 grid grid-cols-1'>
+            <h1 className='font-bold md:text-[16px] text-sm'>FREE delivery Sunday, February 5 on $25 of items shipped by Aladdin</h1>
+            <h1 className='font-bold md:text-[16px] text-sm pb-4 pt-3'>Or fastest delivery Wednesday, February 1 order within <span className='primary8'>20 hrs 41 mins</span></h1>
+            <p className='primary8 flex items-center gap-1.5 md:text-[16px] text-sm'><FaLocationDot /> Deliver to New York 10001</p>
+            <p className='text-green-900 pb-3 pt-3 md:text-[16px] text-sm'>In Stock.</p>
+            <button className='flex items-center gap-2 bg-cyan-800 text-white w-fit rounded-md sm:py-2 py-1 sm:px-3 px-2'><span className='font-bold border-r border-gray-400 pr-2 cursor-pointer'
             onClick={increaseCount}
             >+</span>Qty: {count} <span className='font-bold border-l border-gray-400 pl-2 cursor-pointer'
             onClick={decreaseCount}
             >-</span></button>
-            <button className='flex items-center justify-center  bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3'>Contat supplier</button>
-            <button className='flex items-center justify-center  bg-white text-cyan-800 border-2 border-cyan-800 mt-5 rounded-md py-2 px-3 hover:bg-cyan-800 hover:text-white transition-all'>Chat now</button>
-            <h1 className='font-bold pt-3 pb-3 text-[18px]'>Puchase details</h1>
-            <p className='primary8 font-bold flex items-center cursor-pointer gap-1.5' onClick={() => router.push("/address")}><MdLocalShipping /> Shipping</p>
-            <p className='primary8 font-bold flex items-center cursor-pointer gap-1.5'><BiCheckShield /> Payments</p>
+            <button className='flex items-center justify-center bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3 md:text-[16px] text-sm'>Contat supplier</button>
+            <button className='flex items-center justify-center  bg-white text-cyan-800 border-2 border-cyan-800 mt-5 rounded-md py-2 px-3 hover:bg-cyan-800 hover:text-white transition-all md:text-[16px] text-sm'>Chat now</button>
+            <h1 className='font-bold pt-3 pb-3 md:text-[18px] text-sm'>Puchase details</h1>
+            <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5' onClick={() => router.push("/address")}><MdLocalShipping /> Shipping</p>
+            <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5'><BiCheckShield /> Payments</p>
             </div>
         </div>
 
                 {/* // Cards */}
 
-        <div className='max-w-[1360px] pl-5 pr-5 m-auto md:mt-7 mt-7 pb-13 border-b-2 border-gray-200'>
+        <div className='max-w-[1360px] xl:pl-5 pl-1 xl:pr-5 pr-1 m-auto md:mt-7 mt-7 pb-13 border-b-2 border-gray-200'>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {products.map((product) => (
                     <ProductCard key={product.id} product={product} />
@@ -168,27 +160,27 @@ function page() {
         </div>
                 
                 {/* // Product details */}
-        <div className='max-w-[1360px] pl-8 pr-8 m-auto mt-7 pb-11 border-b-2 border-gray-200'>
-            <h1 className='font-bold text-2xl primary8 pb-4'>Product details</h1>
-            <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Manufacturer:</span> Aladdin</p>
-            <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Product Dimensions:</span> 5inch</p>
-            <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Item molel number:</span> JA20502</p>
-            <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Date first available:</span> April 2024</p>
-            <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Product number:</span> AA797HH9</p>
-            <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Country Origin:</span> UK</p>
-            <p className='flex items-center gap-1.5 text-gray-700 pb-2'><span className='font-bold text-black'>Best sellers rank:</span> #1</p>
+        <div className='max-w-[1360px] xl:pl-8 pl-4 xl:pr-8 pr-4 m-auto mt-7 pb-11 border-b-2 border-gray-200'>
+            <h1 className='font-bold xl:text-2xl md:text-xl text-lg primary8 pb-4'>Product details</h1>
+            <p className='flex items-center gap-1.5 text-gray-700 pb-2 md:text-[16px] text-[14px]'><span className='font-bold text-black'>Manufacturer:</span> Aladdin</p>
+            <p className='flex items-center gap-1.5 text-gray-700 pb-2 md:text-[16px] text-[14px]'><span className='font-bold text-black'>Product Dimensions:</span> 5inch</p>
+            <p className='flex items-center gap-1.5 text-gray-700 pb-2 md:text-[16px] text-[14px]'><span className='font-bold text-black'>Item molel number:</span> JA20502</p>
+            <p className='flex items-center gap-1.5 text-gray-700 pb-2 md:text-[16px] text-[14px]'><span className='font-bold text-black'>Date first available:</span> April 2024</p>
+            <p className='flex items-center gap-1.5 text-gray-700 pb-2 md:text-[16px] text-[14px]'><span className='font-bold text-black'>Product number:</span> AA797HH9</p>
+            <p className='flex items-center gap-1.5 text-gray-700 pb-2 md:text-[16px] text-[14px]'><span className='font-bold text-black'>Country Origin:</span> UK</p>
+            <p className='flex items-center gap-1.5 text-gray-700 pb-2 md:text-[16px] text-[14px]'><span className='font-bold text-black'>Best sellers rank:</span> #1</p>
         </div>
 
                 {/* /// Customer reviews */}
-        <div className='max-w-[1360px] pl-2 pr-2 m-auto mt-7 pb-11 border-b-2 border-gray-200 flex items-start gap-3 justify-between'>
+        <div className='max-w-[1360px] pl-2 pr-2 m-auto mt-7 pb-11 border-b-2 border-gray-200 md:flex grid items-start gap-3 justify-between'>
                 {/* //left */}
             <div className='max-w-[500px] '>
                 <CustomerReviews />
             </div>
                 {/* // right */}
-            <div className='h-full w-4/6 p-6'>
-                <h1 className='font-bold text-2xl primary8 pb-4'>Reviews with images</h1>
-                <div className='flex items-center gap-5'>
+            <div className='h-full md:w-4/6 w-full xl:p-6 p-2'>
+                <h1 className='font-bold xl:text-2xl md:text-xl text-lg primary8 pb-4'>Reviews with images</h1>
+                <div className='flex items-center md:gap-5 gap-2'>
                     <div>
                     <img src="./customer/user2.png" alt="" />
                     </div>
@@ -199,19 +191,19 @@ function page() {
                     <img src="./customer/user3.png" alt="" />
                     </div>
                 </div>
-                <h1 className='font-bold text-xl pt-4 pb-4'>Top reviews from United states</h1>
-                <div className='flex items-center gap-3 mb-3'>
-                    <img className='w-17 h-full' src="./customer/seller.png" alt="" />
-                    <h1 className=' text-xl'>Saminatha</h1>
+                <h1 className='font-bold md:text-xl text-lg pt-4 pb-4'>Top reviews from United states</h1>
+                <div className='flex items-center md:gap-3 gap-1 mb-3'>
+                    <img className='md:w-17 w-14 h-full' src="./customer/seller.png" alt="" />
+                    <h1 className='md:text-lg text-[14px]'>Saminatha</h1>
                 </div>
-                <div className='flex items-center gap-3 font-semibold pb-4'>
+                <div className='flex items-center sm:gap-3 gap-1 sm:text-[16px] text-[14px] font-semibold pb-4'>
                 <StarRating rating={4} maxRating={5} />
                 Overall - greate for all price!
                 </div>
-                <p className='pb-2 text-gray-700'>Reviewed in the United States us on January 27, 2023</p>
-                <p className='pb-4 text-gray-800 flex items-center gap-7'><span>Fire TV Stick</span> Verified Purchase</p>
+                <p className='pb-2 text-gray-700 md:text-[16px] text-[14px]'>Reviewed in the United States us on January 27, 2023</p>
+                <p className='pb-4 text-gray-800 flex items-center gap-7 md:text-[16px] text-[14px]'><span>Fire TV Stick</span> Verified Purchase</p>
 
-                <p className='pb-4 text-gray-600 max-w-[650px]'>
+                <p className='pb-4 text-gray-600 max-w-[650px] md:text-[16px] text-[14px]'>
                     lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. added a review on January 27, 2023, rewarded by Saminatha.
                 </p>
                 <p className='pb-4 text-gray-500 text-sm'>19 people found this helpful</p>
@@ -225,18 +217,18 @@ function page() {
                 </div>
 
                         {/* Again addedd review */}
-                <div className='flex items-center gap-3 mb-3 mt-5'>
-                    <img className='w-17 h-full' src="./customer/seller.png" alt="" />
-                    <h1 className=' text-xl'>Saminatha</h1>
+                <div className='flex items-center md:gap-3 gap-1 mb-3 mt-5'>
+                    <img className='md:w-17 w-14 h-full' src="./customer/seller.png" alt="" />
+                    <h1 className='md:text-lg text-[14px]'>Saminatha</h1>
                 </div>
-                <div className='flex items-center gap-3 font-semibold pb-4'>
+                <div className='flex items-center sm:gap-3 gap-1 sm:text-[16px] text-[14px] font-semibold pb-4'>
                 <StarRating rating={4} maxRating={5} />
                 Overall - greate for all price!
                 </div>
-                <p className='pb-2 text-gray-700'>Reviewed in the United States us on January 27, 2023</p>
-                <p className='pb-4 text-gray-800 flex items-center gap-7'><span>Fire TV Stick</span> Verified Purchase</p>
+                <p className='pb-2 text-gray-700 md:text-[16px] text-[14px]'>Reviewed in the United States us on January 27, 2023</p>
+                <p className='pb-4 text-gray-800 flex items-center gap-7 md:text-[16px] text-[14px]'><span>Fire TV Stick</span> Verified Purchase</p>
 
-                <p className='pb-4 text-gray-600 max-w-[650px]'>
+                <p className='pb-4 text-gray-600 max-w-[650px] md:text-[16px] text-[14px]'>
                     lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. added a review on January 27, 2023, rewarded by Saminatha.
                 </p>
                 <p className='pb-4 text-gray-500 text-sm'>19 people found this helpful</p>

@@ -5,6 +5,7 @@ import Footer from "@/components/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import { AuthBanner } from "@/components/AuthBanner";
 import { cookies } from "next/headers";
+import AladdinHeaderCustom from "@/components/after-header/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +31,8 @@ export default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-          <AuthBanner />
-        <Header token={token} />
+        <Header />
+        <AladdinHeaderCustom token={token}/>
         <ToastContainer
           position="top-center"
           autoClose={5000}
@@ -46,7 +47,7 @@ export default async function RootLayout({ children }) {
           limit={3}
         />
           {children}
-        <Footer />
+        <Footer token={token}/>
       </body>
     </html>
   );

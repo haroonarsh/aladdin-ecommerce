@@ -3,10 +3,27 @@
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useEffect } from "react";
+import { useUser } from "@/hooks/useUser";
 
-export default function Footer() {
+export default function Footer({ token }) {
 
   const pathname = usePathname();
+  const { fetchUser, users } = useUser();
+  
+  // console.log("FooterUser:", users.LastName); // Log the user data
+  
+
+      const handleToken = async () => {
+        if (token) {
+          fetchUser(token); // Fetch user data using the token
+        } else {
+          console.log("No token found in local storage");
+        }
+      };
+      useEffect(() => {
+        handleToken()
+      }, []);
   return (
     <footer className={`bg-[#00566b] text-white py-12 ${pathname === "/" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/products-page" || pathname === "/products-desc" ? "block" : "hidden"}`}>
       {/* Footer Container */}
@@ -176,7 +193,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="text-sm text-white/80 flex justify-center items-center">
-          <p>
+          <p className="text-center">
             Copyright © 2025 Aladdin Templates | All Rights Reserved |
             <Link href="#" className="hover:underline ml-1">
               Terms and Conditions

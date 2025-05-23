@@ -6,6 +6,7 @@ const containerStyle = {
     width: "47.8rem",
     height: "256px",
     borderRadius: "10px",
+    overflow: "hidden",
 }
 
 const GoogleMaps = () => {

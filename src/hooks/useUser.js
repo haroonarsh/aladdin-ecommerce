@@ -5,17 +5,22 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 export const useUser = () => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const router = useRouter();
     const { user } = useAuth();
 
+    if (users !== null) {
+    console.log("User:", users.FirstName);
+        
+    }
+    
     // useEffect(() => {
         const fetchUser = async (token) => {
-            setLoading(true);
             try {
-                const response = await userService.getUser(token);
+                setLoading(true);
+                const response = await userService.getUser(token || user?.accessToken);
                 const data = response.data.user;
 
                 if (data.length === 0 || data === undefined || data === null) {
@@ -23,19 +28,21 @@ export const useUser = () => {
                     router.push("/login"); // Redirect to login page if no user data is found
                     return;
                 }
-                setUsers(data);
                 console.log("Fetched User data:", data); // Log the user data
                 localStorage.setItem("UserData", JSON.stringify(data)); // Store user data in local storage
+                setUsers(data);
+                setError(null); // Clear any previous errors
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.log("Error fetching user data:", error);
+                setError(error);
                 router.push("/login"); // Redirect to login page if there's an error
             } finally {
                 setLoading(false);
             }
         }
-        // if (user?.accessToken) {
-        //     fetchUser();
-        // }
+    //     if (user?.accessToken) {
+    //         fetchUser();
+    //     }
     // }, [user]);
 
     const updateUser = async (token, formData) => {
@@ -79,5 +86,5 @@ export const useUser = () => {
     }
 
 
-    return { users, loading, error, fetchUser, updateUser, updateImage };
+    return {fetchUser, updateUser, updateImage, users, loading, error};
 }

@@ -40,15 +40,15 @@ export default function CustomerReviews() {
   }
 
   return (
-    <div className="max-w-md rounded-lg p-6">
-      <h2 className="mb-3 text-2xl font-semibold primary8">Customer reviews</h2>
+    <div className="max-w-md rounded-lg xl:p-6 p-2">
+      <h2 className="mb-3 xl:text-2xl md:text-xl text-lg font-semibold primary8">Customer reviews</h2>
 
-      <div className="mb-2 flex items-center gap-2">
+      <div className="mb-2 flex items-center gap-2 md:text-[16px] text-[14px]">
         <div className="flex">{renderStars(averageRating)}</div>
-        <span className="text-gray-700">{averageRating} out of 5</span>
+        <span className="text-gray-700 md:text-[16px] text-[14px]">{averageRating} out of 5</span>
       </div>
 
-      <p className="mb-4 text-gray-700">{totalRatings.toLocaleString()} global ratings</p>
+      <p className="mb-4 text-gray-700 md:text-[16px] text-[14px]">{totalRatings.toLocaleString()} global ratings</p>
 
       <div className="space-y-2">
         {ratings.map((rating) => (

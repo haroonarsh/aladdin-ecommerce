@@ -46,11 +46,11 @@ export default function Location() {
     }
 
     return (
-        <div className="w-full p-6 mx-auto">
-            <h1 className="text-2xl font-semibold text-cyan-800 mb-8">My Locations</h1>
+        <div className="w-full mx-auto md:p-6 p-2">
+            <h1 className="md:text-2xl text-xl font-semibold text-cyan-800 mb-8">My Locations</h1>
 
 
-            <div className="shadow-lg h-64 rounded-lg mb-8 flex items-center justify-center">
+            <div className="shadow-lg h-64  rounded-lg mb-8 flex items-center justify-center">
                 <GoogleMaps />
             </div>
 
