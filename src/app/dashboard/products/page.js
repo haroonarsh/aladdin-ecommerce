@@ -4,18 +4,6 @@ import { useState } from "react"
 import Image from "next/image"
 import { Plus, Search, Filter, Edit, Trash2, Eye, Package } from "lucide-react"
 
-// type products = {
-//   id: string
-//   name: string
-//   category: string
-//   price: number
-//   stock: number
-//   status: "Active" | "Inactive" | "Out of Stock"
-//   image: string
-//   sku: string
-//   sales: number
-// }
-
 export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
