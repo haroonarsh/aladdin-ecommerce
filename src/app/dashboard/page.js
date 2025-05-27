@@ -3,16 +3,6 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { DollarSign, ShoppingBag, ShoppingCart } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Header from "@/features/header/Header"
-import { RxDashboard } from "react-icons/rx";
-import { AiOutlineShop } from "react-icons/ai";
-import { FiShoppingCart } from "react-icons/fi";
-import { MdOutlinePeopleAlt } from "react-icons/md";
-import { ImStatsDots } from "react-icons/im";
-import { FaPaintbrush } from "react-icons/fa6";
-import { IoSettingsOutline } from "react-icons/io5";
-import { MdOutlineLightMode } from "react-icons/md";
-import { MdOutlineDarkMode } from "react-icons/md";
 import LatestOrders from "@/features/LatestOrders"
 
 export default function Dashboard() {
@@ -50,7 +40,7 @@ export default function Dashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* Total Sales Card */}
           <Card>
-            <CardContent className="flex items-center gap-4 p-6">
+            <CardContent className="flex items-center lg:gap-4 gap-2 p-6">
               <div className="flex h-18 w-18 items-center justify-center rounded-full bg-orange-200">
                 <div className="flex h-15 w-15 items-center justify-center rounded-full bg-orange-400">
                   <DollarSign className="h-8 w-8 text-white" />
@@ -58,14 +48,14 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground neutral6">Total Sales</p>
-                <h3 className="text-2xl font-bold">$19,626,058.20</h3>
+                <h3 className="xl:text-2xl text-xl font-bold">$19,626,058.20</h3>
               </div>
             </CardContent>
           </Card>
 
           {/* Total Orders Card */}
           <Card>
-            <CardContent className="flex items-center gap-4 p-6">
+            <CardContent className="flex items-center lg:gap-4 gap-2 p-6">
             <div className="flex h-18 w-18 items-center justify-center rounded-full bg-green-200">
                 <div className="flex h-15 w-15 items-center justify-center rounded-full bg-green-600">
                   <DollarSign className="h-8 w-8 text-white" />
@@ -73,14 +63,14 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground neutral6">Total Orders</p>
-                <h3 className="text-2xl font-bold">3290</h3>
+                <h3 className="xl:text-2xl text-xl font-bold">3290</h3>
               </div>
             </CardContent>
           </Card>
 
           {/* Total Products Card */}
           <Card>
-            <CardContent className="flex items-center gap-4 p-6">
+            <CardContent className="flex items-center lg:gap-4 gap-2 p-6">
             <div className="flex h-18 w-18 items-center justify-center rounded-full bg-cyan-200">
                 <div className="flex h-15 w-15 items-center justify-center rounded-full bg-cyan-600">
                   <DollarSign className="h-8 w-8 text-white" />
@@ -88,7 +78,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground neutral6">Total Products</p>
-                <h3 className="text-2xl font-bold">497</h3>
+                <h3 className="xl:text-2xl text-xl font-bold">497</h3>
               </div>
             </CardContent>
           </Card>
