@@ -4,7 +4,8 @@ import Hero from '@/components/hero-section/Hero';
 import MidSection from '@/components/midSection/MidSection';
 import React from 'react'
 
-function page() {
+function page({ token }) {
+  console.log("Page Token:", token); // Log the token value
   return (
     <>
           <div>
@@ -13,7 +14,7 @@ function page() {
             <Hero />
 
               {/* // midSection */}
-            <MidSection />
+            <MidSection token={token} />
           </div>
     </>
   )
