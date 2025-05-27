@@ -34,54 +34,19 @@ export default function Dashboard() {
 
   return (
     <>
-    <container className="flex items-center justify-center w-full h-screen p-0 m-0">
-          {/* // SideBar */}
-      <div className="w-1/6 bg-white h-full shadow">
-          {/* // Logo */}
-        <div className="flex items-center h-20 pl-6 border-b border-gray-300">
-          <img  className="w-26 h-11" src="./images/logoB.png"  />
-        </div>
-          {/* /// SideBar Items */}
-          <div className="flex flex-col border-b border-gray-300 gap-4 items-center pt-12 pb-12">
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><RxDashboard /> Dashboard</h1>
-            </span>
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><AiOutlineShop /> Products</h1>
-            </span>
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FiShoppingCart /> Orders</h1>
-            </span>
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlinePeopleAlt /> Customers</h1>
-            </span>
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><ImStatsDots /> Statistics</h1>
-            </span>
-          </div>
-              {/* /// SideBar Items */}
-          <div className="flex flex-col gap-4 items-center pt-12">
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><FaPaintbrush /> Appearance</h1>
-            </span>
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><IoSettingsOutline /> Settings</h1>
-            </span>
-            <span className="w-53">
-              <h1 className=" flex w-full h-12 cursor-pointer items-center rounded-md pl-3 gap-2 text-xl text-blue-400 bg-blue-50"><MdOutlineLightMode /> Light</h1>
-            </span>
-          </div>
-      </div>
+    <div className="flex items-center justify-center w-full h-screen p-0 m-0">
+
           {/* // Content */}
-      <div className="w-5/6 h-full">
+      <div className="w-full h-full">
           {/* // Header  */}
        
-          <Header />
+          {/* <Header /> */}
+          
         
           {/* // Body */}
         <div className="w-full">
         <div className={`flex min-h-full max-w-screen flex-col bg-muted/20 neutral1-bg`}>
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
+      <div className="flex-1 space-y-4 ">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* Total Sales Card */}
           <Card>
@@ -217,7 +182,7 @@ export default function Dashboard() {
       </div>
     
       </div>
-    </container>
+    </div>
     </>
   )
 }
