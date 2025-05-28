@@ -196,7 +196,7 @@ export default function StatisticsPage() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Category Distribution */}
-        <div className="rounded-lg bg-white p-6 shadow-sm">
+        <div className="rounded-lg bg-white md:p-6 sm:p-4 p-2 shadow-sm">
           <h3 className="mb-4 text-lg font-medium text-gray-900">Sales by Category</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">

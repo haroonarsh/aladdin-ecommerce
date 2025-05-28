@@ -190,13 +190,13 @@ export default function AppearancePage() {
 
         {/* Preview Panel */}
         <div className="lg:col-span-2">
-          <div className="rounded-lg bg-white p-6 shadow-sm">
-            <div className="mb-4 flex items-center justify-between">
+          <div className="rounded-lg bg-white md:p-6 sm:p-4 p-2 shadow-sm">
+            <div className="mb-4 flex flex-wrap items-center justify-between">
               <h3 className="text-lg font-medium text-gray-900">Preview</h3>
-              <div className="flex space-x-2">
+              <div className="flex sm:space-x-2 space-x-1">
                 {devices.map((device) => {
                   const IconComponent = device.icon
-                  return (
+                  return (  
                     <button
                       key={device.id}
                       onClick={() => setSelectedDevice(device.id)}
