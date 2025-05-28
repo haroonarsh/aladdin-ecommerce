@@ -31,8 +31,8 @@ export default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <AladdinHeaderCustom token={token}/>
+        <Header token={token}/>
+        <AladdinHeaderCustom />
         <ToastContainer
           position="top-center"
           autoClose={5000}
@@ -47,7 +47,7 @@ export default async function RootLayout({ children }) {
           limit={3}
         />
           {children}
-        <Footer token={token}/>
+        <Footer />
       </body>
     </html>
   );

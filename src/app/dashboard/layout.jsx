@@ -181,7 +181,7 @@ export default function DashboardLayout({
           )}
 
           {/* Page Content */}
-          <main className="flex-1 mt-16 overflow-y-auto p-6">{children}</main>
+          <main className="flex-1 mt-16 overflow-y-auto md:p-6 sm:p-4 p-2">{children}</main>
         </div>
       </div>
     </Suspense>
