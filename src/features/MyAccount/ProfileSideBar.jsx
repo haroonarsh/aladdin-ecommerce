@@ -2,7 +2,7 @@
 
 
 import { usePathname, useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { LiaChessKingSolid } from "react-icons/lia";
 import { MdOutlineLocalShipping } from "react-icons/md";
@@ -22,6 +22,7 @@ const image = './public/customer/seller.png'
 function ProfileSideBar() {
 
     const router = useRouter();
+    const [userData, setUserData] = useState(null);
     const pathname = usePathname();
     const { logout } = useAuth();
     const { updateImage, loading } = useUser();
@@ -31,8 +32,18 @@ function ProfileSideBar() {
     });
 
     // Get user data from local storage
-    const data = localStorage.getItem("UserData");
-    const userData = JSON.parse(data); // Parse the user data
+    const data = async () => {
+        const data = await JSON.parse(localStorage.getItem("UserData"));
+        if (data) {
+            setUserData(data.user);
+        } else {
+            console.error("No user data found in local storage");
+        }
+    }
+    // Fetch user data on component mount
+    useEffect(() => {
+        data();
+    }, []);
 
     // Logout function
     const handleLogout = () => {
