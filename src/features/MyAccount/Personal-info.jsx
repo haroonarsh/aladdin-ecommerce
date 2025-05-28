@@ -50,16 +50,12 @@ function PersonalInfo() {
     console.log("LocalUserData", data); // Log the user data
     
     if (data) {
-      const parsedData = JSON.parse(data);
+      const Data = JSON.parse(data);
+      const parsedData = Data.user;
       setUserData(parsedData);
 
       // Initialize Date
       const storedDate = parsedData?.Date ? new Date(parsedData.Date) : null;
-      // Set the selected country based on the stored data
-      // const country = countries.find(country => country.code === parsedData?.CountryCode);
-      // if (country) {
-      //   setSelectedCountry(country);
-      // }
 
       setFormData({
         FirstName: parsedData?.FirstName || '',
@@ -116,7 +112,7 @@ function PersonalInfo() {
       Date: startDate?.toISOString(), // Format date to YYYY-MM-DD
     };
 
-    await updateUser(userData?.accessToken, updatedData);
+    await updateUser(userData?.accessToken , updatedData);
     // Check for errors
     if (error) {
       console.error("Error updating user data:", error); // Log the error

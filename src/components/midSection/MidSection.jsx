@@ -5,19 +5,18 @@ import { useRouter } from 'next/navigation';
 import React from 'react'
 import { FaAngleRight } from "react-icons/fa6";
 
-function MidSection() {
+function MidSection({ token }) {
+  console.log("MidSection Token:", token); // Log the token value
 
   const router = useRouter();
   const { fetchUser } = useUser();
   // const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
 
   const handleToken = async () => {
-  const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
-    if (storedToken) {
-      await fetchUser(storedToken);
+    if (token) {
+      await fetchUser(token);
     }
   };
-
 
   return (
     <>

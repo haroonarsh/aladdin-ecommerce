@@ -14,38 +14,29 @@ import Cookies from "js-cookie"
 const inactive = "hidden";
 const active = "block";
 
-export default function AladdinHeaderCustom({ token }) {
+export default function AladdinHeaderCustom() {
+  const [userData, setUserData] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const dropdownRef = useRef(null)
   const router = useRouter();
   const pathname = usePathname();
-  const { fetchUser, users, loading , error } = useUser();
-  // const data = localStorage.getItem("UserData");
-  
-  
-  // console.log("FooterUser:", users.LastName); // Log the user data
-  
+  const { fetchUser, users, loading , error } = useUser()
 
-      const handleToken =  () => {
-        try {
-          if (token) {
-           fetchUser(token); // Fetch user data using the token
-        } else {
-          console.log("No token found in local storage");
-        }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          // router.push("/login"); // Redirect to login page if there's an error 
-        }
-      };
-      useEffect(() => {
-        handleToken()
-      }, []);
-  
+    const data = async () => {
+  const userData = await JSON.parse(localStorage.getItem("UserData"));
+  console.log("Parsed UserData", userData); // Log the parsed user data
+  if (userData) {
+    setUserData(userData.user);
+  } else {
+    console.log("No user data found in local storage");
+  }
+};
+
   // Close dropdown when clicking outside
   useEffect(() => {
+    data(); // Call the function to fetch user data
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
@@ -58,38 +49,14 @@ export default function AladdinHeaderCustom({ token }) {
     };
   }, []);
 
-
-    // Check if the user is online or offline
-    // const isOnline = NetworkCheck();
-
-    // if (!isOnline) {
-    //   return (
-    //     <div className="absolute top-2 font-sans w-full h-screen bg-[#2B2B2B] opacity-80 m-0 flex items-center justify-center">
-    //       <div className="text-center p-8 bg-white rounded-xl shadow-md">
-    //         <h1 className="text-xl font-semibold text-red-500">
-    //           No Connection Found
-    //         </h1>
-    //         <p className="text-gray-600">
-    //           Please check your internet connection.
-    //         </p>
-    //       </div>
-    //     </div>
-    //   );
-    // }
-
-    console.log("HeaderData", users); // Log the user data
-  // console.log("UsRData", data); // Log the user data
-  
-  const userData = users;
-  if (userData !== null) {
-  console.log("Parsed UserData", userData); // Log the parsed user data
-
+  if (loading) {
+    return <div>Loading...</div>; // Show loading state while fetching user data
   }
   
   return (
     <>
     <header className={`w-full fixed top-0 z-50 ${
-          pathname === "/" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register"  
+          pathname === "/" || pathname === "/dashboard" || pathname === "/dashboard/products" || pathname === "/dashboard/orders" || pathname === "/dashboard/customers" || pathname === "/dashboard/statistics" || pathname === "/dashboard/appearance" || pathname === "/dashboard/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register"  
             ? inactive
             : active
         }`}>
@@ -235,7 +202,7 @@ export default function AladdinHeaderCustom({ token }) {
                 className="text-sm cursor-pointer"
                 onClick={() => router.push("/account/personal-info")}
               >
-                <div>Hello, {userData?.FirstName}</div>
+                <div>Hello, {userData?.FirstName || "User"}</div>
                 <div className="font-semibold">Account for Eshopify...</div>
               </div>
 

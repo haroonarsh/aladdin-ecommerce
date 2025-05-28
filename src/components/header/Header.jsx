@@ -7,14 +7,25 @@ import { FaCaretDown, FaBars } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import NetworkCheck from "@/hooks/NetworkCheck";
+import { useUser } from "@/hooks/useUser";
 
 const inactive = "hidden";
 const active = "flex";
-function Header() {
+function Header({ token }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  const { fetchUser } = useUser();
+  // const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
+  
+  const handleToken = async () => {
+    if (token) {
+      await fetchUser(token);
+    }
+  };
+  
 
   // Check if the user is online or offline
   useEffect(() => {
@@ -33,36 +44,6 @@ function Header() {
       window.removeEventListener("offline", handleNetworkChange);
     };
   }, []);
-  // if (token !== null && token !== undefined) {
-  //   console.log("Tokener:", token); // Log the token value
-  //   localStorage.setItem("jwt", token);
-  // } else {
-  //   console.log("No token found in local storage");
-    
-  // }
-  
-
-  // Check if the user is online or offline
-  // const isOnline = NetworkCheck();
-
-  // if (!isOnline) {
-  //   return (
-  //     <div className="fixed overflow-hidden top-0 font-sans w-full h-screen bg-[#2B2B2B] opacity-80 m-0 flex items-center justify-center">
-  //       <div className="text-center p-8 bg-white rounded-xl shadow-md">
-  //         <h1 className="text-xl font-semibold text-red-500">
-  //           No Connection Found
-  //         </h1>
-  //         <p className="text-gray-600">
-  //           Please check your internet connection.
-  //         </p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // Placeholder classes for active/inactive states
-  // const active = 'some-class';
-  // const inactive = 'another-class';
 
   return (
     <>
@@ -97,9 +78,9 @@ function Header() {
         <ul className="hidden lg:flex gap-6 xl:gap-12 lg:gap-5 md:gap-2 text-sm lg:text-[17px] mr-3 items-start text-md neutral5">
           <Link href="/" className="hover:text-gray-200 cursor-pointer">Home</Link>
           <Link href="/about" className="hover:text-gray-200 cursor-pointer">About Us</Link>
-          <li className="hover:text-gray-200 cursor-pointer" onClick={() => router.push("/products-page")}>Shop</li>
+          <li className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>Shop</li>
           <Link href="/contact" className="hover:text-gray-200 cursor-pointer">Contact Us</Link>
-          <Link href="/account/personal-info" className="hover:text-gray-200 cursor-pointer">My Account</Link>
+          <Link href="/account/personal-info" className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>My Account</Link>
         </ul>
 
         {/* Cart (desktop) */}
