@@ -80,7 +80,7 @@ function Header({ token }) {
           <Link href="/about" className="hover:text-gray-200 cursor-pointer">About Us</Link>
           <li className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>Shop</li>
           <Link href="/contact" className="hover:text-gray-200 cursor-pointer">Contact Us</Link>
-          <Link href="/account/personal-info" className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>My Account</Link>
+          <li className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>My Account</li>
         </ul>
 
         {/* Cart (desktop) */}
