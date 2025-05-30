@@ -2,9 +2,9 @@ const { productService } = require("@/services/product.service");
 
 export const useProduct = () => {
     
-    const getProducts = async (token) => {
+    const getProducts = async () => {
         try {
-            const products = await productService.getProducts(token);
+            const products = await productService.getProducts();
             return products;
         } catch (error) {
             console.error("Error fetching products:", error);
@@ -32,7 +32,7 @@ export const useProduct = () => {
         }
     }
 
-    const updataProduct = async (token, id, formData) => {
+    const updateProduct = async (token, id, formData) => {
         try {
             const product = await productService.updateProduct(token, id, formData);
             return product;
@@ -56,7 +56,7 @@ export const useProduct = () => {
         getProducts,
         getProductById,
         createProduct,
-        updataProduct,
+        updateProduct,
         deleteProduct
     };
 }
