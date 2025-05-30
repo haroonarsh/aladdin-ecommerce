@@ -4,6 +4,7 @@ import React from "react"
 
 import { useState } from "react"
 import { X, Upload, Plus, Trash2 } from "lucide-react"
+import { useProduct } from "@/hooks/useProduct"
 
 
 export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
@@ -13,17 +14,17 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
     price: 0,
     stock: 0,
     status: "Active",
-    image: "/placeholder.svg?height=200&width=200",
-    sku: "",
+    imageUrl: "/placeholder.svg?height=200&width=200",
+    SKU: "",
     description: "",
     tags: [],
     weight: "",
     dimensions: "",
     brand: "",
   })
-
   const [newTag, setNewTag] = useState("")
   const [errors, setErrors] = useState({})
+  const { createProduct } = useProduct()
 
   const categories = ["Skincare", "Makeup", "Hair Care", "Body Care", "Fragrance", "Tools & Accessories"]
 
@@ -49,15 +50,15 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
   const generateSKU = () => {
     const prefix = formData.category.substring(0, 3).toUpperCase()
     const random = Math.random().toString(36).substring(2, 8).toUpperCase()
-    const sku = `${prefix}-${random}`
-    setFormData((prev) => ({ ...prev, sku }))
+    const SKU = `${prefix}-${random}`
+    setFormData((prev) => ({ ...prev, SKU }))
   }
 
   const validateForm = () => {
     const newErrors = {}
 
     if (!formData.name.trim()) newErrors.name = "Product name is required"
-    if (!formData.sku.trim()) newErrors.sku = "SKU is required"
+    if (!formData.SKU.trim()) newErrors.sku = "SKU is required"
     if (formData.price <= 0) newErrors.price = "Price must be greater than 0"
     if (formData.stock < 0) newErrors.stock = "Stock cannot be negative"
     if (!formData.description.trim()) newErrors.description = "Description is required"
@@ -66,18 +67,21 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    const token = await localStorage.getItem("jwt") || "";
+    if (!token) {
+      console.log("No token found");
+    }
     if (validateForm()) {
-      onAddProduct({
-        name: formData.name,
-        category: formData.category,
-        price: formData.price,
-        stock: formData.stock,
-        status: formData.status,
-        image: formData.image,
-        sku: formData.sku,
+      createProduct(token, formData).then((response) => {
+        console.log("Product created successfully:", response)
+      }).catch((error) => {
+        console.error("Error creating product:", error)
+        // Handle error (e.g., show toast notification)
       })
+      onAddProduct(formData) // Notify parent component of new product
+      handleClose() // Close modal after successful submission
       // Reset form
       setFormData({
         name: "",
@@ -85,7 +89,7 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
         price: 0,
         stock: 0,
         status: "Active",
-        image: "/placeholder.svg?height=200&width=200",
+        imageUrl: "/placeholder.svg?height=200&width=200",
         sku: "",
         description: "",
         tags: [],
@@ -104,7 +108,7 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
       price: 0,
       stock: 0,
       status: "Active",
-      image: "/placeholder.svg?height=200&width=200",
+      imageUrl: "/placeholder.svg?height=200&width=200",
       sku: "",
       description: "",
       tags: [],
@@ -247,7 +251,7 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
                       <div className="mt-1 flex space-x-2">
                         <input
                           type="text"
-                          value={formData.sku}
+                          value={formData.SKU}
                           onChange={(e) => handleInputChange("sku", e.target.value)}
                           className={`flex-1 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-1 ${
                             errors.sku
@@ -264,7 +268,7 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
                           Generate
                         </button>
                       </div>
-                      {errors.sku && <p className="mt-1 text-sm text-red-600">{errors.sku}</p>}
+                      {errors.SKU && <p className="mt-1 text-sm text-red-600">{errors.SKU}</p>}
                     </div>
 
                     <div>
@@ -295,12 +299,28 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
                       <div className="text-center">
                         <Upload className="mx-auto h-12 w-12 text-gray-400" />
                         <div className="mt-4">
-                          <button
-                            type="button"
+                          <label
+                            htmlFor="product-image-upload"
                             className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
                           >
                             Upload Image
-                          </button>
+                            <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const file = e.target.files[0]
+                              if (file) {
+                                const reader = new FileReader()
+                                reader.onloadend = () => {
+                                  setFormData((prev) => ({ ...prev, imageUrl: reader.result }))
+                                }
+                                reader.readAsDataURL(file)
+                              }
+                            }}
+                            className="hidden"
+                            id="product-image-upload"
+                          />
+                          </label>
                         </div>
                         <p className="mt-2 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                       </div>
