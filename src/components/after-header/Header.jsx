@@ -56,7 +56,7 @@ export default function AladdinHeaderCustom() {
   return (
     <>
     <header className={`w-full fixed top-0 z-50 ${
-          pathname === "/" || pathname === "/dashboard" || pathname === "/dashboard/products" || pathname === "/dashboard/orders" || pathname === "/dashboard/customers" || pathname === "/dashboard/statistics" || pathname === "/dashboard/appearance" || pathname === "/dashboard/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register"  
+          pathname === "/" || pathname === "/admin/dashboard" || pathname === "/admin/products" || pathname === "/admin/orders" || pathname === "/admin/customers" || pathname === "/admin/statistics" || pathname === "/admin/appearance" || pathname === "/admin/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register"  
             ? inactive
             : active
         }`}>
