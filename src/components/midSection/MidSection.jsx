@@ -24,7 +24,7 @@ function MidSection({ token }) {
             <div className='flex justify-between items-center'>
                 <h1 className='text-xl sm:text-2xl md:text-3xl font-bold'>Explore popular category</h1>
                 <div onClick={handleToken} className='flex items-center gap-2 cursor-pointer text-xl'>
-                <h2 onClick={() => router.push("/products-page")} className='flex items-center gap-2 cursor-pointer text-[16px] md:text-xl'>| See all<FaAngleRight /></h2>
+                <h2 className='flex items-center gap-2 cursor-pointer text-[16px] md:text-xl'>| See all<FaAngleRight /></h2>
                 </div>
             </div>
                 {/* // Categori es items */}
