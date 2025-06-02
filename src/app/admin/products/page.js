@@ -5,19 +5,19 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Plus, Search, Filter, Edit, Trash2, Eye, Package } from "lucide-react"
 import AddProductModal from "@/features/dashboard/add-product-modal"
+import EditProductModal from "@/features/dashboard/edit-product-modal"
 import { useProduct } from "@/hooks/useProduct"
 
 export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState("")  
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false)
+  const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false)
+  const [currentProduct, setCurrentProduct] = useState(null)
   const { getProducts, deleteProduct, updateProduct } = useProduct() // Assuming useProduct is used for fetching products, not shown in this snippet
   const [products, setProducts] = useState([]) // Initialize products state
 
   console.log("Products:", products);
-  
-
-  const token = localStorage.getItem("jwt") // Assuming JWT token is stored in local storage
   
   const handleProduct = () => {
       getProducts().then((fetchedProducts) => {
@@ -65,6 +65,7 @@ export default function ProductsPage() {
 
   // Function to handle product deletion
   const handleDeleteProduct = async (id) => {
+    const token = localStorage.getItem("jwt") // Get the JWT token from local storage
     try {
       await deleteProduct(token, id)
       setProducts(products.filter((product) => product._id !== id))
@@ -73,6 +74,17 @@ export default function ProductsPage() {
     } catch (error) {
       console.error("Error deleting product:", error)
     }
+  }
+
+   const handleEditProduct = (updatedProduct) => {
+    setProducts(products.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)))
+    setIsEditProductModalOpen(false)
+    setCurrentProduct(null)
+  }
+
+  const openEditModal = (product) => {
+    setCurrentProduct(product)
+    setIsEditProductModalOpen(true)
   }
 
   return (
@@ -239,7 +251,9 @@ export default function ProductsPage() {
                       <button className="text-blue-600 hover:text-blue-900">
                         <Eye className="h-4 w-4" />
                       </button>
-                      <button className="text-gray-600 hover:text-gray-900">
+                      <button className="text-gray-600 hover:text-gray-900"
+                      onClick={() => openEditModal(product)}
+                      >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button className="text-red-600 hover:text-red-900"
@@ -297,6 +311,19 @@ export default function ProductsPage() {
         onClose={() => setIsAddProductModalOpen(false)}
         onAddProduct={handleAddProduct}
       />
+      {/* Edit Product Modal */}
+      {currentProduct && (
+        <EditProductModal
+          isOpen={isEditProductModalOpen}
+          onClose={() => {
+            setIsEditProductModalOpen(false)
+            setCurrentProduct(null)
+          }}
+          onUpdateProduct={handleEditProduct}
+          product={currentProduct}
+          id={currentProduct._id} // Pass the product
+        />
+      )}
     </div>
   )
 }
