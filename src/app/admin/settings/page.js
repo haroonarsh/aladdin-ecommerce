@@ -1,25 +1,28 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { User, Lock, Bell, Globe, CreditCard, Shield, Eye, EyeOff, Save, Upload, Trash2, Plus } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
+import React from "react";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("profile");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const { fetchAdmin, updateUser, updateImage } = useUser();
+  const [preveiw, setPreveiw] = useState(null);
   // Form states
   const [profileData, setProfileData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    company: "Aladdin Inc.",
+    FirstName: '',
+    LastName: '',
+    Email: '',
+    PhoneNo: '',
+    company: 'Aladdin E-commerce',
     website: "https://aladdin.com",
     bio: "E-commerce platform administrator with 5+ years of experience.",
-    avatar: "/placeholder.svg?height=100&width=100",
+    ProfileImage: '' || "/placeholder.svg?height=100&width=100",
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -70,8 +73,11 @@ export default function SettingsPage() {
     { id: "preferences", name: "Preferences", icon: Globe },
   ];
 
-  const handleProfileUpdate = (field, value) => {
-    setProfileData((prev) => ({ ...prev, [field]: value }));
+  const handleProfileUpdate = (e) => {
+    setProfileData({
+      ...profileData,
+      [e.target.name]: e.target.value
+    })
   };
 
   const handleNotificationToggle = (setting) => {
@@ -82,12 +88,62 @@ export default function SettingsPage() {
     setTeamMembers((prev) => prev.filter((member) => member.id !== id));
   };
 
+  // Handle image change
+  const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      setPreveiw(URL.createObjectURL(file));
+      setProfileData({
+          ...profileData,
+          ProfileImage: file,
+      });
+  }
+
+  const fetchAdminData = async () => { 
+      await fetchAdmin().then((data) => {
+        setProfileData({
+          ...profileData,
+          FirstName: data.user.FirstName || profileData.FirstName,
+          LastName: data.user.LastName || profileData.LastName,
+          Email: data.user.Email || profileData.Email,
+          PhoneNo: data.user.PhoneNo || profileData.PhoneNo,
+          ProfileImage: data.user.ProfileImage || profileData.ProfileImage,
+        });
+      console.log("Fetched Admin data:", data);
+      })
+  };
+  useEffect(() => {
+    fetchAdminData();
+  }, []);
+
+  const handleAdminUpdate = async () => {
+    const formData = {
+      FirstName: profileData.FirstName,
+      LastName: profileData.LastName,
+      Email: profileData.Email,
+      PhoneNo: profileData.PhoneNo,
+      ProfileImage: profileData.ProfileImage,
+    };
+    const formattedData = new FormData();
+    formattedData.append("ProfileImage", formData.ProfileImage);
+
+      await updateImage(formattedData).then((data) => {
+        console.log("Updated Admin image:", data);  
+      })
+      await updateUser(formData).then((data) => {
+        console.log("Updated Admin data:", data);
+        setProfileData(data.user);
+      })
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col justify-between space-y-4 sm:flex-row sm:items-center sm:space-y-0">
         <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <button className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
+        <button 
+        className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+        onClick={handleAdminUpdate}
+        >
           <Save className="mr-2 h-4 w-4" />
           Save All Changes
         </button>
@@ -133,8 +189,8 @@ export default function SettingsPage() {
                 {/* Avatar Upload */}
                 <div className="flex items-center space-x-6">
                   <div className="shrink-0">
-                    <Image
-                      src={profileData.avatar || "/placeholder.svg"}
+                    <img
+                      src={preveiw || profileData.ProfileImage || "/placeholder.svg"}
                       alt="Profile"
                       width={100}
                       height={100}
@@ -142,10 +198,20 @@ export default function SettingsPage() {
                     />
                   </div>
                   <div>
-                    <button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                      <Upload className="mr-2 h-4 w-4" />
-                      Change Avatar
-                    </button>
+                    <label
+                            htmlFor="product-image-upload"
+                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                          >
+                            <Upload className="mr-2 h-4 w-4" /> Change Avatar
+                            <input
+                            type="file"
+                            accept="image/*"
+                            name="ProfileImage"
+                            onChange={handleImageChange}
+                            className="hidden"
+                            id="product-image-upload"
+                          />
+                          </label>
                     <p className="mt-1 text-xs text-gray-500">JPG, GIF or PNG. 1MB max.</p>
                   </div>
                 </div>
@@ -156,8 +222,9 @@ export default function SettingsPage() {
                     <label className="block text-sm font-medium text-gray-700">First Name</label>
                     <input
                       type="text"
-                      value={profileData.firstName}
-                      onChange={(e) => handleProfileUpdate("firstName", e.target.value)}
+                      name="FirstName"
+                      value={profileData.FirstName}
+                      onChange={handleProfileUpdate}
                       className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
@@ -165,8 +232,9 @@ export default function SettingsPage() {
                     <label className="block text-sm font-medium text-gray-700">Last Name</label>
                     <input
                       type="text"
-                      value={profileData.lastName}
-                      onChange={(e) => handleProfileUpdate("lastName", e.target.value)}
+                      name="LastName"
+                      value={profileData.LastName}
+                      onChange={handleProfileUpdate}
                       className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
@@ -174,8 +242,9 @@ export default function SettingsPage() {
                     <label className="block text-sm font-medium text-gray-700">Email Address</label>
                     <input
                       type="email"
-                      value={profileData.email}
-                      onChange={(e) => handleProfileUpdate("email", e.target.value)}
+                      name="Email"
+                      value={profileData.Email}
+                      onChange={handleProfileUpdate}
                       className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
@@ -183,8 +252,9 @@ export default function SettingsPage() {
                     <label className="block text-sm font-medium text-gray-700">Phone Number</label>
                     <input
                       type="tel"
-                      value={profileData.phone}
-                      onChange={(e) => handleProfileUpdate("phone", e.target.value)}
+                      name="PhoneNo"
+                      value={profileData.PhoneNo}
+                      onChange={handleProfileUpdate}
                       className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
@@ -192,8 +262,10 @@ export default function SettingsPage() {
                     <label className="block text-sm font-medium text-gray-700">Company</label>
                     <input
                       type="text"
-                      value={profileData.company}
-                      onChange={(e) => handleProfileUpdate("company", e.target.value)}
+                      name="company"
+                      value="Aladdin E-commerce"
+                      // onChange={handleProfileUpdate}
+                      readOnly
                       className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
@@ -201,8 +273,10 @@ export default function SettingsPage() {
                     <label className="block text-sm font-medium text-gray-700">Website</label>
                     <input
                       type="url"
-                      value={profileData.website}
-                      onChange={(e) => handleProfileUpdate("website", e.target.value)}
+                      name="website"
+                      value="https://aladdin.com"
+                      // onChange={handleProfileUpdate}
+                      readOnly
                       className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
@@ -211,8 +285,10 @@ export default function SettingsPage() {
                   <label className="block text-sm font-medium text-gray-700">Bio</label>
                   <textarea
                     rows={4}
-                    value={profileData.bio}
-                    onChange={(e) => handleProfileUpdate("bio", e.target.value)}
+                    name="bio"
+                    value="E-commerce platform administrator with 5+ years of experience."
+                    // onChange={handleProfileUpdate}
+                    readOnly
                     className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="Tell us about yourself..."
                   />
