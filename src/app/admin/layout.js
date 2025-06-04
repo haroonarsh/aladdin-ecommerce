@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect } from "react"
 
 import { useState } from "react"
 import Link from "next/link"
@@ -22,6 +22,7 @@ import {
   Menu,
 } from "lucide-react"
 import { Suspense } from "react"
+import { useUser } from "@/hooks/useUser"
 
 export default function DashboardLayout({
   children,
@@ -30,6 +31,8 @@ export default function DashboardLayout({
   const searchParams = useSearchParams()
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
+  const [data, setData] = useState(null)
+  const { fetchAdmin } = useUser()
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar)
   }
@@ -43,6 +46,15 @@ export default function DashboardLayout({
     { name: "Appearance", href: "/admin/appearance", icon: Palette },
     { name: "Settings", href: "/admin/settings", icon: Settings },
   ]
+
+  const fetchAdminData = async () => {
+      await fetchAdmin().then((data) => {
+        setData(data.user)
+      })      
+  }
+  useEffect(() => {
+    fetchAdminData()
+  }, [])
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -124,9 +136,10 @@ export default function DashboardLayout({
                 </button>
 
                 {/* Profile */}
-                <button className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white">
-                  <User className="h-4 w-4" />
-                </button>
+                <img
+                  src={data?.ProfileImage}
+                  alt="Profile" 
+                  className="flex h-8 w-8 items-center justify-center rounded-full"/>
                 {/* Menu */}
                 <button onClick={toggleSidebar} className="md:hidden flex rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                   <Menu className="h-5 w-6" />
