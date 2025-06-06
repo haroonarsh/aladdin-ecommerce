@@ -14,12 +14,18 @@ export const useAuth = () => {
         try {
             setLoading(true);
             localStorage.removeItem('UserData');
-            const { user } = await authService.register(userData);
-            setUser(user);
-            toast.success("Registration successful! Redirecting to products page...");
-            setTimeout(() => {
-                router.push('/products-page'); // Redirect to products page after registration
-            }, 4000);
+            const user = await authService.register(userData);
+            setUser(user.data);
+            localStorage.setItem('UserData', JSON.stringify(user.data)); // Store user data in local storage
+            // setTimeout(() => {
+                if (user.data.user.Role === 'admin') {
+                    toast.success("Registration successful! Redirecting to admin dashboard...");
+                    router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
+                } else {
+                    toast.success("Registration successful! Redirecting to products page...");
+                    router.push('/products-page'); // Redirect to products page for regular users
+                }
+            // }, 4000);
             return user; // Return user data if needed
         } catch (error) {
             toast.error(error.response?.data?.message || "Registration failed! Please try again.");
@@ -35,17 +41,22 @@ export const useAuth = () => {
             setLoading(true);
             localStorage.removeItem('UserData');
             localStorage.removeItem('jwt'); // Remove JWT token from local storage
-            const { user } = await authService.login(userData);
+            const user = await authService.login(userData);
 
             // if (user === undefined || user === null) {
             //     toast.error("Login failed! Please try again.");
             //     return;
             // }
-            setUser(user);
-            toast.success("Login successful! Redirecting to products page...");
-            setTimeout(() => {
-                router.push('/products-page'); // Redirect to products page after login
-            }, 4000);
+            setUser(user.data);
+            localStorage.setItem('UserData', JSON.stringify(user.data)); // Store user data in local storage
+
+                if (user.data.user.Role === 'admin') {
+                    toast.success("Login successful! Redirecting to admin dashboard...");
+                    router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
+                } else {
+                    toast.success("Login successful! Redirecting to products page...");
+                    router.push('/products-page'); // Redirect to products page for regular users
+                }
             return user; // Return user data if needed
         } catch (error) {
             toast.error(error.response?.data?.message || "Login failed! Please try again.");
