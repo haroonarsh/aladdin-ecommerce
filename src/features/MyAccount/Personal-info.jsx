@@ -29,7 +29,7 @@ function PersonalInfo() {
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
   const countryDropdownRef = useRef(null)
   const [startDate, setStartDate] = useState(null);
-  const { updateUser, users, loading, error } = useUser();
+  const { updateUser, fetchUser, users, loading, error } = useUser();
   
   // Get user data from local storage
   const [userData, setUserData] = useState(null);
@@ -46,13 +46,9 @@ function PersonalInfo() {
 
   // initializing form data from local storage
   useEffect(() => {
-    const data = localStorage.getItem("UserData");
-    console.log("LocalUserData", data); // Log the user data
-    
-    if (data) {
-      const Data = JSON.parse(data);
-      const parsedData = Data.user;
-      setUserData(parsedData);
+    fetchUser().then((data) => {
+      const parsedData = data.user;
+      setUserData(data.user);
 
       // Initialize Date
       const storedDate = parsedData?.Date ? new Date(parsedData.Date) : null;
@@ -68,7 +64,8 @@ function PersonalInfo() {
       })
 
       setGender(parsedData?.Gender || 'Male');
-    }
+    })
+    
   }, []);
 
   const handleDateChange = (date) => {
@@ -112,7 +109,7 @@ function PersonalInfo() {
       Date: startDate?.toISOString(), // Format date to YYYY-MM-DD
     };
 
-    await updateUser(userData?.accessToken , updatedData);
+    await updateUser(updatedData);
     // Check for errors
     if (error) {
       console.error("Error updating user data:", error); // Log the error
