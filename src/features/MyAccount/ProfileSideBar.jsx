@@ -25,24 +25,20 @@ function ProfileSideBar() {
     const [userData, setUserData] = useState(null);
     const pathname = usePathname();
     const { logout } = useAuth();
-    const { updateImage, loading } = useUser();
+    const { updateImage,fetchUser, loading } = useUser();
     const [preveiw, setPreveiw] = useState(null);
     const [form, setForm] = useState({
         ProfileImage: "",
     });
 
-    // Get user data from local storage
-    const data = async () => {
-        const data = await JSON.parse(localStorage.getItem("UserData"));
-        if (data) {
-            setUserData(data.user);
-        } else {
-            console.error("No user data found in local storage");
-        }
-    }
     // Fetch user data on component mount
     useEffect(() => {
-        data();
+        fetchUser().then((data) => {
+            if (data) {
+                setUserData(data.user);
+                setPreveiw(data.user.ProfileImage || image); // Set preview image to user's profile image or default image
+            }
+        })
     }, []);
 
     // Logout function
