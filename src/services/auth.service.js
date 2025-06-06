@@ -8,6 +8,7 @@ export const authService = {
 
     async login(formData) {
         const response = await api.post("/api/user/login", formData);
+        console.log("Login Response:", response);
         return response.data;
     },
 
