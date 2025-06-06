@@ -22,7 +22,13 @@ function Header({ token }) {
   
   const handleToken = async () => {
     if (token) {
-      await fetchUser(token);
+      await fetchUser(token).then((data) => {
+        if (data.user.Role === 'admin') {
+          router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
+        } else {
+          router.push('/products-page'); // Redirect to home page if user is not an admin
+        }
+      })
     }
   };
   
