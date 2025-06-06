@@ -32,7 +32,7 @@ export default function DashboardLayout({
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [data, setData] = useState(null)
-  const { fetchAdmin } = useUser()
+  const { fetchAdmin, becomeUser } = useUser()
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar)
   }
@@ -56,6 +56,12 @@ export default function DashboardLayout({
     fetchAdminData()
   }, [])
 
+  const handleBecomeUser = () => {
+    becomeUser().then(() => {
+      window.location.href = "/products-page"
+    })
+  }
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="flex h-full overflow-hidden bg-gray-50">
@@ -65,7 +71,9 @@ export default function DashboardLayout({
           {/* Logo */}
           <div className="flex h-16 items-center px-6">
             <div className="flex flex-col ">
-              <img className="w-26 h-11 mt-2" src="./images/logoB.png" alt="Logo" />
+              <img className="w-26 h-11 mt-2 cursor-pointer" 
+              onClick={() => window.location.href = "/"} 
+              src="https://res.cloudinary.com/dtoy2m9rj/image/upload/v1749101057/logoB_clfnb6.png" alt="Logo" />
             </div>
           </div>
 
@@ -119,7 +127,7 @@ export default function DashboardLayout({
                 {pathname === "/admin/settings" && "Settings"}
               </h1>
 
-              <div className="flex items-center md:space-x-4">
+              <div className="flex items-center  lg:space-x-2 xl:space-x-4">
                 {/* Search */}
                 <div className="relative">
                   <Search className="absolute md:left-3 left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -133,6 +141,14 @@ export default function DashboardLayout({
                 {/* Notifications */}
                 <button className="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                   <Bell className="h-5 w-5" />
+                </button>
+
+                {/* Switch */}
+                <button 
+                  className="hidden md:flex rounded-lg p-2 neutral11 hover:bg-gray-100 hover:text-gray-500"
+                  onClick={handleBecomeUser}
+                >
+                  Switch to Buyer
                 </button>
 
                 {/* Profile */}
@@ -154,7 +170,9 @@ export default function DashboardLayout({
           {/* Logo */}
           <div className="flex h-16 items-center px-6">
             <div className="flex flex-col ">
-              <img className="w-26 h-11 mt-2" src="./images/logoB.png" alt="" />
+              <img className="w-26 h-11 mt-2" 
+              onClick={() => window.location.href = "/"} 
+              src="https://res.cloudinary.com/dtoy2m9rj/image/upload/v1749101057/logoB_clfnb6.png" alt="" />
             </div>
           </div>
 
