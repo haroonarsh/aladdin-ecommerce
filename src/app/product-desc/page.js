@@ -2,7 +2,7 @@
 
 import AladdinHeaderCustom from '@/components/after-header/Header'
 import StarRating from '@/components/start-rating/Rating';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaLocationDot } from "react-icons/fa6";
 import { MdLocalShipping } from "react-icons/md";
 import { BiCheckShield } from "react-icons/bi";
@@ -10,36 +10,26 @@ import Pagination from '@/components/pagination/Pagination';
 import ProductCard from '@/components/product-cards/ProductCards';
 import CustomerReviews from '@/features/custmer-review/Review';
 import { useRouter } from 'next/navigation';
-
-const products = [
-    {
-      id: 1,
-      name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-      price: { min: 30.65, max: 39.99 },
-      rating: 5,
-      image: "/product-img/img-1.png",
-    },
-    {
-      id: 2,
-      name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-      price: { min: 30.65, max: 39.99 },
-      rating: 5,
-      image: "/product-img/img-5.png",
-    },
-    {
-      id: 3,
-      name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-      price: { min: 30.65, max: 39.99 },
-      rating: 5,
-      image: "/product-img/img-3.png",
-    },
-];
+import { useProduct } from '@/hooks/useProduct';
 
 function page() {
 
     const [mainImage, setMainImage] = useState("/product-img/Pimg.png");
     const [count, setCount] = useState(1);
     const router = useRouter();
+    const [products, setProducts] = useState([]);
+    const { getProducts } = useProduct();
+    
+    console.log("Products:", products);
+      
+    
+    useEffect(() => {
+        getProducts().then((fetchedProducts) => {
+            setProducts(fetchedProducts.data.products);
+            console.log("Fetched Products:", fetchedProducts.data.products);
+          
+        })
+    }, [])
 
     const increaseCount = () => {
         setCount(count + 1);
@@ -154,7 +144,7 @@ function page() {
         <div className='max-w-[1360px] xl:pl-5 pl-1 xl:pr-5 pr-1 m-auto md:mt-7 mt-7 pb-13 border-b-2 border-gray-200'>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product._id} product={product} />
                 ))}
             </div>
         </div>
