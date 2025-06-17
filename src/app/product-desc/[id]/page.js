@@ -9,25 +9,28 @@ import { BiCheckShield } from "react-icons/bi";
 import Pagination from '@/components/pagination/Pagination';
 import ProductCard from '@/components/product-cards/ProductCards';
 import CustomerReviews from '@/features/custmer-review/Review';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/useProduct';
 
 function page() {
 
-    const [mainImage, setMainImage] = useState("/product-img/Pimg.png");
+    const [mainImage, setMainImage] = useState();
     const [count, setCount] = useState(1);
     const router = useRouter();
     const [products, setProducts] = useState([]);
-    const { getProducts } = useProduct();
-    
-    console.log("Products:", products);
-      
+    const [product, setProduct] = useState({});
+    const { getProducts, getProductById } = useProduct();
+    const { id } = useParams();
     
     useEffect(() => {
+        // Fetch the product by ID
+        getProductById(id).then((fetchedProduct) => {
+            setMainImage(fetchedProduct.data.product.imageUrl);
+            setProduct(fetchedProduct.data.product);
+        })
+        // Fetch all products
         getProducts().then((fetchedProducts) => {
-            setProducts(fetchedProducts.data.products);
-            console.log("Fetched Products:", fetchedProducts.data.products);
-          
+            setProducts(fetchedProducts.data.products);        
         })
     }, [])
 
@@ -83,10 +86,10 @@ function page() {
             />
         </div>
                 <div className='max-w-[420px]'>
-                    <h1 className='lg:text-2xl md:text-xl text-lg font-bold font-sans'>Curology the sunscreen by curology is a noclog, grease-free (SPE 30 lotion).</h1>
-                    <p className='text-gray-500 lg:text-[16px] md:text-sm text-xs'>Brand: <span className='primary8'>Curology</span></p>
+                    <h1 className='lg:text-2xl md:text-xl text-lg font-bold font-sans'>{product.description}</h1>
+                    <p className='text-gray-500 lg:text-[16px] md:text-sm text-xs'>Brand: <span className='primary8'>{product.brand}</span></p>
                     <div className='flex md:gap-2 gap-1 lg:text-[16px] md:text-sm text-xs items-center text-gray-500'><StarRating rating={5} maxRating={5} /> 337,762 rating</div>
-                    <p className='font-bold lg:text-xl md:text-lg text-md flex items-center'><span className='text-red-600'>$39.99</span> - $30.65</p>
+                    <p className='font-bold lg:text-xl md:text-lg text-md flex items-center'><span className='text-red-600'>${product.price}</span> - ${product.price}</p>
                     <hr className='my-3 lg:max-w-[300px] w-full text-gray-400'/>
                     <div className="grid grid-cols-2 md:gap-4 gap-2">
                         <div className='flex items-center md:gap-2 gap-1 cursor-pointer'>
@@ -118,6 +121,14 @@ function page() {
                             </div>
                         </div>
                     </div>
+                    <div className='flex flex-col'>
+                        <button className='lg:text-[16px] md:text-sm text-xs cursor-pointer bg-blue-900 text-white md:py-3 py-2 md:px-5 px-3 rounded-lg hover:bg-primary7 transition-all mt-5'
+                        onClick={() => router.push(`/address/${id}`)}
+                        >Buy Now</button>
+                        <button className='lg:text-[16px] md:text-sm text-xs cursor-pointer bg-black text-white md:py-3 py-2 md:px-5 px-3 rounded-lg hover:bg-primary7 transition-all mt-5'
+                        onClick={() => router.push("/cart")}
+                        >Add to Cart</button>
+                    </div>
                 </div>
             </div>
             {/* // right */}
@@ -131,10 +142,10 @@ function page() {
             >+</span>Qty: {count} <span className='font-bold border-l border-gray-400 pl-2 cursor-pointer'
             onClick={decreaseCount}
             >-</span></button>
-            <button className='flex items-center justify-center bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3 md:text-[16px] text-sm'>Contat supplier</button>
+            <button className='flex items-center justify-center bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3 md:text-[16px] text-sm'>Contact supplier</button>
             <button className='flex items-center justify-center  bg-white text-cyan-800 border-2 border-cyan-800 mt-5 rounded-md py-2 px-3 hover:bg-cyan-800 hover:text-white transition-all md:text-[16px] text-sm'>Chat now</button>
             <h1 className='font-bold pt-3 pb-3 md:text-[18px] text-sm'>Puchase details</h1>
-            <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5' onClick={() => router.push("/address")}><MdLocalShipping /> Shipping</p>
+            <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5'><MdLocalShipping /> Shipping</p>
             <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5'><BiCheckShield /> Payments</p>
             </div>
         </div>
