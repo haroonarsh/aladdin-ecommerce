@@ -27,7 +27,9 @@ export default function AladdinHeaderCustom() {
   // function to fetch user data
   const data = async () => {
     fetchUser().then((data) => {
-      setUserData(data.user);
+      if (data) {
+      setUserData(data.user);        
+      }
     })
   }
 
