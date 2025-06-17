@@ -7,7 +7,7 @@ export default function ProductCard({ product }) {
   const router = useRouter();
 
   return (
-    <div className="bg-white m-3.5 rounded-lg overflow-hidden shadow-md cursor-pointer"  onClick={() => router.push('/product-desc')}>
+    <div className="bg-white m-3.5 rounded-lg overflow-hidden shadow-md cursor-pointer"  onClick={() => router.push(`/product-desc/${product._id}`)}>
       <div className="relative h-72">
         <Image
           src={product.imageUrl || "/placeholder.svg"} 
