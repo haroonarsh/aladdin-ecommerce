@@ -7,7 +7,7 @@ function page() {
   return (
     <>
             {/* // Header */}
-        <AladdinHeaderCustom />
+        {/* <AladdinHeaderCustom /> */}
             {/* // Card */}
         <ShoppingCart />
     </>
