@@ -34,7 +34,7 @@ export default function ShoppingCart() {
   }
 
   return (
-    <div className="max-w-[1360px] mx-auto  p-6">
+    <div className="max-w-[1360px] mx-auto mt-12 p-6">
       <h2 className="mb-6 text-2xl font-medium text-gray-800"><span className="font-semibold">Cart</span> ({cartItems.length} Items)</h2>
 
       <div className="mb-6 overflow-x-auto">
