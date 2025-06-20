@@ -1,11 +1,16 @@
 import { cartService } from "@/services/cart.service"
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export const useCart = () => {
+    const router = useRouter();
 
-    const addToCart = async (productId) => {
+    const addToCart = async (productId, quantity) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await cartService.addToCart(token, productId);
+            const response = await cartService.addToCart(token, productId, quantity);
+            toast.success('Product added to cart successfully');
+            router.push('/cart');
             return response;
         } catch (error) {
             throw error;
