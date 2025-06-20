@@ -11,15 +11,17 @@ import ProductCard from '@/components/product-cards/ProductCards';
 import CustomerReviews from '@/features/custmer-review/Review';
 import { useParams, useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/useProduct';
+import { useCart } from '@/hooks/useCart';
 
 function page() {
 
     const [mainImage, setMainImage] = useState();
-    const [count, setCount] = useState(1);
+    const [quantity, setQuantity] = useState(1);
     const router = useRouter();
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({});
     const { getProducts, getProductById } = useProduct();
+    const { addToCart } = useCart();
     const { id } = useParams();
     
     useEffect(() => {
@@ -34,13 +36,18 @@ function page() {
         })
     }, [])
 
+    // Add to cart
+    const handleAddToCart = () => {
+        addToCart(product._id, quantity);
+    }
+
     const increaseCount = () => {
-        setCount(count + 1);
+        setQuantity(quantity + 1);
     }
 
     const decreaseCount = () => {
-        if (count > 1) {
-            setCount(count - 1);
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
         }
     }
 
@@ -126,7 +133,7 @@ function page() {
                         onClick={() => router.push(`/address/${id}`)}
                         >Buy Now</button>
                         <button className='lg:text-[16px] md:text-sm text-xs cursor-pointer bg-black text-white md:py-3 py-2 md:px-5 px-3 rounded-lg hover:bg-primary7 transition-all mt-5'
-                        onClick={() => router.push("/cart")}
+                        onClick={handleAddToCart}
                         >Add to Cart</button>
                     </div>
                 </div>
@@ -139,7 +146,7 @@ function page() {
             <p className='text-green-900 pb-3 pt-3 md:text-[16px] text-sm'>In Stock.</p>
             <button className='flex items-center gap-2 bg-cyan-800 text-white w-fit rounded-md sm:py-2 py-1 sm:px-3 px-2'><span className='font-bold border-r border-gray-400 pr-2 cursor-pointer'
             onClick={increaseCount}
-            >+</span>Qty: {count} <span className='font-bold border-l border-gray-400 pl-2 cursor-pointer'
+            >+</span>Qty: {quantity} <span className='font-bold border-l border-gray-400 pl-2 cursor-pointer'
             onClick={decreaseCount}
             >-</span></button>
             <button className='flex items-center justify-center bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3 md:text-[16px] text-sm'>Contact supplier</button>
