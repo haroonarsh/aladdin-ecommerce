@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect } from "react"
 
 import { useState } from "react"
 import Link from "next/link"
@@ -22,6 +22,7 @@ import {
   Menu,
 } from "lucide-react"
 import { Suspense } from "react"
+import { useUser } from "@/hooks/useUser"
 
 export default function DashboardLayout({
   children,
@@ -30,19 +31,36 @@ export default function DashboardLayout({
   const searchParams = useSearchParams()
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
+  const [data, setData] = useState(null)
+  const { fetchAdmin, becomeUser } = useUser()
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar)
   }
 
   const navigation = [
-    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Products", href: "/dashboard/products", icon: Package },
-    { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
-    { name: "Customers", href: "/dashboard/customers", icon: Users },
-    { name: "Statistics", href: "/dashboard/statistics", icon: BarChart3 },
-    { name: "Appearance", href: "/dashboard/appearance", icon: Palette },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+    { name: "Products", href: "/admin/products", icon: Package },
+    { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
+    { name: "Customers", href: "/admin/customers", icon: Users },
+    { name: "Statistics", href: "/admin/statistics", icon: BarChart3 },
+    { name: "Appearance", href: "/admin/appearance", icon: Palette },
+    { name: "Settings", href: "/admin/settings", icon: Settings },
   ]
+
+  const fetchAdminData = async () => {
+      await fetchAdmin().then((data) => {
+        setData(data.user)
+      })      
+  }
+  useEffect(() => {
+    fetchAdminData()
+  }, [])
+
+  const handleBecomeUser = () => {
+    becomeUser().then(() => {
+      window.location.href = "/products-page"
+    })
+  }
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -53,7 +71,9 @@ export default function DashboardLayout({
           {/* Logo */}
           <div className="flex h-16 items-center px-6">
             <div className="flex flex-col ">
-              <img className="w-26 h-11 mt-2" src="./images/logoB.png" alt="" />
+              <img className="w-26 h-11 mt-2 cursor-pointer" 
+              onClick={() => window.location.href = "/"} 
+              src="https://res.cloudinary.com/dtoy2m9rj/image/upload/v1749101057/logoB_clfnb6.png" alt="Logo" />
             </div>
           </div>
 
@@ -98,16 +118,16 @@ export default function DashboardLayout({
           <header className="bg-white shadow-sm fixed top-0 md:left-64 left-0 right-0 z-10">
             <div className="flex h-16 items-center justify-between lg:px-6 sm:px-4 px-2">
               <h1 className="md:text-2xl text-lg font-semibold text-gray-900">
-                {pathname === "/dashboard" && "Analytics"}
-                {pathname === "/dashboard/products" && "Products"}
-                {pathname === "/dashboard/orders" && "Orders"}
-                {pathname === "/dashboard/customers" && "Customers"}
-                {pathname === "/dashboard/statistics" && "Statistics"}
+                {pathname === "/admin/dashboard" && "Analytics"}
+                {pathname === "/admin/products" && "Products"}
+                {pathname === "/admin/orders" && "Orders"}
+                {pathname === "/admin/customers" && "Customers"}
+                {pathname === "/admin/statistics" && "Statistics"}
                 {pathname === "/dashboard/appearance" && "Appearance"}
-                {pathname === "/dashboard/settings" && "Settings"}
+                {pathname === "/admin/settings" && "Settings"}
               </h1>
 
-              <div className="flex items-center md:space-x-4">
+              <div className="flex items-center  lg:space-x-2 xl:space-x-4">
                 {/* Search */}
                 <div className="relative">
                   <Search className="absolute md:left-3 left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -123,10 +143,19 @@ export default function DashboardLayout({
                   <Bell className="h-5 w-5" />
                 </button>
 
-                {/* Profile */}
-                <button className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white">
-                  <User className="h-4 w-4" />
+                {/* Switch */}
+                <button 
+                  className="hidden md:flex rounded-lg p-2 neutral11 hover:bg-gray-100 hover:text-gray-500"
+                  onClick={handleBecomeUser}
+                >
+                  Switch to Buyer
                 </button>
+
+                {/* Profile */}
+                <img
+                  src={data?.ProfileImage}
+                  alt="Profile" 
+                  className="flex h-8 w-8 items-center justify-center rounded-full"/>
                 {/* Menu */}
                 <button onClick={toggleSidebar} className="md:hidden flex rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                   <Menu className="h-5 w-6" />
@@ -141,7 +170,9 @@ export default function DashboardLayout({
           {/* Logo */}
           <div className="flex h-16 items-center px-6">
             <div className="flex flex-col ">
-              <img className="w-26 h-11 mt-2" src="./images/logoB.png" alt="" />
+              <img className="w-26 h-11 mt-2" 
+              onClick={() => window.location.href = "/"} 
+              src="https://res.cloudinary.com/dtoy2m9rj/image/upload/v1749101057/logoB_clfnb6.png" alt="" />
             </div>
           </div>
 

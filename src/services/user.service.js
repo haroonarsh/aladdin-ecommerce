@@ -30,5 +30,35 @@ export const userService = {
         })
         const data = response.data;
         return data;
+    },
+
+    async updatePassword(token, formData) {
+        const response = await api.put("/api/user/updatePassword", formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        const data = response.data;
+        return data;
+    },
+
+    async becomeAdmin(token) {
+        const response = await api.put("/api/user/becomeSeller", {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        const data = response.data;
+        return data;
+    },
+
+    async becomeUser(token) {
+        const response = await api.put("/api/user/becomeBuyer", {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        const data = response.data;
+        return data;
     }
 };

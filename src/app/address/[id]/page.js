@@ -405,7 +405,7 @@ function page() {
             );
             case "completed":
                 return (
-                  <div className='w-full h-full flex items-center justify-center'>
+                  <div className='w-full h-full flex items-center mt-16 justify-center'>
                     <div className='flex flex-col items-center gap-4'>
                       <FaCheck  className='text-8xl text-white bg-cyan-700 p-5 rounded-full'/>
                       <h1 className='text-3xl font-bold text-cyan-700'>Your order was successfull </h1>
@@ -425,9 +425,9 @@ function page() {
   return (
     <>
             {/* // Header */}
-        <AladdinHeaderCustom />
+        {/* <AladdinHeaderCustom /> */}
             {/* // Steps */}
-        <div className={`max-w-[1300px] mx-auto mt-13 mb-13 flex items-center justify-start gap-3 font-sans ${active === "completed" ? "hidden" : ""}`}>
+        <div className={`max-w-[1300px] mx-auto mt-32 mb-13 flex items-center cursor-pointer justify-start gap-3 font-sans ${active === "completed" ? "hidden" : ""}`}>
             <div 
             className={`flex items-center gap-2 text-xl ${active === "address" ? "text-cyan-700" : "text-gray-500"}`}
             onClick={() => setActive("address")}

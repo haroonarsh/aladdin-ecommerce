@@ -4,8 +4,16 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { DollarSign, ShoppingBag, ShoppingCart } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import LatestOrders from "@/features/LatestOrders"
+// import { cookies } from "next/headers"
 
 export default function Dashboard() {
+  // const token = cookies().get("jwt")?.value;
+  //   console.log("HomeToken:", token); // Log the token value
+  // if (token) {
+  //   localStorage.setItem("jwt", token)
+  //   console.log("Token set in localStorage:", token);
+    
+  // }
   // Sample data for the bar chart
   const chartData = [
     { name: "Jan", value1: 900, value2: 800 },

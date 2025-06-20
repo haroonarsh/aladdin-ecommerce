@@ -3,41 +3,26 @@
 import AladdinHeaderCustom from '@/components/after-header/Header'
 import Pagination from '@/components/pagination/Pagination'
 import ProductCard from '@/components/product-cards/ProductCards'
-import React from 'react'
+import { useProduct } from '@/hooks/useProduct';
+import React, { useEffect, useState } from 'react'
 import { TbTriangleSquareCircle } from "react-icons/tb";  
 
 function page() {
 
-    const products = [
-        {
-          id: 1,
-          name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-          price: { min: 30.65, max: 39.99 },
-          rating: 5,
-          image: "/product-img/img-1.png",
-        },
-        {
-          id: 2,
-          name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-          price: { min: 30.65, max: 39.99 },
-          rating: 5,
-          image: "/product-img/img-5.png",
-        },
-        {
-          id: 3,
-          name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-          price: { min: 30.65, max: 39.99 },
-          rating: 5,
-          image: "/product-img/img-3.png",
-        },
-        {
-          id: 4,
-          name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-          price: { min: 30.65, max: 39.99 },
-          rating: 5,
-          image: "/product-img/img-4.png",
-        },
-      ]
+  const [products, setProducts] = useState([]);
+  const { getProducts } = useProduct();
+
+  console.log("Products:", products);
+  
+
+  useEffect(() => {
+    getProducts().then((fetchedProducts) => {
+      setProducts(fetchedProducts.data.products);
+      console.log("Fetched Products:", fetchedProducts.data.products);
+      
+    })
+  }, [])
+
   return (
     <>
             {/* // Header */}
@@ -69,7 +54,7 @@ function page() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {products.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product._id} product={product} />
                     ))}
                 </div>
 

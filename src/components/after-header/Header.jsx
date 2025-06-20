@@ -22,17 +22,16 @@ export default function AladdinHeaderCustom() {
   const dropdownRef = useRef(null)
   const router = useRouter();
   const pathname = usePathname();
-  const { fetchUser, users, loading , error } = useUser()
+  const { fetchUser, becomeAdmin, users, loading , error } = useUser()
 
-    const data = async () => {
-  const userData = await JSON.parse(localStorage.getItem("UserData"));
-  console.log("Parsed UserData", userData); // Log the parsed user data
-  if (userData) {
-    setUserData(userData.user);
-  } else {
-    console.log("No user data found in local storage");
+  // function to fetch user data
+  const data = async () => {
+    fetchUser().then((data) => {
+      if (data) {
+      setUserData(data.user);        
+      }
+    })
   }
-};
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -53,10 +52,16 @@ export default function AladdinHeaderCustom() {
     return <div>Loading...</div>; // Show loading state while fetching user data
   }
   
+    const handleBecomeAdmin = () => {
+    becomeAdmin().then(() => {
+      window.location.href = "/admin/dashboard"
+    })
+  }
+
   return (
     <>
     <header className={`w-full fixed top-0 z-50 ${
-          pathname === "/" || pathname === "/dashboard" || pathname === "/dashboard/products" || pathname === "/dashboard/orders" || pathname === "/dashboard/customers" || pathname === "/dashboard/statistics" || pathname === "/dashboard/appearance" || pathname === "/dashboard/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register"  
+          pathname === "/" || pathname === "/admin/dashboard" || pathname === "/admin/products" || pathname === "/admin/orders" || pathname === "/admin/customers" || pathname === "/admin/statistics" || pathname === "/admin/appearance" || pathname === "/admin/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register"  
             ? inactive
             : active
         }`}>
@@ -185,7 +190,7 @@ export default function AladdinHeaderCustom() {
             </div>
 
             {/* Right side - Language, Account, Cart */}
-            <div className="hidden lg:flex items-center space-x-6">
+            <div className="hidden lg:flex items-center xl:space-x-6 lg:space-x-2 space-x-2">
               {/* Language selector */}
               <div className="flex items-center">
                 <div className="flex items-center space-x-1">
@@ -205,6 +210,14 @@ export default function AladdinHeaderCustom() {
                 <div>Hello, {userData?.FirstName || "User"}</div>
                 <div className="font-semibold">Account for Eshopify...</div>
               </div>
+
+              {/* Switch */}
+                <button 
+                  className="hidden md:flex rounded-lg xl:text-[16px] text-[14px] cursor-pointer text-white hover:bg-gray-100 hover:text-gray-500"
+                  onClick={handleBecomeAdmin}
+                >
+                  Switch to Buyer
+                </button>
 
               {/* Cart */}
               <Link href="/cart" className="flex items-center">
@@ -437,6 +450,13 @@ export default function AladdinHeaderCustom() {
             {/* Bottom navigation */}
           <div className="lg:hidden mt-4 text-white">
             <nav className="flex items-start flex-col gap-2 text-sm">
+              {/* Switch */}
+                <button 
+                  className="flex p-2 items-center lg:hidden rounded-lg xl:text-[16px] text-[14px] cursor-pointer text-white hover:bg-gray-100 hover:text-gray-500"
+                  onClick={handleBecomeAdmin}
+                >
+                  Switch to Buyer
+                </button>
               <Link href="/customer-service" className="hover:underline">
                 Customer Service
               </Link>

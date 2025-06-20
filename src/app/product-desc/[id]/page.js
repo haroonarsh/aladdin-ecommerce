@@ -2,52 +2,52 @@
 
 import AladdinHeaderCustom from '@/components/after-header/Header'
 import StarRating from '@/components/start-rating/Rating';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaLocationDot } from "react-icons/fa6";
 import { MdLocalShipping } from "react-icons/md";
 import { BiCheckShield } from "react-icons/bi";
 import Pagination from '@/components/pagination/Pagination';
 import ProductCard from '@/components/product-cards/ProductCards';
 import CustomerReviews from '@/features/custmer-review/Review';
-import { useRouter } from 'next/navigation';
-
-const products = [
-    {
-      id: 1,
-      name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-      price: { min: 30.65, max: 39.99 },
-      rating: 5,
-      image: "/product-img/img-1.png",
-    },
-    {
-      id: 2,
-      name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-      price: { min: 30.65, max: 39.99 },
-      rating: 5,
-      image: "/product-img/img-5.png",
-    },
-    {
-      id: 3,
-      name: "lorem ipsum fire tv with alexa voice remote Tv etc.",
-      price: { min: 30.65, max: 39.99 },
-      rating: 5,
-      image: "/product-img/img-3.png",
-    },
-];
+import { useParams, useRouter } from 'next/navigation';
+import { useProduct } from '@/hooks/useProduct';
+import { useCart } from '@/hooks/useCart';
 
 function page() {
 
-    const [mainImage, setMainImage] = useState("/product-img/Pimg.png");
-    const [count, setCount] = useState(1);
+    const [mainImage, setMainImage] = useState();
+    const [quantity, setQuantity] = useState(1);
     const router = useRouter();
+    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState({});
+    const { getProducts, getProductById } = useProduct();
+    const { addToCart } = useCart();
+    const { id } = useParams();
+    
+    useEffect(() => {
+        // Fetch the product by ID
+        getProductById(id).then((fetchedProduct) => {
+            setMainImage(fetchedProduct.data.product.imageUrl);
+            setProduct(fetchedProduct.data.product);
+        })
+        // Fetch all products
+        getProducts().then((fetchedProducts) => {
+            setProducts(fetchedProducts.data.products);        
+        })
+    }, [])
+
+    // Add to cart
+    const handleAddToCart = () => {
+        addToCart(product._id, quantity);
+    }
 
     const increaseCount = () => {
-        setCount(count + 1);
+        setQuantity(quantity + 1);
     }
 
     const decreaseCount = () => {
-        if (count > 1) {
-            setCount(count - 1);
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
         }
     }
 
@@ -93,10 +93,10 @@ function page() {
             />
         </div>
                 <div className='max-w-[420px]'>
-                    <h1 className='lg:text-2xl md:text-xl text-lg font-bold font-sans'>Curology the sunscreen by curology is a noclog, grease-free (SPE 30 lotion).</h1>
-                    <p className='text-gray-500 lg:text-[16px] md:text-sm text-xs'>Brand: <span className='primary8'>Curology</span></p>
+                    <h1 className='lg:text-2xl md:text-xl text-lg font-bold font-sans'>{product.description}</h1>
+                    <p className='text-gray-500 lg:text-[16px] md:text-sm text-xs'>Brand: <span className='primary8'>{product.brand}</span></p>
                     <div className='flex md:gap-2 gap-1 lg:text-[16px] md:text-sm text-xs items-center text-gray-500'><StarRating rating={5} maxRating={5} /> 337,762 rating</div>
-                    <p className='font-bold lg:text-xl md:text-lg text-md flex items-center'><span className='text-red-600'>$39.99</span> - $30.65</p>
+                    <p className='font-bold lg:text-xl md:text-lg text-md flex items-center'><span className='text-red-600'>${product.price}</span> - ${product.price}</p>
                     <hr className='my-3 lg:max-w-[300px] w-full text-gray-400'/>
                     <div className="grid grid-cols-2 md:gap-4 gap-2">
                         <div className='flex items-center md:gap-2 gap-1 cursor-pointer'>
@@ -128,6 +128,14 @@ function page() {
                             </div>
                         </div>
                     </div>
+                    <div className='flex flex-col'>
+                        <button className='lg:text-[16px] md:text-sm text-xs cursor-pointer bg-blue-900 text-white md:py-3 py-2 md:px-5 px-3 rounded-lg hover:bg-primary7 transition-all mt-5'
+                        onClick={() => router.push(`/address/${id}`)}
+                        >Buy Now</button>
+                        <button className='lg:text-[16px] md:text-sm text-xs cursor-pointer bg-black text-white md:py-3 py-2 md:px-5 px-3 rounded-lg hover:bg-primary7 transition-all mt-5'
+                        onClick={handleAddToCart}
+                        >Add to Cart</button>
+                    </div>
                 </div>
             </div>
             {/* // right */}
@@ -138,13 +146,13 @@ function page() {
             <p className='text-green-900 pb-3 pt-3 md:text-[16px] text-sm'>In Stock.</p>
             <button className='flex items-center gap-2 bg-cyan-800 text-white w-fit rounded-md sm:py-2 py-1 sm:px-3 px-2'><span className='font-bold border-r border-gray-400 pr-2 cursor-pointer'
             onClick={increaseCount}
-            >+</span>Qty: {count} <span className='font-bold border-l border-gray-400 pl-2 cursor-pointer'
+            >+</span>Qty: {quantity} <span className='font-bold border-l border-gray-400 pl-2 cursor-pointer'
             onClick={decreaseCount}
             >-</span></button>
-            <button className='flex items-center justify-center bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3 md:text-[16px] text-sm'>Contat supplier</button>
+            <button className='flex items-center justify-center bg-cyan-800 text-white mt-5 hover:bg-white cursor-pointer hover:text-cyan-800 border-2 border-cyan-800 transition-all rounded-md py-2 px-3 md:text-[16px] text-sm'>Contact supplier</button>
             <button className='flex items-center justify-center  bg-white text-cyan-800 border-2 border-cyan-800 mt-5 rounded-md py-2 px-3 hover:bg-cyan-800 hover:text-white transition-all md:text-[16px] text-sm'>Chat now</button>
             <h1 className='font-bold pt-3 pb-3 md:text-[18px] text-sm'>Puchase details</h1>
-            <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5' onClick={() => router.push("/address")}><MdLocalShipping /> Shipping</p>
+            <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5'><MdLocalShipping /> Shipping</p>
             <p className='primary8 font-bold flex md:text-[16px] text-sm items-center cursor-pointer gap-1.5'><BiCheckShield /> Payments</p>
             </div>
         </div>
@@ -154,7 +162,7 @@ function page() {
         <div className='max-w-[1360px] xl:pl-5 pl-1 xl:pr-5 pr-1 m-auto md:mt-7 mt-7 pb-13 border-b-2 border-gray-200'>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product._id} product={product} />
                 ))}
             </div>
         </div>

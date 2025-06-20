@@ -22,7 +22,13 @@ function Header({ token }) {
   
   const handleToken = async () => {
     if (token) {
-      await fetchUser(token);
+      await fetchUser(token).then((data) => {
+        if (data.user.Role === 'admin') {
+          router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
+        } else {
+          router.push('/products-page'); // Redirect to home page if user is not an admin
+        }
+      })
     }
   };
   
@@ -80,7 +86,7 @@ function Header({ token }) {
           <Link href="/about" className="hover:text-gray-200 cursor-pointer">About Us</Link>
           <li className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>Shop</li>
           <Link href="/contact" className="hover:text-gray-200 cursor-pointer">Contact Us</Link>
-          <Link href="/account/personal-info" className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>My Account</Link>
+          <li className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>My Account</li>
         </ul>
 
         {/* Cart (desktop) */}

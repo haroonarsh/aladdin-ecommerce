@@ -1,71 +1,36 @@
 "use client"
 
-import { useState } from "react"
+import React from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Plus, Search, Filter, Edit, Trash2, Eye, Package } from "lucide-react"
+import AddProductModal from "@/features/dashboard/add-product-modal"
+import EditProductModal from "@/features/dashboard/edit-product-modal"
+import { useProduct } from "@/hooks/useProduct"
 
 export default function ProductsPage() {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")  
   const [selectedCategory, setSelectedCategory] = useState("All")
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false)
+  const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false)
+  const [currentProduct, setCurrentProduct] = useState(null)
+  const { getProducts, deleteProduct, updateProduct } = useProduct() // Assuming useProduct is used for fetching products, not shown in this snippet
+  const [products, setProducts] = useState([]) // Initialize products state
 
-  // Sample products data
-  const [products] = useState([
-    {
-      id: "1",
-      name: "Curology Sun Screen SPF 50",
-      category: "Skincare",
-      price: 30.43,
-      stock: 150,
-      status: "Active",
-      image: "/placeholder.svg?height=60&width=60",
-      sku: "CUR-SS-001",
-      sales: 245,
-    },
-    {
-      id: "2",
-      name: "Vitamin C Serum",
-      category: "Skincare",
-      price: 45.99,
-      stock: 89,
-      status: "Active",
-      image: "/placeholder.svg?height=60&width=60",
-      sku: "VIT-C-002",
-      sales: 189,
-    },
-    {
-      id: "3",
-      name: "Hydrating Face Mask",
-      category: "Skincare",
-      price: 25.0,
-      stock: 0,
-      status: "Out of Stock",
-      image: "/placeholder.svg?height=60&width=60",
-      sku: "HYD-FM-003",
-      sales: 156,
-    },
-    {
-      id: "4",
-      name: "Anti-Aging Cream",
-      category: "Skincare",
-      price: 65.5,
-      stock: 75,
-      status: "Active",
-      image: "/placeholder.svg?height=60&width=60",
-      sku: "AAG-CR-004",
-      sales: 298,
-    },
-    {
-      id: "5",
-      name: "Gentle Cleanser",
-      category: "Skincare",
-      price: 22.99,
-      stock: 200,
-      status: "Active",
-      image: "/placeholder.svg?height=60&width=60",
-      sku: "GEN-CL-005",
-      sales: 412,
-    },
-  ])
+  console.log("Products:", products);
+  
+  const handleProduct = () => {
+      getProducts().then((fetchedProducts) => {
+        setProducts(fetchedProducts.data.products) // Set the fetched products to state
+        console.log("Fetched Products:", fetchedProducts.data.products) // Log the fetched products
+      }).catch((error) => {
+        console.error("Error fetching products:", error);
+      })
+  }
+  // Call handleProduct to fetch products when the component mounts
+  useEffect(() => {
+    handleProduct()
+  }, []);
 
   const categories = ["All", "Skincare", "Makeup", "Hair Care", "Body Care"]
 
@@ -86,6 +51,40 @@ export default function ProductsPage() {
       default:
         return "bg-gray-100 text-gray-800"
     }
+  }
+
+  const handleAddProduct = (newProduct) => {
+    const product = {
+      ...newProduct,
+      _id: products.length + 1, // Simulating an ID for the new product
+      imageUrl: newProduct.imageUrl || "/placeholder.svg", // Default image if not provided
+    }
+    setProducts([...products, product])
+    setIsAddProductModalOpen(false)
+  }
+
+  // Function to handle product deletion
+  const handleDeleteProduct = async (id) => {
+    const token = localStorage.getItem("jwt") // Get the JWT token from local storage
+    try {
+      await deleteProduct(token, id)
+      setProducts(products.filter((product) => product._id !== id))
+      console.log("Product deleted successfully")
+      handleProduct()
+    } catch (error) {
+      console.error("Error deleting product:", error)
+    }
+  }
+
+   const handleEditProduct = (updatedProduct) => {
+    setProducts(products.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)))
+    setIsEditProductModalOpen(false)
+    setCurrentProduct(null)
+  }
+
+  const openEditModal = (product) => {
+    setCurrentProduct(product)
+    setIsEditProductModalOpen(true)
   }
 
   return (
@@ -147,7 +146,9 @@ export default function ProductsPage() {
           <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
             <h2 className="text-lg font-medium text-gray-900">Products</h2>
             <div className="flex space-x-3">
-              <button className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
+              <button className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+              onClick={() => setIsAddProductModalOpen(true)}
+              >
                 <Plus className="mr-2 h-4 w-4" />
                 Add Product
               </button>
@@ -214,16 +215,16 @@ export default function ProductsPage() {
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
               {filteredProducts.map((product) => (
-                <tr key={product.id} className="hover:bg-gray-50">
+                <tr key={product._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="h-12 w-12 flex-shrink-0">
-                        <Image
-                          src={product.image || "/placeholder.svg"}
+                        <img
+                          src={product.imageUrl || "/placeholder.svg"}
                           alt={product.name}
                           width={48}
                           height={48}
-                          className="h-12 w-12 rounded-lg object-cover"
+                          className="h-12 w-12 object-cover rounded-4xl"
                         />
                       </div>
                       <div className="ml-4">
@@ -231,7 +232,7 @@ export default function ProductsPage() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.sku}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.SKU}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.category}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${product.price.toFixed(2)}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.stock}</td>
@@ -250,10 +251,14 @@ export default function ProductsPage() {
                       <button className="text-blue-600 hover:text-blue-900">
                         <Eye className="h-4 w-4" />
                       </button>
-                      <button className="text-gray-600 hover:text-gray-900">
+                      <button className="text-gray-600 hover:text-gray-900"
+                      onClick={() => openEditModal(product)}
+                      >
                         <Edit className="h-4 w-4" />
                       </button>
-                      <button className="text-red-600 hover:text-red-900">
+                      <button className="text-red-600 hover:text-red-900"
+                        onClick={() => handleDeleteProduct(product._id)}
+                      >
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
@@ -300,6 +305,25 @@ export default function ProductsPage() {
           </div>
         </div>
       </div>
+      {/* Add Product Modal */}
+      <AddProductModal
+        isOpen={isAddProductModalOpen}
+        onClose={() => setIsAddProductModalOpen(false)}
+        onAddProduct={handleAddProduct}
+      />
+      {/* Edit Product Modal */}
+      {currentProduct && (
+        <EditProductModal
+          isOpen={isEditProductModalOpen}
+          onClose={() => {
+            setIsEditProductModalOpen(false)
+            setCurrentProduct(null)
+          }}
+          onUpdateProduct={handleEditProduct}
+          product={currentProduct}
+          id={currentProduct._id} // Pass the product
+        />
+      )}
     </div>
   )
 }
