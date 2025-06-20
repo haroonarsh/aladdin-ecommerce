@@ -31,6 +31,7 @@ export const useCart = () => {
         try {
             const token = localStorage.getItem('token');
             const response = await cartService.removeFromCart(token, productId);
+            toast.success('Product removed from cart successfully');
             return response;
         } catch (error) {
             throw error;
