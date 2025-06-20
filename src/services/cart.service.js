@@ -11,8 +11,8 @@ export const cartService = {
         return data;
     },
 
-    async addToCart(token, productId) {
-        const response = await api.post('/api/cart/add', productId, {
+    async addToCart(token, productId, quantity) {
+        const response = await api.post('/api/cart/add', { productId, quantity }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
