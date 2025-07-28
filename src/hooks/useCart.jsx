@@ -10,7 +10,6 @@ export const useCart = () => {
             const token = localStorage.getItem('token');
             const response = await cartService.addToCart(token, productId, quantity);
             toast.success('Product added to cart successfully');
-            router.push('/cart');
             return response;
         } catch (error) {
             throw error;
