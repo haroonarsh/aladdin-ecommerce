@@ -12,6 +12,16 @@ export const productService = {
         return data;
     },
 
+    async getProductsById(token) {
+        const response = await api.get("/api/products/products", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const data = response.data;
+        return data;
+    },
+
     async getProductById(id) {
         const response = await api.get(`/api/products/${id}`);
         const data = response.data;
