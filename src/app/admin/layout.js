@@ -32,7 +32,7 @@ export default function DashboardLayout({
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [data, setData] = useState(null)
-  const { fetchAdmin, becomeUser } = useUser()
+  const { fetchAdmin } = useUser()
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar)
   }
@@ -55,12 +55,6 @@ export default function DashboardLayout({
   useEffect(() => {
     fetchAdminData()
   }, [])
-
-  const handleBecomeUser = () => {
-    becomeUser().then(() => {
-      window.location.href = "/products-page"
-    })
-  }
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -141,14 +135,6 @@ export default function DashboardLayout({
                 {/* Notifications */}
                 <button className="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                   <Bell className="h-5 w-5" />
-                </button>
-
-                {/* Switch */}
-                <button 
-                  className="hidden md:flex rounded-lg p-2 neutral11 hover:bg-gray-100 hover:text-gray-500"
-                  onClick={handleBecomeUser}
-                >
-                  Switch to Buyer
                 </button>
 
                 {/* Profile */}
