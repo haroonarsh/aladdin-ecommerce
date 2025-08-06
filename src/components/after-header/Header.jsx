@@ -61,7 +61,7 @@ export default function AladdinHeaderCustom() {
   return (
     <>
     <header className={`w-full fixed top-0 z-50 ${
-          pathname === "/" || pathname === "/admin/dashboard" || pathname === "/admin/products" || pathname === "/admin/orders" || pathname === "/admin/customers" || pathname === "/admin/statistics" || pathname === "/admin/appearance" || pathname === "/admin/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register" || pathname === "/success" 
+          pathname === "/" || pathname === "/admin/dashboard" || pathname === "/admin/products" || pathname === "/admin/orders" || pathname === "/admin/customers" || pathname === "/admin/statistics" || pathname === "/admin/appearance" || pathname === "/admin/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/signup" || pathname === "/role" || pathname === "/register" || pathname === "/success" 
             ? inactive
             : active
         }`}>
@@ -210,14 +210,6 @@ export default function AladdinHeaderCustom() {
                 <div>Hello, {userData?.FirstName || "User"}</div>
                 <div className="font-semibold">Account for Eshopify...</div>
               </div>
-
-              {/* Switch */}
-                <button 
-                  className="hidden md:flex xl:py-2 py-1 xl:px-4 px-2 rounded-lg xl:text-[16px] text-[14px] cursor-pointer text-white hover:bg-gray-100 hover:text-gray-500 transition"
-                  onClick={handleBecomeAdmin}
-                >
-                  Switch to Admin
-                </button>
 
               {/* Cart */}
               <Link href="/cart" className="flex items-center">
@@ -450,13 +442,6 @@ export default function AladdinHeaderCustom() {
             {/* Bottom navigation */}
           <div className="lg:hidden mt-4 text-white">
             <nav className="flex items-start flex-col gap-2 text-sm">
-              {/* Switch */}
-                <button 
-                  className="flex p-2 items-center lg:hidden rounded-lg xl:text-[16px] text-[14px] cursor-pointer text-white hover:bg-gray-100 hover:text-gray-500 transition"
-                  onClick={handleBecomeAdmin}
-                >
-                  Switch to Admin
-                </button>
               <Link href="/customer-service" className="hover:underline">
                 Customer Service
               </Link>
