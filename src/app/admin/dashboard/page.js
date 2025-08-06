@@ -4,16 +4,39 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { DollarSign, ShoppingBag, ShoppingCart } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import LatestOrders from "@/features/LatestOrders"
-// import { cookies } from "next/headers"
+import { useEffect, useState, useMemo } from "react"
+import { useOrder } from "@/hooks/useOrder"
 
 export default function Dashboard() {
-  // const token = cookies().get("jwt")?.value;
-  //   console.log("HomeToken:", token); // Log the token value
-  // if (token) {
-  //   localStorage.setItem("jwt", token)
-  //   console.log("Token set in localStorage:", token);
-    
-  // }
+
+  const [orders, setOrders] = useState([]);
+  const { fetchAdminOrders } = useOrder();
+  console.log("SetOrders:", orders);
+
+  // Fetch all orders
+  const fetchOrders = async () => {
+    await fetchAdminOrders()
+      .then((res) => {
+        setOrders(res.data.orders);
+        console.log("Orders:", res);
+      })
+      .catch((err) => {
+        console.error("Error fetching orders:", err);
+      })
+  }
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const totalProduts = useMemo(() => {
+    return orders.reduce((total, order) => {
+      return total + order.products.reduce((orderTotal, product) => {
+        return orderTotal + product.quantity;
+      }, 0);
+    }, 0);
+  }, [orders]);
+
   // Sample data for the bar chart
   const chartData = [
     { name: "Jan", value1: 900, value2: 800 },
@@ -29,6 +52,8 @@ export default function Dashboard() {
     { name: "Nov", value1: 1150, value2: 1050 },
     { name: "Dec", value1: 1200, value2: 1100 },
   ]
+
+  const totalSales = orders.reduce((acc, order) => acc + order.totalAmount, 0);
 
   return (
     <>
@@ -56,7 +81,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground neutral6">Total Sales</p>
-                <h3 className="xl:text-2xl text-xl font-bold">$19,626,058.20</h3>
+                <h3 className="xl:text-2xl text-xl font-bold">${totalSales.toFixed(2) || 0}</h3>
               </div>
             </CardContent>
           </Card>
@@ -71,7 +96,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground neutral6">Total Orders</p>
-                <h3 className="xl:text-2xl text-xl font-bold">3290</h3>
+                <h3 className="xl:text-2xl text-xl font-bold">{orders.length || 0}</h3>
               </div>
             </CardContent>
           </Card>
@@ -86,7 +111,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground neutral6">Total Products</p>
-                <h3 className="xl:text-2xl text-xl font-bold">497</h3>
+                <h3 className="xl:text-2xl text-xl font-bold">{totalProduts}</h3>
               </div>
             </CardContent>
           </Card>
@@ -172,7 +197,7 @@ export default function Dashboard() {
             {/* // Latest Orders */}
         <main className="">
       <div className="mt-10 mx-auto">
-        <LatestOrders />
+        <LatestOrders orders={orders} />
       </div>
       </main>
       </div>

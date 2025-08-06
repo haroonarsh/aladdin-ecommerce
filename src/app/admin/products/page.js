@@ -14,13 +14,17 @@ export default function ProductsPage() {
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false)
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false)
   const [currentProduct, setCurrentProduct] = useState(null)
-  const { getProducts, deleteProduct, updateProduct } = useProduct() // Assuming useProduct is used for fetching products, not shown in this snippet
+  const { getProductsById, deleteProduct, updateProduct } = useProduct() // Assuming useProduct is used for fetching products, not shown in this snippet
   const [products, setProducts] = useState([]) // Initialize products state
 
   console.log("Products:", products);
   
   const handleProduct = () => {
-      getProducts().then((fetchedProducts) => {
+    getProductsById().then((fetchedProducts) => {
+      if (!fetchedProducts || fetchedProducts.length === 0) {
+        console.log("No products found for this user.");
+        return;
+      }
         setProducts(fetchedProducts.data.products) // Set the fetched products to state
         console.log("Fetched Products:", fetchedProducts.data.products) // Log the fetched products
       }).catch((error) => {
@@ -214,7 +218,8 @@ export default function ProductsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
-              {filteredProducts.map((product) => (
+              {filteredProducts && filteredProducts.length > 0 && products.length > 0 ? (
+                filteredProducts.map((product) => (
                 <tr key={product._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
@@ -264,7 +269,15 @@ export default function ProductsPage() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="px-6 py-4 text-center text-red-500">
+                    No products found
+                  </td>
+                </tr>
+              )}
+              
             </tbody>
           </table>
         </div>

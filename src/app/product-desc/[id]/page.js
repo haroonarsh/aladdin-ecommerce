@@ -51,6 +51,12 @@ function page() {
         }
     }
 
+    // Buy Now
+    const handleBuyNow = () => {
+        addToCart(product._id, quantity);
+        router.push(`/address/${id}`)
+    }
+
     // Thumbnails
     const thumbnails = [
         "/product-img/sideImg.png",
@@ -130,7 +136,7 @@ function page() {
                     </div>
                     <div className='flex flex-col'>
                         <button className='lg:text-[16px] md:text-sm text-xs cursor-pointer bg-blue-900 text-white md:py-3 py-2 md:px-5 px-3 rounded-lg hover:bg-primary7 transition-all mt-5'
-                        onClick={() => router.push(`/address/${id}`)}
+                        onClick={handleBuyNow}
                         >Buy Now</button>
                         <button className='lg:text-[16px] md:text-sm text-xs cursor-pointer bg-black text-white md:py-3 py-2 md:px-5 px-3 rounded-lg hover:bg-primary7 transition-all mt-5'
                         onClick={handleAddToCart}

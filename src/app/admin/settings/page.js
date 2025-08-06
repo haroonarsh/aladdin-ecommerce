@@ -11,7 +11,7 @@ export default function SettingsPage() {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { fetchAdmin, updateUser, updateImage, updatePassword, becomeUser } = useUser();
+  const { fetchAdmin, updateUser, updateImage, updatePassword } = useUser();
   const [preveiw, setPreveiw] = useState(null);
   // Form states
   const [profileData, setProfileData] = useState({
@@ -154,24 +154,11 @@ export default function SettingsPage() {
     })
   }
 
-  const handleBecomeUser = () => {
-    becomeUser().then(() => {
-      window.location.href = "/products-page"
-    });
-  }
-
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col justify-between space-y-4 sm:flex-row sm:items-center sm:space-y-0">
         <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        {/* Switch */}
-        <button 
-          className="flex md:hidden cursor-pointer rounded-lg p-2 neutral11 hover:bg-gray-100 hover:text-gray-500"
-          onClick={handleBecomeUser}
-          >
-          Switch to Buyer
-        </button>
         <button 
         className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
         onClick={handleAdminUpdate}

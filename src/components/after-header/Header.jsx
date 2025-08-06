@@ -61,7 +61,7 @@ export default function AladdinHeaderCustom() {
   return (
     <>
     <header className={`w-full fixed top-0 z-50 ${
-          pathname === "/" || pathname === "/admin/dashboard" || pathname === "/admin/products" || pathname === "/admin/orders" || pathname === "/admin/customers" || pathname === "/admin/statistics" || pathname === "/admin/appearance" || pathname === "/admin/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/register"  
+          pathname === "/" || pathname === "/admin/dashboard" || pathname === "/admin/products" || pathname === "/admin/orders" || pathname === "/admin/customers" || pathname === "/admin/statistics" || pathname === "/admin/appearance" || pathname === "/admin/settings" || pathname === "/home" || pathname === "/about" || pathname === "/contact" || pathname === "/login" || pathname === "/signup" || pathname === "/role" || pathname === "/register" || pathname === "/success" 
             ? inactive
             : active
         }`}>
@@ -210,14 +210,6 @@ export default function AladdinHeaderCustom() {
                 <div>Hello, {userData?.FirstName || "User"}</div>
                 <div className="font-semibold">Account for Eshopify...</div>
               </div>
-
-              {/* Switch */}
-                <button 
-                  className="hidden md:flex rounded-lg xl:text-[16px] text-[14px] cursor-pointer text-white hover:bg-gray-100 hover:text-gray-500"
-                  onClick={handleBecomeAdmin}
-                >
-                  Switch to Buyer
-                </button>
 
               {/* Cart */}
               <Link href="/cart" className="flex items-center">
@@ -379,7 +371,7 @@ export default function AladdinHeaderCustom() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed top-[4rem] left-0 w-full h-fit bg-cyan-800 text-white p-4 z-10">
+        <div className="lg:hidden fixed top-[4rem] left-0 w-full h-fit bg-cyan-800 text-white p-4 z-10 transform duration-1000 ease-in-out transition-transform">
           <div className="flex justify-between lg:hidden items-center text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -450,13 +442,6 @@ export default function AladdinHeaderCustom() {
             {/* Bottom navigation */}
           <div className="lg:hidden mt-4 text-white">
             <nav className="flex items-start flex-col gap-2 text-sm">
-              {/* Switch */}
-                <button 
-                  className="flex p-2 items-center lg:hidden rounded-lg xl:text-[16px] text-[14px] cursor-pointer text-white hover:bg-gray-100 hover:text-gray-500"
-                  onClick={handleBecomeAdmin}
-                >
-                  Switch to Buyer
-                </button>
               <Link href="/customer-service" className="hover:underline">
                 Customer Service
               </Link>

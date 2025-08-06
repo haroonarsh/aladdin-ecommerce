@@ -14,6 +14,20 @@ export const useProduct = () => {
         }
     }
 
+    const getProductsById = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const products = await productService.getProductsById(token);
+            if (!products || products.length === 0) {
+                toast.info("No products found for this user.");
+                return [];
+            }
+            return products;
+        } catch (error) {
+            console.log("Error fetching products by ID:", error);
+        }
+    }
+
     const getProductById = async (id) => {
         try {
             const product = await productService.getProductById(id);
@@ -59,6 +73,7 @@ export const useProduct = () => {
 
     return {
         getProducts,
+        getProductsById,
         getProductById,
         createProduct,
         updateProduct,
