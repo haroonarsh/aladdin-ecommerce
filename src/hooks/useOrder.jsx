@@ -57,5 +57,18 @@ export const useOrder = () => {
         }
     }
 
-    return { createOrder, updateOrderStatus, fetchAllOrders, fetchOrderedProducts };
+    const fetchAdminOrders = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await orderService.fetchAdminOrders(token);
+            toast.success('Admin orders fetched successfully');
+            return response;
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to fetch admin orders");
+            console.error("Fetch admin orders error:", error);
+            throw error; // Re-throw the error for further handling if needed
+        }
+    }
+
+    return { createOrder, updateOrderStatus, fetchAllOrders, fetchOrderedProducts, fetchAdminOrders };
 }
