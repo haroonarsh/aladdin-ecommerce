@@ -18,13 +18,15 @@ export const useAuth = () => {
             setUser(user.data);
             localStorage.setItem('UserData', JSON.stringify(user.data)); // Store user data in local storage
             // setTimeout(() => {
-                if (user.data.user.Role === 'admin') {
-                    toast.success("Registration successful! Redirecting to admin dashboard...");
-                    router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
-                } else {
-                    toast.success("Registration successful! Redirecting to products page...");
-                    router.push('/products-page'); // Redirect to products page for regular users
-                }
+                // if (user.data.user.Role === 'admin') {
+                //     toast.success("Registration successful! Redirecting to admin dashboard...");
+                //     router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
+                // } else {
+                //     toast.success("Registration successful! Redirecting to products page...");
+                //     router.push('/products-page'); // Redirect to products page for regular users
+                // }
+            toast.success("Registration successful! Redirecting to role page...");
+                router.push('/role'); // Redirect to login page after successful registration
             // }, 4000);
             return user; // Return user data if needed
         } catch (error) {
