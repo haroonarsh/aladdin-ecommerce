@@ -4,23 +4,18 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { DollarSign, ShoppingBag, ShoppingCart } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import LatestOrders from "@/features/LatestOrders"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { useOrder } from "@/hooks/useOrder"
-// import { cookies } from "next/headers"
 
 export default function Dashboard() {
 
   const [orders, setOrders] = useState([]);
-  const [products, setProducts] = useState([]);
-  const { fetchAllOrders, fetchOrderedProducts } = useOrder();
+  const { fetchAdminOrders } = useOrder();
   console.log("SetOrders:", orders);
-  console.log("SetProducts:", products);
-  
-
 
   // Fetch all orders
   const fetchOrders = async () => {
-    fetchAllOrders()
+    await fetchAdminOrders()
       .then((res) => {
         setOrders(res.data.orders);
         console.log("Orders:", res);
@@ -30,22 +25,17 @@ export default function Dashboard() {
       })
   }
 
-  // Fetch all products
-  const fetchProducts = async () => {
-    fetchOrderedProducts()
-      .then((res) => {
-        setProducts(res.data.products);
-        console.log("Products:", res);
-      })
-      .catch((err) => {
-        console.error("Error fetching products:", err);
-      })
-  }
-
   useEffect(() => {
     fetchOrders();
-    fetchProducts();
   }, []);
+
+  const totalProduts = useMemo(() => {
+    return orders.reduce((total, order) => {
+      return total + order.products.reduce((orderTotal, product) => {
+        return orderTotal + product.quantity;
+      }, 0);
+    }, 0);
+  }, [orders]);
 
   // Sample data for the bar chart
   const chartData = [
@@ -121,7 +111,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground neutral6">Total Products</p>
-                <h3 className="xl:text-2xl text-xl font-bold">{products.length || 0}</h3>
+                <h3 className="xl:text-2xl text-xl font-bold">{totalProduts}</h3>
               </div>
             </CardContent>
           </Card>
