@@ -39,5 +39,15 @@ export const orderService = {
         })
         const data = response.data;
         return data;
+    },
+
+    async fetchAdminOrders(token) {
+        const response = await api.get('/api/order/fetch-admin-orders', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const data = response.data;
+        return data;
     }
 }
