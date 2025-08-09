@@ -102,7 +102,7 @@ export default function ProductsPage() {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Products</p>
-              <p className="text-2xl font-bold text-gray-900">497</p>
+              <p className="text-2xl font-bold text-gray-900">{products.length}</p>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ export default function ProductsPage() {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Active Products</p>
-              <p className="text-2xl font-bold text-gray-900">423</p>
+              <p className="text-2xl font-bold text-gray-900">{products.filter((product) => product.status === "Active").length}</p>
             </div>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function ProductsPage() {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Low Stock</p>
-              <p className="text-2xl font-bold text-gray-900">12</p>
+              <p className="text-2xl font-bold text-gray-900">{products.filter((product) => product.status === "Low Stock").length}</p>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function ProductsPage() {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Out of Stock</p>
-              <p className="text-2xl font-bold text-gray-900">8</p>
+              <p className="text-2xl font-bold text-gray-900">{products.filter((product) => product.status === "Out of Stock").length}</p>
             </div>
           </div>
         </div>

@@ -16,9 +16,7 @@ function Header({ token }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-
   const { fetchUser } = useUser();
-  // const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
   
   const handleToken = async () => {
     if (token) {
@@ -27,6 +25,17 @@ function Header({ token }) {
           router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
         } else {
           router.push('/products-page'); // Redirect to home page if user is not an admin
+        }
+      })
+    }
+  };
+  const handleAccount = async () => {
+    if (token) {
+      await fetchUser(token).then((data) => {
+        if (data.user.Role === 'admin') {
+          router.push('/admin/dashboard'); // Redirect to admin dashboard if user is an admin
+        } else {
+          router.push('/account/personal-info'); // Redirect to home page if user is not an admin
         }
       })
     }
@@ -86,7 +95,7 @@ function Header({ token }) {
           <Link href="/about" className="hover:text-gray-200 cursor-pointer">About Us</Link>
           <li className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>Shop</li>
           <Link href="/contact" className="hover:text-gray-200 cursor-pointer">Contact Us</Link>
-          <li className="hover:text-gray-200 cursor-pointer" onClick={handleToken}>My Account</li>
+          <li className="hover:text-gray-200 cursor-pointer" onClick={handleAccount}>My Account</li>
         </ul>
 
         {/* Cart (desktop) */}

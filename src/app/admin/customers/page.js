@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import {
   Search,
@@ -16,6 +16,7 @@ import {
   Phone,
   MapPin,
 } from "lucide-react"
+import { useOrder } from "@/hooks/useOrder"
 
 export default function CustomersPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -23,120 +24,26 @@ export default function CustomersPage() {
   const [selectedType, setSelectedType] = useState("All")
 
   // Sample customers data
-  const [customers] = useState([
-    {
-      id: "1",
-      name: "Sarah Johnson",
-      email: "sarah.johnson@email.com",
-      phone: "+1 (555) 123-4567",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "New York, NY",
-      joinDate: "2023-01-15",
-      totalOrders: 12,
-      totalSpent: 1245.67,
-      status: "Active",
-      lastOrderDate: "2024-03-15",
-      customerType: "VIP",
-    },
-    {
-      id: "2",
-      name: "Michael Chen",
-      email: "michael.chen@email.com",
-      phone: "+1 (555) 234-5678",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "Los Angeles, CA",
-      joinDate: "2023-03-22",
-      totalOrders: 8,
-      totalSpent: 567.89,
-      status: "Active",
-      lastOrderDate: "2024-03-14",
-      customerType: "Regular",
-    },
-    {
-      id: "3",
-      name: "Emily Davis",
-      email: "emily.davis@email.com",
-      phone: "+1 (555) 345-6789",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "Chicago, IL",
-      joinDate: "2024-02-10",
-      totalOrders: 3,
-      totalSpent: 189.45,
-      status: "Active",
-      lastOrderDate: "2024-03-13",
-      customerType: "New",
-    },
-    {
-      id: "4",
-      name: "David Wilson",
-      email: "david.wilson@email.com",
-      phone: "+1 (555) 456-7890",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "Miami, FL",
-      joinDate: "2022-11-08",
-      totalOrders: 25,
-      totalSpent: 2890.34,
-      status: "Active",
-      lastOrderDate: "2024-03-12",
-      customerType: "VIP",
-    },
-    {
-      id: "5",
-      name: "Lisa Anderson",
-      email: "lisa.anderson@email.com",
-      phone: "+1 (555) 567-8901",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "Seattle, WA",
-      joinDate: "2023-07-19",
-      totalOrders: 5,
-      totalSpent: 234.56,
-      status: "Inactive",
-      lastOrderDate: "2024-01-20",
-      customerType: "Regular",
-    },
-    {
-      id: "6",
-      name: "Robert Taylor",
-      email: "robert.taylor@email.com",
-      phone: "+1 (555) 678-9012",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "Boston, MA",
-      joinDate: "2023-09-05",
-      totalOrders: 0,
-      totalSpent: 0,
-      status: "Blocked",
-      lastOrderDate: "Never",
-      customerType: "New",
-    },
-    {
-      id: "7",
-      name: "Jennifer Brown",
-      email: "jennifer.brown@email.com",
-      phone: "+1 (555) 789-0123",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "Denver, CO",
-      joinDate: "2022-12-03",
-      totalOrders: 18,
-      totalSpent: 1567.89,
-      status: "Active",
-      lastOrderDate: "2024-03-10",
-      customerType: "VIP",
-    },
-    {
-      id: "8",
-      name: "James Miller",
-      email: "james.miller@email.com",
-      phone: "+1 (555) 890-1234",
-      avatar: "/placeholder.svg?height=40&width=40",
-      location: "Phoenix, AZ",
-      joinDate: "2024-01-28",
-      totalOrders: 2,
-      totalSpent: 98.76,
-      status: "Active",
-      lastOrderDate: "2024-03-08",
-      customerType: "New",
-    },
-  ])
+  const [customers, setCustomers] = useState([]);
+
+  const { fetchAdminOrders } = useOrder();
+  console.log("Set Customers:", customers);
+
+  // Fetch all orders
+  const fetchOrders = async () => {
+    await fetchAdminOrders()
+      .then((res) => {
+        setCustomers(res.data.orders);
+        console.log("Orders:", res);
+      })
+      .catch((err) => {
+        console.error("Error fetching orders:", err);
+      })
+  }
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const statusOptions = ["All", "Active", "Inactive", "Blocked"]
   const typeOptions = ["All", "Regular", "VIP", "New"]
@@ -147,7 +54,7 @@ export default function CustomersPage() {
       customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       customer.phone.includes(searchTerm)
     const matchesStatus = selectedStatus === "All" || customer.status === selectedStatus
-    const matchesType = selectedType === "All" || customer.customerType === selectedType
+    const matchesType = selectedType === "All" || (customer.createdAt > "2025-04-01") === "New" || customer.customerType === selectedType
     return matchesSearch && matchesStatus && matchesType
   })
 
@@ -179,10 +86,10 @@ export default function CustomersPage() {
 
   // Calculate stats
   const totalCustomers = customers.length
-  const activeCustomers = customers.filter((customer) => customer.status === "Active").length
-  const newCustomers = customers.filter((customer) => customer.customerType === "New").length
+  const activeCustomers = customers.filter((customer) => customer.createdAt === Date.now()).length
+  const newCustomers = customers.filter((customer) => customer.createdAt > "2025-04-01").length
   const vipCustomers = customers.filter((customer) => customer.customerType === "VIP").length
-  const totalRevenue = customers.reduce((sum, customer) => sum + customer.totalSpent, 0)
+  const totalRevenue = customers.reduce((sum, customer) => sum + customer.totalAmount, 0)
 
   return (
     <div className="space-y-6">
@@ -325,25 +232,25 @@ export default function CustomersPage() {
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
               {filteredCustomers.map((customer) => (
-                <tr key={customer.id} className="hover:bg-gray-50">
+                <tr key={customer._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="h-10 w-10 flex-shrink-0">
-                        <Image
+                      {/* <div className="h-10 w-10 flex-shrink-0">
+                        <img
                           src={customer.avatar || "/placeholder.svg"}
                           alt={customer.name}
                           width={40}
                           height={40}
                           className="h-10 w-10 rounded-full object-cover"
                         />
-                      </div>
-                      <div className="ml-4">
+                      </div> */}
+                      <div className="">
                         <div className="text-sm font-medium text-gray-900">{customer.name}</div>
                         <div className="text-sm text-gray-500">{customer.email}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="py-4 whitespace-nowrap">
                     <div className="flex items-center text-sm text-gray-500">
                       <Phone className="mr-1 h-4 w-4" />
                       {customer.phone}
@@ -353,35 +260,35 @@ export default function CustomersPage() {
                       {customer.email}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 py-4 whitespace-nowrap">
                     <div className="flex items-center text-sm text-gray-500">
                       <MapPin className="mr-1 h-4 w-4" />
-                      {customer.location}
+                      {customer.shippingAddress}, {customer.city}, {customer.state}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{customer.totalOrders}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{customer.products.length}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ${customer.totalSpent.toFixed(2)}
+                    ${customer.totalAmount.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${getTypeColor(
-                        customer.customerType,
+                        customer.createdAt > "2025-04-01" ? "New" : customer.createdAt <= "2025-04-01" ? "VIP" : customer.customerType,
                       )}`}
                     >
-                      {customer.customerType}
+                      {customer.createdAt >= "2025-04-01" ? "New" || customer.createdAt <= "2025-04-01" ? "VIP" : customer.customerType : "Regular"}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${getStatusColor(
-                        customer.status,
+                        customer.createdAt === Date.now() ? "Active" : "Inactive",
                       )}`}
                     >
-                      {customer.status}
+                      {customer.createdAt === Date.now() ? "Active" : "Inactive"}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{customer.joinDate}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{customer.createdAt.slice(0, 10)}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <div className="flex items-center space-x-2">
                       <button className="text-blue-600 hover:text-blue-900">
@@ -405,17 +312,10 @@ export default function CustomersPage() {
         <div className="lg:hidden">
           <div className="space-y-4 p-4">
             {filteredCustomers.map((customer) => (
-              <div key={customer.id} className="rounded-lg border border-gray-200 bg-white p-4">
+              <div key={customer._id} className="rounded-lg border border-gray-200 bg-white p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <Image
-                      src={customer.avatar || "/placeholder.svg"}
-                      alt={customer.name}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
-                    <div className="ml-3">
+                    <div className="">
                       <div className="text-sm font-medium text-gray-900">{customer.name}</div>
                       <div className="text-xs text-gray-500">{customer.email}</div>
                     </div>
@@ -423,28 +323,28 @@ export default function CustomersPage() {
                   <div className="flex space-x-1">
                     <span
                       className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${getStatusColor(
-                        customer.status,
+                        customer.createdAt === Date.now() ? "Active" : "Inactive",
                       )}`}
                     >
-                      {customer.status}
+                      {customer.createdAt === Date.now() ? "Active" : "Inactive"}
                     </span>
                     <span
                       className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${getTypeColor(
-                        customer.customerType,
+                        customer.createdAt > "2025-04-01" ? "New" : customer.createdAt <= "2025-04-01" ? "VIP" : customer.customerType,
                       )}`}
                     >
-                      {customer.customerType}
+                      {customer.createdAt >= "2025-04-01" ? "New" || customer.createdAt <= "2025-04-01" ? "VIP" : customer.customerType : "Regular"}
                     </span>
                   </div>
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
                   <div>
                     <span className="text-gray-500">Orders:</span>
-                    <span className="ml-1 font-medium">{customer.totalOrders}</span>
+                    <span className="ml-1 font-medium">{customer.products.length}</span>
                   </div>
                   <div>
                     <span className="text-gray-500">Spent:</span>
-                    <span className="ml-1 font-medium">${customer.totalSpent.toFixed(2)}</span>
+                    <span className="ml-1 font-medium">${customer.totalAmount.toFixed(2)}</span>
                   </div>
                   <div>
                     <span className="text-gray-500">Phone:</span>
@@ -452,7 +352,7 @@ export default function CustomersPage() {
                   </div>
                   <div>
                     <span className="text-gray-500">Joined:</span>
-                    <span className="ml-1 text-xs">{customer.joinDate}</span>
+                    <span className="ml-1 text-xs">{customer.createdAt}</span>
                   </div>
                 </div>
                 <div className="mt-3 flex items-center justify-between">

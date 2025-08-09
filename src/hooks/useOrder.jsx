@@ -20,8 +20,6 @@ export const useOrder = () => {
         try {
             const token = localStorage.getItem('token');
             const response = await orderService.updateOrderStatus(token, orderId, { paymentStatus, orderStatus });
-            toast.success('Order status updated successfully');
-
             return response;
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to update order status");
@@ -34,7 +32,6 @@ export const useOrder = () => {
         try {
             const token = localStorage.getItem('token');
             const response = await orderService.fetchAllOrders(token);
-            toast.success('Orders fetched successfully');
             console.log("Fetched orders:", response);
             return response;
         } catch (error) {
@@ -48,7 +45,6 @@ export const useOrder = () => {
         try {
             const token = localStorage.getItem('token');
             const response = await orderService.fetchOrderedProducts(token);
-            toast.success('Ordered products fetched successfully');
             return response;
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to fetch ordered products");
@@ -61,11 +57,10 @@ export const useOrder = () => {
         try {
             const token = localStorage.getItem('token');
             const response = await orderService.fetchAdminOrders(token);
-            toast.success('Admin orders fetched successfully');
             return response;
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to fetch admin orders");
-            console.error("Fetch admin orders error:", error);
+            console.log("Fetch admin orders error:", error);
             throw error; // Re-throw the error for further handling if needed
         }
     }

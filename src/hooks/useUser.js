@@ -11,7 +11,7 @@ export const useUser = () => {
     const router = useRouter();
     const { user } = useAuth();
 
-        const fetchUser = async () => {
+    const fetchUser = async () => {
             try {
                 const token = localStorage.getItem("jwt") || user?.accessToken;
                 setLoading(true);
@@ -37,6 +37,35 @@ export const useUser = () => {
                 setLoading(false);
             }
         }
+
+    const checkAdmin = async () => {
+        try {
+            const token = localStorage.getItem("jwt") || user?.accessToken;
+            setLoading(true);
+            const response = await userService.getUser(token || user?.accessToken);
+            const data = response.data;
+
+            if (data.length === 0 || data === undefined || data === null) {
+                console.log("No user data found");
+                // router.push("/login"); // Redirect to login page if no user data is found
+            return;
+            } else if (data.user.Role === "admin") {
+                router.push("/admin/dashboard"); // Redirect to admin page if user is an admin
+            }
+            console.log("Fetched User data:", data); // Log the user data
+            localStorage.setItem("UserData", JSON.stringify(data)); // Store user data in local storage
+            localStorage.setItem("jwt", token || user?.accessToken); // Store JWT token in local storage
+            setUsers(data);
+            return data; // Return the fetched user data
+        } catch (error) {
+            console.log("Error fetching user data:", error.response?.data?.message || error.message);
+            // router.push("/login"); // Redirect to login page if there's an error
+            setError(error);
+            // router.push("/login"); // Redirect to login page if there's an error
+        } finally {
+            setLoading(false);
+        }
+    }
     //     if (user?.accessToken) {
     //         fetchUser();
     //     }
@@ -168,5 +197,5 @@ export const useUser = () => {
     }
 
 
-    return {fetchUser, updateUser, updateImage, users, loading, error, fetchAdmin, updatePassword, becomeAdmin, becomeUser};
+    return {fetchUser, checkAdmin, updateUser, updateImage, users, loading, error, fetchAdmin, updatePassword, becomeAdmin, becomeUser};
 }

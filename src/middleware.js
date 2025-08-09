@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 
 export default async function middleware(request) {
     const  { pathname } = request.nextUrl;
