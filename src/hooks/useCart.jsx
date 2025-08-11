@@ -9,7 +9,6 @@ export const useCart = () => {
         try {
             const token = localStorage.getItem('token');
             const response = await cartService.addToCart(token, productId, quantity);
-            toast.success('Product added to cart successfully');
             return response;
         } catch (error) {
             throw error;
