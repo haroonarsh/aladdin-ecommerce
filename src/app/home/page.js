@@ -7,15 +7,14 @@ import { useUser } from "@/hooks/useUser";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-function page({ token }) {
+function Page({ token }) {
   console.log("Page Token:", token); // Log the token value
 
   
-    const { fetchAdmin } = useUser();
-    const router = useRouter();
+  const { fetchAdmin } = useUser();
+  const router = useRouter();
   
     useEffect(() => {
-      if (token) {
         fetchAdmin().then((data) => {
           if (data?.user?.Role === "admin") { 
             router.push("/admin/dashboard");
@@ -24,9 +23,6 @@ function page({ token }) {
           console.error("Error fetching admin data:", error);
           router.push("/login");
         });
-      } else {
-        router.push("/login");
-      }
     }, [token, fetchAdmin, router]);
   return (
     <>
@@ -42,4 +38,4 @@ function page({ token }) {
   )
 }
 
-export default page
+export default Page;
