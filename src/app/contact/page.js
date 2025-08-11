@@ -19,7 +19,7 @@ export default function ContactUs() {
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">Contact Us</h1>
             <p className="text-lg md:text-xl">
-              We're here to help! Reach out to our team with any questions, feedback, or concerns about our products or
+              We&apos;re here to help! Reach out to our team with any questions, feedback, or concerns about our products or
               services.
             </p>
           </div>
@@ -242,7 +242,7 @@ export default function ContactUs() {
 
           <div className="mt-8 text-center">
             <p className="text-gray-700">
-              Can't find what you're looking for?{" "}
+              Can&apos;t find what you&apos;re looking for?{" "}
               <Link href="#" className="font-medium text-cyan-600 hover:underline">
                 Check our Help Center
               </Link>{" "}

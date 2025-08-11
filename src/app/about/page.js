@@ -38,8 +38,8 @@ export default function AboutUs() {
               <div className="space-y-4 text-gray-700">
                 <p>
                   Founded in 2015, our journey began when our founder, Sarah, struggled to find effective skincare
-                  products that {`didn't`} irritate her sensitive skin. After years of frustration, she decided to create
-                  her own solution.
+                  products that {`didn't irritate her sensitive skin. After years of frustration, she decided to create
+                  her own solution.`}
                 </p>
                 <p>
                   Working with leading dermatologists and cosmetic chemists, we developed a line of products that
@@ -47,9 +47,9 @@ export default function AboutUs() {
                   effective, suitable for all skin types.
                 </p>
                 <p>
-                  What started as a small operation in Sarah's kitchen has grown into a beloved brand trusted by
+                  {`What started as a small operation in Sarah's kitchen has grown into a beloved brand trusted by
                   thousands of customers worldwide. Despite our growth, we remain committed to our founding principles:
-                  quality, transparency, and customer satisfaction.
+                  quality, transparency, and customer satisfaction.`}
                 </p>
               </div>
             </div>
