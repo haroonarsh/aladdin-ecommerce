@@ -38,7 +38,7 @@ export default function AboutUs() {
               <div className="space-y-4 text-gray-700">
                 <p>
                   Founded in 2015, our journey began when our founder, Sarah, struggled to find effective skincare
-                  products that didn't irritate her sensitive skin. After years of frustration, she decided to create
+                  products that {`didn't`} irritate her sensitive skin. After years of frustration, she decided to create
                   her own solution.
                 </p>
                 <p>
@@ -78,7 +78,7 @@ export default function AboutUs() {
               </div>
               <h3 className="mb-2 text-xl font-semibold text-gray-800">Transparency</h3>
               <p className="text-gray-600">
-                We believe in being honest about what goes into our products and how they're made.
+                {`We believe in being honest about what goes into our products and how they're made.`}
               </p>
             </div>
 

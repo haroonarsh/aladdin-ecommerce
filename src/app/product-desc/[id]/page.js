@@ -12,8 +12,9 @@ import CustomerReviews from '@/features/custmer-review/Review';
 import { useParams, useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
+import { toast } from 'react-toastify';
 
-function page() {
+function Page() {
 
     const [mainImage, setMainImage] = useState();
     const [quantity, setQuantity] = useState(1);
@@ -38,7 +39,11 @@ function page() {
 
     // Add to cart
     const handleAddToCart = () => {
-        addToCart(product._id, quantity);
+        addToCart(product._id, quantity).then(() => {
+            toast.success('Product added to cart successfully');
+        }).catch((error) => {
+            toast.error(error.message);
+        });
     }
 
     const increaseCount = () => {
@@ -260,4 +265,4 @@ function page() {
   )
 }
 
-export default page
+export default Page;
