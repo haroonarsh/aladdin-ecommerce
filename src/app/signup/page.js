@@ -6,7 +6,7 @@ import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { useAuth } from '@/hooks/useAuth'
-import { Eye, EyeOff, ArrowRight, Spinner } from 'lucide-react'
+import { Eye, EyeOff, ArrowRight } from 'lucide-react'
 
 export default function SignupPage() {
 
@@ -202,7 +202,7 @@ export default function SignupPage() {
 
                                     <>
                                         <span>Create Account</span>
-                                        <Spinner className="h-4 w-4" />
+                                        {/* <Spinner className="h-4 w-4" /> */}
                                     </>
                                 ) : "Create Account"}
                                 {!isLoading && <ArrowRight className="h-4 w-4" />}
