@@ -7,7 +7,7 @@ import { useProduct } from '@/hooks/useProduct';
 import React, { useEffect, useState } from 'react'
 import { TbTriangleSquareCircle } from "react-icons/tb";  
 
-function page() {
+function Page() {
 
   const [products, setProducts] = useState([]);
   const { getProducts } = useProduct();
@@ -67,4 +67,4 @@ function page() {
   )
 }
 
-export default page
+export default Page;
