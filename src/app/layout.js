@@ -3,7 +3,6 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { ToastContainer } from "react-toastify";
-import { AuthBanner } from "@/components/AuthBanner";
 import { cookies } from "next/headers";
 import AladdinHeaderCustom from "@/components/after-header/Header";
 

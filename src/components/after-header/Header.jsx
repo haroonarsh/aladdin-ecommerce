@@ -8,8 +8,7 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { FaCaretDown, FaBars } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation"
 import { useUser } from "@/hooks/useUser"
-import NetworkCheck from "@/hooks/NetworkCheck"
-import Cookies from "js-cookie"
+import Image from "next/image"
 
 const inactive = "hidden";
 const active = "block";
@@ -51,12 +50,6 @@ export default function AladdinHeaderCustom() {
   if (loading) {
     return <div>Loading...</div>; // Show loading state while fetching user data
   }
-  
-    const handleBecomeAdmin = () => {
-    becomeAdmin().then(() => {
-      window.location.href = "/admin/dashboard"
-    })
-  }
 
   return (
     <>
@@ -72,9 +65,11 @@ export default function AladdinHeaderCustom() {
             {/* Logo */}
             <div className="flex items-center space-x-1 lg:space-x-6">
               <Link href="/" className="flex items-center">
-                <img
+                <Image
+                  width={100}
+                  height={40}
                   className="w-20 mr-3 md:mr-2 md:w-20 h-9  md:h-9 lg:w-23 lg:h-10 xl:w-24 xl:h-11"
-                  src="./images/Logo-white.png"
+                  src="/images/Logo-white.png"
                   alt=""
                 />
               </Link>

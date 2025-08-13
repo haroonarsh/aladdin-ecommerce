@@ -86,6 +86,7 @@ function PersonalInfo() {
     });
   };
 
+  // Handle country selection
   const handleCountrySelection = (country) => {
     setFormData({
       ...formData,

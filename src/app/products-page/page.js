@@ -1,6 +1,5 @@
 "use client";
 
-import AladdinHeaderCustom from '@/components/after-header/Header'
 import Pagination from '@/components/pagination/Pagination'
 import ProductCard from '@/components/product-cards/ProductCards'
 import { useProduct } from '@/hooks/useProduct';
@@ -8,13 +7,10 @@ import React, { useEffect, useState } from 'react'
 import { TbTriangleSquareCircle } from "react-icons/tb";  
 
 function Page() {
-
   const [products, setProducts] = useState([]);
   const { getProducts } = useProduct();
 
-  console.log("Products:", products);
-  
-
+  // Fetch products when the component mounts
   useEffect(() => {
     getProducts().then((fetchedProducts) => {
       setProducts(fetchedProducts.data.products);
@@ -25,9 +21,6 @@ function Page() {
 
   return (
     <>
-            {/* // Header */}
-        {/* <AladdinHeaderCustom /> */}
-
             {/* // Banner */}
         <div className='primary6-bg w-full h-[200px] mt-[4rem] lg:mt-[6.5rem] text-white flex flex-col items-center justify-center'>
             <h1 className='lg:text-5xl md:text-4xl text-3xl font-bold text-white text-center'>Aladdin Best sells</h1>

@@ -6,7 +6,6 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { FaCaretDown, FaBars } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import NetworkCheck from "@/hooks/NetworkCheck";
 import { useUser } from "@/hooks/useUser";
 
 const inactive = "hidden";
@@ -18,6 +17,7 @@ function Header({ token }) {
   const pathname = usePathname();
   const { fetchUser } = useUser();
   
+  // Handle token-based navigation
   const handleToken = async () => {
     if (token) {
       await fetchUser(token).then((data) => {
@@ -29,6 +29,7 @@ function Header({ token }) {
       })
     }
   };
+  // Handle account navigation
   const handleAccount = async () => {
     if (token) {
       await fetchUser(token).then((data) => {

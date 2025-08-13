@@ -1,11 +1,9 @@
 "use client";
 
-import AladdinHeaderCustom from '@/components/after-header/Header'
 import StarRating from '@/components/start-rating/Rating';
 import { useCart } from '@/hooks/useCart';
 import { useRouter } from 'next/navigation';
 import React, { use, useEffect, useState } from 'react'
-import { FaCheck } from "react-icons/fa";
 import { loadStripe } from '@stripe/stripe-js';
 import { usePayment } from '@/hooks/usePayment';
 import { useOrder } from '@/hooks/useOrder';
@@ -31,7 +29,7 @@ const Checkout = () => {
     });
   }
 
-      // Fetch cart items
+    // Fetch cart items
   useEffect(() => {
     getCart().then((response) => {
       setCartItems(response.data.cart);
@@ -40,13 +38,13 @@ const Checkout = () => {
     })
   }, []);
     
-      // Calculate total price
+    // Calculate total price
   const totalPrice = cartItems.reduce((total, item) => total + item.productId.price * item.quantity, 0);
   const shippingPrice = 12.87;
-       // Order total price
+    // Order total price
   const orderTotal = totalPrice + shippingPrice;
 
-   const [items, setItems] = useState({
+  const [items, setItems] = useState({
     name: "",
     email: "",
     phone: "",
@@ -80,53 +78,45 @@ const Checkout = () => {
       await createOrder(orderData)
       .then((order) => {
         console.log("Order created successfully:", order);
-        // Assuming the order creation returns a clientSecret for payment processing
-        // const clientSecret = order.data.clientSecret; // Adjust based on your API response structure
-        // console.log("Client Secret:", clientSecret);
-        // setData(order); // Store the order data for later use
       
+        if (!order.data.clientSecret) {
+          throw new Error("Payment client secret not received from server.");
+        }
 
-      console.log("Order created:", order);
+        const clientSecret = order.data.clientSecret;
+        console.log("clientSecret A:", order.data.clientSecret);
+        console.log("clientSecret D:", clientSecret);
+        console.log("Order Data:", orderData);
       
-      if (!order.data.clientSecret) {
-        throw new Error("Payment client secret not received from server.");
-      }
+        // Step 2: Process payment with stripe
+        const paymentIntent = handlePayment(clientSecret, orderData);
+        console.log("Payment Intent:", paymentIntent);
 
-      const clientSecret = order.data.clientSecret;
-      console.log("clientSecret A:", order.data.clientSecret);
-      console.log("clientSecret D:", clientSecret);
-      console.log("Order Data:", orderData);
-      
-      
-      // Step 2: Process payment with stripe
-      const paymentIntent = handlePayment(clientSecret, orderData);
-      console.log("Payment Intent:", paymentIntent);
+        // Step 3: Update order status
+        const orderId = order.data.order._id;
+          updateOrderStatus(orderId, { paymentStatus: "Paid", orderStatus: "Delivered" });
+          console.log("Order status updated to completed");
 
-      // Step 3: Update order status
-      const orderId = order.data.order._id;
-        updateOrderStatus(orderId, { paymentStatus: "Paid", orderStatus: "Delivered" });
-        console.log("Order status updated to completed");
-
-      }).catch((error) => {
-        console.error("Error creating order:", error);
-        alert("An error occurred during order creation. Please try again.");
-      })
+        }).catch((error) => {
+          console.error("Error creating order:", error);
+          alert("An error occurred during order creation. Please try again.");
+        })
     } catch (error) {
       console.error("Error during checkout:", error);
       alert("An error occurred during checkout. Please try again.");
     }
   }
 
-      // move to next step
-    const nextStep = () => {
-        if (active === "address") {
-          setActive("shipping");
-        } else if (active === "shipping") {
-          setActive("review");
-        } else if (active === "review") {
-          setActive("payment");
-        }
-    }
+    // move to next step
+  const nextStep = () => {
+      if (active === "address") {
+        setActive("shipping");
+      } else if (active === "shipping") {
+        setActive("review");
+      } else if (active === "review") {
+        setActive("payment");
+      }
+  }
     const layouts = () => {
         switch (active) {
             case "address":
@@ -371,8 +361,6 @@ const Checkout = () => {
     }
   return (
     <>
-            {/* // Header */}
-        {/* <AladdinHeaderCustom /> */}
             {/* // Steps */}
         <div className={`max-w-[1300px] mx-auto mt-32 mb-13 flex items-center cursor-pointer justify-start gap-3 font-sans ${active === "completed" ? "hidden" : ""}`}>
             <div 

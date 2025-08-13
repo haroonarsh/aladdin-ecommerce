@@ -11,7 +11,6 @@ export default function Dashboard() {
 
   const [orders, setOrders] = useState([]);
   const { fetchAdminOrders } = useOrder();
-  console.log("SetOrders:", orders);
 
   // Fetch all orders
   const fetchOrders = async () => {
@@ -191,9 +190,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
-      
-    
-        
             {/* // Latest Orders */}
         <main className="">
       <div className="mt-10 mx-auto">

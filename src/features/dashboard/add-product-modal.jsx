@@ -78,7 +78,6 @@ export default function AddProductModal({ isOpen, onClose, onAddProduct }) {
         console.log("Product created successfully:", response)
       }).catch((error) => {
         console.error("Error creating product:", error)
-        // Handle error (e.g., show toast notification)
       })
       onAddProduct(formData) // Notify parent component of new product
       handleClose() // Close modal after successful submission

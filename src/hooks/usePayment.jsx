@@ -26,9 +26,6 @@ export const usePayment = () => {
                 throw new Error(`Field ${field} must be a string`);
             }
         }
-
-        // const cardElement = elements.getElement('card');
-
         setLoading(true);
         try {
             const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {

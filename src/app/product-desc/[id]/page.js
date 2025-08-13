@@ -1,12 +1,10 @@
 "use client";
 
-import AladdinHeaderCustom from '@/components/after-header/Header'
 import StarRating from '@/components/start-rating/Rating';
 import React, { useEffect, useState } from 'react'
 import { FaLocationDot } from "react-icons/fa6";
 import { MdLocalShipping } from "react-icons/md";
 import { BiCheckShield } from "react-icons/bi";
-import Pagination from '@/components/pagination/Pagination';
 import ProductCard from '@/components/product-cards/ProductCards';
 import CustomerReviews from '@/features/custmer-review/Review';
 import { useParams, useRouter } from 'next/navigation';

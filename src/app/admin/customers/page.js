@@ -22,12 +22,9 @@ export default function CustomersPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("All")
   const [selectedType, setSelectedType] = useState("All")
-
   // Sample customers data
   const [customers, setCustomers] = useState([]);
-
   const { fetchAdminOrders } = useOrder();
-  console.log("Set Customers:", customers);
 
   // Fetch all orders
   const fetchOrders = async () => {
@@ -235,15 +232,6 @@ export default function CustomersPage() {
                 <tr key={customer._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      {/* <div className="h-10 w-10 flex-shrink-0">
-                        <img
-                          src={customer.avatar || "/placeholder.svg"}
-                          alt={customer.name}
-                          width={40}
-                          height={40}
-                          className="h-10 w-10 rounded-full object-cover"
-                        />
-                      </div> */}
                       <div className="">
                         <div className="text-sm font-medium text-gray-900">{customer.name}</div>
                         <div className="text-sm text-gray-500">{customer.email}</div>

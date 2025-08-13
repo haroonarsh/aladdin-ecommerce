@@ -32,7 +32,6 @@ export const useUser = () => {
                 console.log("Error fetching user data:", error.response?.data?.message || error.message);
                 router.push("/login"); // Redirect to login page if there's an error
                 setError(error);
-                // router.push("/login"); // Redirect to login page if there's an error
             } finally {
                 setLoading(false);
             }
@@ -47,7 +46,6 @@ export const useUser = () => {
 
             if (data.length === 0 || data === undefined || data === null) {
                 console.log("No user data found");
-                // router.push("/login"); // Redirect to login page if no user data is found
             return;
             } else if (data.user.Role === "admin") {
                 router.push("/admin/dashboard"); // Redirect to admin page if user is an admin
@@ -59,17 +57,11 @@ export const useUser = () => {
             return data; // Return the fetched user data
         } catch (error) {
             console.log("Error fetching user data:", error.response?.data?.message || error.message);
-            // router.push("/login"); // Redirect to login page if there's an error
             setError(error);
-            // router.push("/login"); // Redirect to login page if there's an error
         } finally {
             setLoading(false);
         }
     }
-    //     if (user?.accessToken) {
-    //         fetchUser();
-    //     }
-    // }, [user]);
 
     const updateUser = async (formData) => {
         setLoading(true);
@@ -129,7 +121,6 @@ export const useUser = () => {
             return data; // Return the fetched user data
         } catch (error) {
             console.log("Error fetching user data:", error.response?.data?.message || error.message);
-            // router.push("/login"); // Redirect to login page if there's an error
             setError(error);
         } finally {
             setLoading(false);

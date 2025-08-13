@@ -16,9 +16,8 @@ export default function ProductsPage() {
   const [currentProduct, setCurrentProduct] = useState(null)
   const { getProductsById, deleteProduct, updateProduct } = useProduct() // Assuming useProduct is used for fetching products, not shown in this snippet
   const [products, setProducts] = useState([]) // Initialize products state
-
-  console.log("Products:", products);
   
+  // Function to fetch products
   const handleProduct = () => {
     getProductsById().then((fetchedProducts) => {
       if (!fetchedProducts || fetchedProducts.length === 0) {
@@ -57,6 +56,7 @@ export default function ProductsPage() {
     }
   }
 
+  // Function to handle adding a new product
   const handleAddProduct = (newProduct) => {
     const product = {
       ...newProduct,
@@ -80,12 +80,14 @@ export default function ProductsPage() {
     }
   }
 
+  // Function to handle editing a product
    const handleEditProduct = (updatedProduct) => {
     setProducts(products.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)))
     setIsEditProductModalOpen(false)
     setCurrentProduct(null)
   }
 
+  // Function to open the edit modal with the selected product
   const openEditModal = (product) => {
     setCurrentProduct(product)
     setIsEditProductModalOpen(true)
