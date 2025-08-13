@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-
 import { useState, useEffect } from "react"
 import { X, Upload, Plus, Trash2 } from "lucide-react"
 import { useProduct } from "@/hooks/useProduct"
@@ -23,7 +22,6 @@ export default function EditProductModal({ isOpen, onClose, onUpdateProduct, pro
     dimensions: "",
     brand: "",
   })
-
   const [newTag, setNewTag] = useState("")
   const [errors, setErrors] = useState({})
   const { updateProduct } = useProduct()
@@ -52,6 +50,7 @@ export default function EditProductModal({ isOpen, onClose, onUpdateProduct, pro
     }
   }
 
+  // Add tag to the list
   const addTag = () => {
     if (newTag.trim() && !formData.tags?.includes(newTag.trim())) {
       setFormData((prev) => ({ ...prev, tags: [...(prev.tags || []), newTag.trim()] }))
@@ -59,10 +58,12 @@ export default function EditProductModal({ isOpen, onClose, onUpdateProduct, pro
     }
   }
 
+  // Remove tag from the list
   const removeTag = (tagToRemove) => {
     setFormData((prev) => ({ ...prev, tags: prev.tags?.filter((tag) => tag !== tagToRemove) }))
   }
 
+  // Validate form fields
   const validateForm = () => {
     const newErrors = {}
 
@@ -76,6 +77,7 @@ export default function EditProductModal({ isOpen, onClose, onUpdateProduct, pro
     return Object.keys(newErrors).length === 0
   }
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault()
     const token = await localStorage.getItem("jwt") || "";

@@ -27,10 +27,8 @@ function Page({ token }) {
   return (
     <>
           <div>
-
               {/* // Hero Section */}
             <Hero />
-
               {/* // midSection */}
             <MidSection token={token} />
           </div>

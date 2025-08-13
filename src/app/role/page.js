@@ -6,7 +6,6 @@ import { Eye, EyeOff, ArrowRight } from 'lucide-react'
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
-import { useAuth } from '@/hooks/useAuth'
 import { useUser } from '@/hooks/useUser'
 
 export default function LoginPage() {
@@ -24,6 +23,7 @@ export default function LoginPage() {
         })
     }
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -39,7 +39,7 @@ export default function LoginPage() {
             })
         } 
         setLoading(false);
-  }
+    }
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">

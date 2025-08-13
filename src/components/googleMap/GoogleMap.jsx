@@ -11,13 +11,11 @@ const containerStyle = {
 
 const GoogleMaps = () => {
     const [userLocation, setUserLocation] = useState(null)
-
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     })
 
-
-
+    // Fetch user's current location using Geolocation API
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -33,7 +31,7 @@ const GoogleMaps = () => {
         }
     }, [])
 
-
+    // Custom marker icon
     const customMarker = isLoaded ? {
         url: "/marker.png",
         scaledSize: new window.google.maps.Size(50, 50),
@@ -47,7 +45,6 @@ const GoogleMaps = () => {
     }
     return (
         <div>
-
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={userLocation || { lat: 0, lng: 0 }}

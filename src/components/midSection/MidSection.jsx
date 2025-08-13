@@ -7,11 +7,10 @@ import { FaAngleRight } from "react-icons/fa6";
 
 function MidSection({ token }) {
   console.log("MidSection Token:", token); // Log the token value
-
   const router = useRouter();
   const { fetchUser } = useUser();
-  // const storedToken = localStorage.getItem("jwt"); // Retrieve the token from local storage
 
+  // Handle token-based navigation
   const handleToken = async () => {
     if (token) {
       await fetchUser(token).then((data) => {

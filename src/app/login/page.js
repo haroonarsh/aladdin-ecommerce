@@ -9,11 +9,9 @@ import { toast } from 'react-toastify'
 import { useAuth } from '@/hooks/useAuth'
 
 export default function LoginPage() {
-
     const router = useRouter();
     const { login, error, loading } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
-
     const [formData, setFormData] = useState({
         Email: "",
         Password: "",
@@ -26,6 +24,7 @@ export default function LoginPage() {
         })
     }
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         await login(formData);
